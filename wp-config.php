@@ -69,7 +69,11 @@ $table_prefix  = 'wp_';
  * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
  * language support.
  */
-define('WPLANG', '');
+define('WPLANG', 'nl_NL');
+
+define( ‘FS_METHOD’, ‘direct’ );
+define( ‘FS_CHMOD_DIR’, 0777 );
+define( ‘FS_CHMOD_FILE’, 0777 );
 
 /**
  * For developers: WordPress debugging mode.
@@ -85,6 +89,7 @@ define('WP_DEBUG', false);
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
+
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
