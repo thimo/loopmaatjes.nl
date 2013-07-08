@@ -1162,6 +1162,7 @@ class wpdb {
 		$this->set_charset( $this->dbh );
 
 		$this->ready = true;
+		$this->query("set session wait_timeout=600" );
 
 		$this->select( $this->dbname, $this->dbh );
 	}

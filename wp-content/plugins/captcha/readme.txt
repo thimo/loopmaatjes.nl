@@ -4,7 +4,7 @@ Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=10
 Tags: captcha, match captcha, text captcha, spam, antispam, login, registration, comment, lost password, capcha, catcha, captha
 Requires at least: 2.9
 Tested up to: 3.5.1
-Stable tag: 3.4
+Stable tag: 3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ This plugin allows you to implement super security captcha form into web forms.
 The Captcha plugin allows you to protect your website from spam by means of math logic and you can use this captcha for login, registration, password recovery, comments forms. The Russian, German and Dutch languages are added.
 
 <a href="http://wordpress.org/extend/plugins/captcha/faq/" target="_blank">FAQ</a>
-<a href="http://bestwebsoft.com/plugin/captcha-plugin/" target="_blank">Support</a>
+<a href="http://support.bestwebsoft.com" target="_blank">Support</a>
 
 = Features =
 
@@ -56,7 +56,7 @@ The Captcha plugin allows you to protect your website from spam by means of math
 * Ukrainian (uk_UA) (thanks to Oleg Bondarenko)
 * Vietnamese (vi_VN) (thanks to NDT Solutions)
 
-If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://bestwebsoft.com/" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
 
 = Technical support =
 
@@ -96,7 +96,7 @@ Your theme is probably not up-to-date to call that function from comments.php.
 WP3 theme does not need the code line `do_action('comment_form'`... inside of `/wp-content/themes/[your_theme]/comments.php`.
 Instead it uses a new function call inside of comments.php: `<?php comment_form(); ?>`
 If you have WP3 and captcha is still missing, make sure your theme has `<?php comment_form(); ?>`
-inside of `/wp-content/themes/[your_theme]/comments.php` (please chech the Twenty Ten theme's comments.php for proper example)
+inside of `/wp-content/themes/[your_theme]/comments.php` (please check the Twenty Ten theme's comments.php for proper example)
 
 = How to use the other language files with CAPTCHA? = 
 
@@ -141,6 +141,13 @@ You could add this line to the variable and display this variable in the require
 5. Login form with Captcha.
 
 == Changelog ==
+
+= V3.6 - 03.06.2013 =
+* Update : BWS plugins section is updated.
+
+= V3.5 - 07.05.2013 =
+* Update : The Bulgarian language file is updated in the plugin. 
+* Update : The Brazilian Portuguese language file is updated in the plugin.
 
 = V3.4 - 18.04.2013 =
 * Update : The French language file is updated in the plugin.
@@ -301,6 +308,12 @@ You could add this line to the variable and display this variable in the require
 * Select functionality of mathematical actions and level of their difficulty are implemented.
 
 == Upgrade Notice ==
+
+= V3.6 =
+BWS plugins section is updated.
+
+= V3.5 =
+The Bulgarian language file is updated in the plugin. The Brazilian Portuguese language file is updated in the plugin.
 
 = V3.4 =
 The French language file is updated in the plugin.

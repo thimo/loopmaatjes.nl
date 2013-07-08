@@ -4,12 +4,12 @@ Plugin Name: Captcha
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin Captcha intended to prove that the visitor is a human being and not a spam robot. Plugin asks the visitor to answer a math question.
 Author: BestWebSoft
-Version: 3.4
+Version: 3.6
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2011  BestWebSoft  ( admin@bestwebsoft.com )
+/*  © Copyright 2011  BestWebSoft  ( http://support.bestwebsoft.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -48,83 +48,133 @@ $cptch_admin_fields_difficulty = array (
 		array( 'cptch_difficulty_word', __( 'Words', 'captcha' ), __( 'Words', 'captcha' ) ),
 );
 
-if( ! function_exists( 'bws_add_menu_render' ) ) {
+if ( ! function_exists( 'bws_add_menu_render' ) ) {
 	function bws_add_menu_render() {
 		global $title;
 		$active_plugins = get_option('active_plugins');
-		$all_plugins		= get_plugins();
+		$all_plugins = get_plugins();
 
 		$array_activate = array();
 		$array_install	= array();
 		$array_recomend = array();
 		$count_activate = $count_install = $count_recomend = 0;
 		$array_plugins	= array(
-			array( 'captcha\/captcha.php', 'Captcha', 'http://wordpress.org/extend/plugins/captcha/', 'http://bestwebsoft.com/plugin/captcha-plugin/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Captcha+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=captcha.php' ), 
-			array( 'contact-form-plugin\/contact_form.php', 'Contact Form', 'http://wordpress.org/extend/plugins/contact-form-plugin/', 'http://bestwebsoft.com/plugin/contact-form/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Contact+Form+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=contact_form.php' ), 
-			array( 'facebook-button-plugin\/facebook-button-plugin.php', 'Facebook Like Button Plugin', 'http://wordpress.org/extend/plugins/facebook-button-plugin/', 'http://bestwebsoft.com/plugin/facebook-like-button-plugin/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Facebook+Like+Button+Plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=facebook-button-plugin.php' ), 
-			array( 'twitter-plugin\/twitter.php', 'Twitter Plugin', 'http://wordpress.org/extend/plugins/twitter-plugin/', 'http://bestwebsoft.com/plugin/twitter-plugin/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Twitter+Plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=twitter.php' ), 
-			array( 'portfolio\/portfolio.php', 'Portfolio', 'http://wordpress.org/extend/plugins/portfolio/', 'http://bestwebsoft.com/plugin/portfolio-plugin/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Portfolio+bestwebsoft&plugin-search-input=Search+Plugins', '' ),
-			array( 'gallery-plugin\/gallery-plugin.php', 'Gallery', 'http://wordpress.org/extend/plugins/gallery-plugin/', 'http://bestwebsoft.com/plugin/gallery-plugin/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Gallery+Plugin+bestwebsoft&plugin-search-input=Search+Plugins', '' ),
-			array( 'adsense-plugin\/adsense-plugin.php', 'Google AdSense Plugin', 'http://wordpress.org/extend/plugins/adsense-plugin/', 'http://bestwebsoft.com/plugin/google-adsense-plugin/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Adsense+Plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=adsense-plugin.php' ),
-			array( 'custom-search-plugin\/custom-search-plugin.php', 'Custom Search Plugin', 'http://wordpress.org/extend/plugins/custom-search-plugin/', 'http://bestwebsoft.com/plugin/custom-search-plugin/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Custom+Search+plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=custom_search.php' ),
-			array( 'quotes-and-tips\/quotes-and-tips.php', 'Quotes and Tips', 'http://wordpress.org/extend/plugins/quotes-and-tips/', 'http://bestwebsoft.com/plugin/quotes-and-tips/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Quotes+and+Tips+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=quotes-and-tips.php' ),
-			array( 'google-sitemap-plugin\/google-sitemap-plugin.php', 'Google sitemap plugin', 'http://wordpress.org/extend/plugins/google-sitemap-plugin/', 'http://bestwebsoft.com/plugin/google-sitemap-plugin/', '/wp-admin/plugin-install.php?tab=search&type=term&s=Google+sitemap+plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=google-sitemap-plugin.php' ),
-			array( 'updater\/updater.php', 'Updater', 'http://wordpress.org/extend/plugins/updater/', 'http://bestwebsoft.com/plugin/updater/', '/wp-admin/plugin-install.php?tab=search&s=updater+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=updater-options' )
+			array( 'captcha\/captcha.php', 'Captcha', 'http://bestwebsoft.com/plugin/captcha-plugin/', 'http://bestwebsoft.com/plugin/captcha-plugin/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Captcha+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=captcha.php' ), 
+			array( 'contact-form-plugin\/contact_form.php', 'Contact Form', 'http://bestwebsoft.com/plugin/contact-form/', 'http://bestwebsoft.com/plugin/contact-form/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Contact+Form+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=contact_form.php' ), 
+			array( 'facebook-button-plugin\/facebook-button-plugin.php', 'Facebook Like Button Plugin', 'http://bestwebsoft.com/plugin/facebook-like-button-plugin/', 'http://bestwebsoft.com/plugin/facebook-like-button-plugin/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Facebook+Like+Button+Plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=facebook-button-plugin.php' ), 
+			array( 'twitter-plugin\/twitter.php', 'Twitter Plugin', 'http://bestwebsoft.com/plugin/twitter-plugin/', 'http://bestwebsoft.com/plugin/twitter-plugin/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Twitter+Plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=twitter.php' ), 
+			array( 'portfolio\/portfolio.php', 'Portfolio', 'http://bestwebsoft.com/plugin/portfolio-plugin/', 'http://bestwebsoft.com/plugin/portfolio-plugin/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Portfolio+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=portfolio.php' ),
+			array( 'gallery-plugin\/gallery-plugin.php', 'Gallery', 'http://bestwebsoft.com/plugin/gallery-plugin/', 'http://bestwebsoft.com/plugin/gallery-plugin/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Gallery+Plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=gallery-plugin.php' ),
+			array( 'adsense-plugin\/adsense-plugin.php', 'Google AdSense Plugin', 'http://bestwebsoft.com/plugin/google-adsense-plugin/', 'http://bestwebsoft.com/plugin/google-adsense-plugin/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Adsense+Plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=adsense-plugin.php' ),
+			array( 'custom-search-plugin\/custom-search-plugin.php', 'Custom Search Plugin', 'http://bestwebsoft.com/plugin/custom-search-plugin/', 'http://bestwebsoft.com/plugin/custom-search-plugin/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Custom+Search+plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=custom_search.php' ),
+			array( 'quotes-and-tips\/quotes-and-tips.php', 'Quotes and Tips', 'http://bestwebsoft.com/plugin/quotes-and-tips/', 'http://bestwebsoft.com/plugin/quotes-and-tips/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Quotes+and+Tips+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=quotes-and-tips.php' ),
+			array( 'google-sitemap-plugin\/google-sitemap-plugin.php', 'Google sitemap plugin', 'http://bestwebsoft.com/plugin/google-sitemap-plugin/', 'http://bestwebsoft.com/plugin/google-sitemap-plugin/#download', '/wp-admin/plugin-install.php?tab=search&type=term&s=Google+sitemap+plugin+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=google-sitemap-plugin.php' ),
+			array( 'updater\/updater.php', 'Updater', 'http://bestwebsoft.com/plugin/updater-plugin/', 'http://bestwebsoft.com/plugin/updater-plugin/#download', '/wp-admin/plugin-install.php?tab=search&s=updater+bestwebsoft&plugin-search-input=Search+Plugins', 'admin.php?page=updater-options' )
 		);
-		foreach($array_plugins as $plugins) {
+		foreach ( $array_plugins as $plugins ) {
 			if( 0 < count( preg_grep( "/".$plugins[0]."/", $active_plugins ) ) ) {
-				$array_activate[$count_activate]['title'] = $plugins[1];
-				$array_activate[$count_activate]['link']	= $plugins[2];
-				$array_activate[$count_activate]['href']	= $plugins[3];
-				$array_activate[$count_activate]['url']	= $plugins[5];
+				$array_activate[$count_activate]["title"] = $plugins[1];
+				$array_activate[$count_activate]["link"] = $plugins[2];
+				$array_activate[$count_activate]["href"] = $plugins[3];
+				$array_activate[$count_activate]["url"]	= $plugins[5];
 				$count_activate++;
-			}
-			else if( array_key_exists(str_replace("\\", "", $plugins[0]), $all_plugins) ) {
-				$array_install[$count_install]['title'] = $plugins[1];
-				$array_install[$count_install]['link']	= $plugins[2];
-				$array_install[$count_install]['href']	= $plugins[3];
+			} else if ( array_key_exists(str_replace( "\\", "", $plugins[0]), $all_plugins ) ) {
+				$array_install[$count_install]["title"] = $plugins[1];
+				$array_install[$count_install]["link"]	= $plugins[2];
+				$array_install[$count_install]["href"]	= $plugins[3];
 				$count_install++;
-			}
-			else {
-				$array_recomend[$count_recomend]['title'] = $plugins[1];
-				$array_recomend[$count_recomend]['link']	= $plugins[2];
-				$array_recomend[$count_recomend]['href']	= $plugins[3];
-				$array_recomend[$count_recomend]['slug']	= $plugins[4];
+			} else {
+				$array_recomend[$count_recomend]["title"] = $plugins[1];
+				$array_recomend[$count_recomend]["link"] = $plugins[2];
+				$array_recomend[$count_recomend]["href"] = $plugins[3];
+				$array_recomend[$count_recomend]["slug"] = $plugins[4];
 				$count_recomend++;
 			}
 		}
-		?>
+		$array_activate_pro = array();
+		$array_install_pro	= array();
+		$array_recomend_pro = array();
+		$count_activate_pro = $count_install_pro = $count_recomend_pro = 0;
+		$array_plugins_pro	= array(
+			array( 'gallery-plugin-pro\/gallery-plugin-pro.php', 'Gallery Pro', 'http://bestwebsoft.com/plugin/gallery-pro/', 'http://bestwebsoft.com/plugin/gallery-pro/#purchase', 'admin.php?page=gallery-plugin-pro.php' )
+		);
+		foreach ( $array_plugins_pro as $plugins ) {
+			if( 0 < count( preg_grep( "/".$plugins[0]."/", $active_plugins ) ) ) {
+				$array_activate_pro[$count_activate_pro]["title"] = $plugins[1];
+				$array_activate_pro[$count_activate_pro]["link"] = $plugins[2];
+				$array_activate_pro[$count_activate_pro]["href"] = $plugins[3];
+				$array_activate_pro[$count_activate_pro]["url"]	= $plugins[4];
+				$count_activate_pro++;
+			} else if( array_key_exists(str_replace( "\\", "", $plugins[0]), $all_plugins ) ) {
+				$array_install_pro[$count_install_pro]["title"] = $plugins[1];
+				$array_install_pro[$count_install_pro]["link"]	= $plugins[2];
+				$array_install_pro[$count_install_pro]["href"]	= $plugins[3];
+				$count_install_pro++;
+			} else {
+				$array_recomend_pro[$count_recomend_pro]["title"] = $plugins[1];
+				$array_recomend_pro[$count_recomend_pro]["link"] = $plugins[2];
+				$array_recomend_pro[$count_recomend_pro]["href"] = $plugins[3];
+				$count_recomend_pro++;
+			}
+		} ?>
 		<div class="wrap">
 			<div class="icon32 icon32-bws" id="icon-options-general"></div>
 			<h2><?php echo $title;?></h2>
+			<h3 style="color: blue;"><?php _e( 'Pro plugins', 'custom-searc' ); ?></h3>
+			<?php if( 0 < $count_activate_pro ) { ?>
+			<div style="padding-left:15px;">
+				<h4><?php _e( 'Activated plugins', 'custom-searc' ); ?></h4>
+				<?php foreach ( $array_activate_pro as $activate_plugin ) { ?>
+				<div style="float:left; width:200px;"><?php echo $activate_plugin["title"]; ?></div> <p><a href="<?php echo $activate_plugin["link"]; ?>" target="_blank"><?php echo __( "Read more", 'custom-searc' ); ?></a> <a href="<?php echo $activate_plugin["url"]; ?>"><?php echo __( "Settings", 'custom-searc' ); ?></a></p>
+				<?php } ?>
+			</div>
+			<?php } ?>
+			<?php if( 0 < $count_install_pro ) { ?>
+			<div style="padding-left:15px;">
+				<h4><?php _e( 'Installed plugins', 'custom-searc' ); ?></h4>
+				<?php foreach ( $array_install_pro as $install_plugin) { ?>
+				<div style="float:left; width:200px;"><?php echo $install_plugin["title"]; ?></div> <p><a href="<?php echo $install_plugin["link"]; ?>" target="_blank"><?php echo __( "Read more", 'custom-searc' ); ?></a></p>
+				<?php } ?>
+			</div>
+			<?php } ?>
+			<?php if( 0 < $count_recomend_pro ) { ?>
+			<div style="padding-left:15px;">
+				<h4><?php _e( 'Recommended plugins', 'custom-searc' ); ?></h4>
+				<?php foreach ( $array_recomend_pro as $recomend_plugin ) { ?>
+				<div style="float:left; width:200px;"><?php echo $recomend_plugin["title"]; ?></div> <p><a href="<?php echo $recomend_plugin["link"]; ?>" target="_blank"><?php echo __( "Read more", 'custom-searc' ); ?></a> <a href="<?php echo $recomend_plugin["href"]; ?>" target="_blank"><?php echo __( "Purchase", 'custom-searc' ); ?></a></p>
+				<?php } ?>
+			</div>
+			<?php } ?>
+			<br />
+			<h3 style="color: green"><?php _e( 'Free plugins', 'custom-searc' ); ?></h3>
 			<?php if( 0 < $count_activate ) { ?>
-			<div>
-				<h3><?php _e( 'Activated plugins', 'captcha' ); ?></h3>
+			<div style="padding-left:15px;">
+				<h4><?php _e( 'Activated plugins', 'custom-searc' ); ?></h4>
 				<?php foreach( $array_activate as $activate_plugin ) { ?>
-				<div style="float:left; width:200px;"><?php echo $activate_plugin['title']; ?></div> <p><a href="<?php echo $activate_plugin['link']; ?>" target="_blank"><?php echo __( "Read more", 'captcha'); ?></a> <a href="<?php echo $activate_plugin['url']; ?>"><?php echo __( "Settings", 'captcha'); ?></a></p>
+				<div style="float:left; width:200px;"><?php echo $activate_plugin["title"]; ?></div> <p><a href="<?php echo $activate_plugin["link"]; ?>" target="_blank"><?php echo __( "Read more", 'custom-searc' ); ?></a> <a href="<?php echo $activate_plugin["url"]; ?>"><?php echo __( "Settings", 'custom-searc' ); ?></a></p>
 				<?php } ?>
 			</div>
 			<?php } ?>
 			<?php if( 0 < $count_install ) { ?>
-			<div>
-				<h3><?php _e( 'Installed plugins', 'captcha' ); ?></h3>
-				<?php foreach($array_install as $install_plugin) { ?>
-				<div style="float:left; width:200px;"><?php echo $install_plugin['title']; ?></div> <p><a href="<?php echo $install_plugin['link']; ?>" target="_blank"><?php echo __( "Read more", 'captcha'); ?></a></p>
+			<div style="padding-left:15px;">
+				<h4><?php _e( 'Installed plugins', 'custom-searc' ); ?></h4>
+				<?php foreach ( $array_install as $install_plugin ) { ?>
+				<div style="float:left; width:200px;"><?php echo $install_plugin["title"]; ?></div> <p><a href="<?php echo $install_plugin["link"]; ?>" target="_blank"><?php echo __( "Read more", 'custom-searc' ); ?></a></p>
 				<?php } ?>
 			</div>
 			<?php } ?>
 			<?php if( 0 < $count_recomend ) { ?>
-			<div>
-				<h3><?php _e( 'Recommended plugins', 'captcha' ); ?></h3>
-				<?php foreach( $array_recomend as $recomend_plugin ) { ?>
-				<div style="float:left; width:200px;"><?php echo $recomend_plugin['title']; ?></div> <p><a href="<?php echo $recomend_plugin['link']; ?>" target="_blank"><?php echo __( "Read more", 'captcha'); ?></a> <a href="<?php echo $recomend_plugin['href']; ?>" target="_blank"><?php echo __( "Download", 'captcha'); ?></a> <a class="install-now" href="<?php echo get_bloginfo( "url" ) . $recomend_plugin['slug']; ?>" title="<?php esc_attr( sprintf( __( 'Install %s' ), $recomend_plugin['title'] ) ) ?>" target="_blank"><?php echo __( 'Install now from wordpress.org', 'captcha' ) ?></a></p>
+			<div style="padding-left:15px;">
+				<h4><?php _e( 'Recommended plugins', 'custom-searc' ); ?></h4>
+				<?php foreach ( $array_recomend as $recomend_plugin ) { ?>
+				<div style="float:left; width:200px;"><?php echo $recomend_plugin["title"]; ?></div> <p><a href="<?php echo $recomend_plugin["link"]; ?>" target="_blank"><?php echo __( "Read more", 'custom-searc' ); ?></a> <a href="<?php echo $recomend_plugin["href"]; ?>" target="_blank"><?php echo __( "Download", 'custom-searc' ); ?></a> <a class="install-now" href="<?php echo get_bloginfo( "url" ) . $recomend_plugin["slug"]; ?>" title="<?php esc_attr( sprintf( __( 'Install %s' ), $recomend_plugin["title"] ) ) ?>" target="_blank"><?php echo __( 'Install now from wordpress.org', 'custom-searc' ) ?></a></p>
 				<?php } ?>
-				<span style="color: rgb(136, 136, 136); font-size: 10px;"><?php _e( 'If you have any questions, please contact us via plugin@bestwebsoft.com or fill in the contact form on our website', 'captcha' ); ?> <a href="http://bestwebsoft.com/contact/">http://bestwebsoft.com/contact/</a></span>
 			</div>
-			<?php } ?>
+			<?php } ?>	
+			<br />		
+			<span style="color: rgb(136, 136, 136); font-size: 10px;"><?php _e( 'If you have any questions, please contact us via', 'custom-searc' ); ?> <a href="http://support.bestwebsoft.com">http://support.bestwebsoft.com</a></span>
 		</div>
-		<?php
-	}
+	<?php }
 }
 
 function add_cptch_admin_menu() {
@@ -137,8 +187,7 @@ function add_cptch_admin_menu() {
 
 // register settings function
 function register_cptch_settings() {
-	global $wpmu;
-	global $cptch_options;
+	global $wpmu, $cptch_options;
 
 	$cptch_option_defaults = array(
 		'cptch_login_form'						=> '1',
@@ -178,6 +227,8 @@ function register_cptch_settings() {
 
 // Add global setting for Captcha
 global $wpmu;
+global $str_key;
+$str_key = "bws18042013";
 
 if ( 1 == $wpmu )
    $cptch_options = get_site_option( 'cptch_options' ); // get the options from the database
@@ -232,7 +283,7 @@ function cptch_register_plugin_links($links, $file) {
 	if ($file == $base) {
 		$links[] = '<a href="admin.php?page=captcha.php">' . __( 'Settings', 'captcha' ) . '</a>';
 		$links[] = '<a href="http://wordpress.org/extend/plugins/captcha/faq/" target="_blank">' . __( 'FAQ', 'captcha' ) . '</a>';
-		$links[] = '<a href="Mailto:plugin@bestwebsoft.com">' . __( 'Support', 'captcha' ) . '</a>';
+		$links[] = '<a href="http://support.bestwebsoft.com">' . __( 'Support', 'captcha' ) . '</a>';
 	}
 	return $links;
 }
@@ -320,7 +371,7 @@ function cptch_settings_page() {
 			} else { ?>
 					<input disabled='disabled' type="checkbox" name="cptch_contact_form" value="1" <?php if( 1 == $cptch_options['cptch_contact_form'] ) echo "checked=\"checked\""; ?> /> <label for="cptch_contact_form"><?php _e('Contact form', 'captcha' ); ?></label> <span style="color: #888888;font-size: 10px;"><?php _e( '(powered by bestwebsoft.com)', 'captcha' ); ?> <a href="http://bestwebsoft.com/plugin/contact-form/"><?php _e( 'Download contact form', 'captcha' ); ?></a></span><br />
 			<?php } ?>
-					<span style="color: #888888;font-size: 10px;"><?php _e( 'If you would like to customize this plugin for a custom form, please contact us via <a href=\"Mailto:plugin@bestwebsoft.com\">plugin@bestwebsoft.com</a> or fill in the contact form on our site', 'captcha' ); ?> <a href="http://bestwebsoft.com/contact/" target="_blank">http://bestwebsoft.com/contact/</a></span>
+					<span style="color: #888888;font-size: 10px;"><?php _e( 'If you would like to customize this plugin for a custom form, please contact us via', 'captcha' ); ?> <a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a></span>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -381,7 +432,7 @@ function cptch_login_form() {
 // this function checks captcha posted with a login
 function cptch_login_post($errors) {
 	global $str_key;
-	$str_key = "bws18042013";
+
 	// Delete errors, if they set
 	if( isset( $_SESSION['cptch_error'] ) )
 		unset( $_SESSION['cptch_error'] );
@@ -408,7 +459,6 @@ function cptch_login_check($url) {
 	if( session_id() == "" )
 		@session_start();
 
-	$str_key = "bws18042013";
 	// Add error if captcha is empty
  if( isset( $_SESSION["cptch_login"] ) && $_SESSION["cptch_login"] === true )
 		return $url;		// captcha was matched						
@@ -505,7 +555,7 @@ function cptch_comment_post($comment) {
 	}
     
 	global $str_key;
-	$str_key = "bws18042013";
+
 	// added for compatibility with WP Wall plugin
 	// this does NOT add CAPTCHA to WP Wall plugin,
 	// it just prevents the "Error: You did not enter a Captcha phrase." when submitting a WP Wall comment
@@ -558,7 +608,6 @@ function cptch_register_form() {
 // this function checks captcha posted with registration
 function cptch_register_post($login,$email,$errors) {
 	global $str_key;
-	$str_key = "bws18042013";
 
 	// If captcha is blank - add error
 	if ( isset( $_REQUEST['cptch_number'] ) && "" ==  $_REQUEST['cptch_number'] ) {
@@ -576,7 +625,6 @@ function cptch_register_post($login,$email,$errors) {
 
 function cptch_register_validate($results) {
 	global $str_key;
-	$str_key = "bws18042013";
 	// If captcha is blank - add error
 	if ( isset( $_REQUEST['cptch_number'] ) && "" ==  $_REQUEST['cptch_number'] ) {
 		$results['errors']->add('captcha_blank', '<strong>'.__('ERROR', 'captcha').'</strong>: '.__('Please fill the form.', 'captcha'));
@@ -594,7 +642,6 @@ function cptch_register_validate($results) {
 // this function checks the captcha posted with lostpassword form
 function cptch_lostpassword_post() {
 	global $str_key;
-	$str_key = "bws18042013";
 
 	// If field 'user login' is empty - return
 	if( isset( $_REQUEST['user_login'] ) && "" == $_REQUEST['user_login'] )
@@ -616,11 +663,7 @@ function cptch_lostpassword_post() {
 // Functionality of the captcha logic work
 function cptch_display_captcha()
 {
-	global $cptch_options;
-
-	// Key for encoding
-	global $str_key;
-	$str_key = "bws18042013";
+	global $cptch_options, $str_key;
 	
 	// In letters presentation of numbers 0-9
 	$number_string = array(); 
@@ -824,10 +867,9 @@ function cptch_custom_form($error_message) {
 } //  end function cptch_contact_form
 
 // this function check captcha in the custom form
-function cptch_check_custom_form()
-{
+function cptch_check_custom_form() {
 	global $str_key;
-	$str_key = "bws18042013";
+
 	if( isset( $_REQUEST['cntctfrm_contact_action'] ) )
 	{
 		// If captcha doesn't entered
@@ -847,13 +889,8 @@ function cptch_check_custom_form()
 } //  end function cptch_check_contact_form
 
 // Functionality of the captcha logic work for custom form
-function cptch_display_captcha_custom()
-{
-	global $cptch_options;
-
-	// Key for encoding
-	global $str_key;
-	$str_key = "bws18042013";
+function cptch_display_captcha_custom() {
+	global $cptch_options, $str_key;
 	$content = "";
 	
 	// In letters presentation of numbers 0-9
