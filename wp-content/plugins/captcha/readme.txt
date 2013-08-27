@@ -1,10 +1,10 @@
-﻿=== Captcha ===
+=== Captcha ===
 Contributors: bestwebsoft
 Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=10&product_id=13
 Tags: captcha, match captcha, text captcha, spam, antispam, login, registration, comment, lost password, capcha, catcha, captha
 Requires at least: 2.9
-Tested up to: 3.5.1
-Stable tag: 3.6
+Tested up to: 3.6
+Stable tag: 3.7.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,8 @@ The Captcha plugin allows you to protect your website from spam by means of math
 <a href="http://wordpress.org/extend/plugins/captcha/faq/" target="_blank">FAQ</a>
 <a href="http://support.bestwebsoft.com" target="_blank">Support</a>
 
+<a href="http://bestwebsoft.com/plugin/captcha-pro/?k=2d2d85a3c277bf3489697c9a9ff2d352" target="_blank">Upgrade to Pro Version</a>
+
 = Features =
 
 * Display: You can use letters and numbers in captcha or just one of these two things - either letters or numbers.
@@ -26,13 +28,15 @@ The Captcha plugin allows you to protect your website from spam by means of math
 = Translation =
 
 * Arabic (ar_AR) (thanks to Albayan Design Hani Aladoli)
+* Bangla (bn_BD) (thanks to <a href="mailto:mehdi.akram@gmail.com">SM Mehdi Akram</a>, www.shamokaldarpon.com)
 * Brazilian Portuguese (pt_BR) (thanks to <a href="mailto:brenojac@gmail.com">Breno Jacinto</a>, www.iconis.org.br)
 * Bulgarian (bg_BG) (thanks to <a href="mailto:paharaman@gmail.com">Nick</a>)
 * Chinese (zh_CN) (thanks to Billy Jeans)
-* Czech (cs_CZ) (thanks to Tomas Vesely)
+* Croatian (hr) (thanks to <a href="mailto:daniel@geogat.com">Daniel</a>)
+* Czech (cs_CZ) (thanks to Tomas Vesely, <a href="mailto:crysman@seznam.cz">Crysman</a>)
 * Danish (da_DK) (thanks to Byrial Ole Jensed)
 * Dutch (nl_NL) (thanks to <a href="mailto:byrial@vip.cybercity.dk">Bart Duineveld</a>)
-* Estonian (et) (thanks to <a href="mailto:ahto2@moonsoftware.com">Ahto Tanner</a>)
+* Estonian (et) (thanks to Ahto Tanner)
 * Greek (el) (thanks to Aris, www.paraxeno.net)
 * Farsi/Persian (fa_IR) (thanks to <a href="mailto:info[at]mpspace[dot]zio[dot]ir">Meysam Parvizi</a>, www.mpspace.zio.ir)
 * Finnish (fi) (thanks to Mikko Sederholm)
@@ -43,6 +47,7 @@ The Captcha plugin allows you to protect your website from spam by means of math
 * Hungarian (hu_HU) (thanks to Bőm Tamás)
 * Japanese (ja) (thanks to Foken)
 * Italian (it_IT) (thanks to Gianluca Di Carlo)
+* Latvian (lv) (thanks to <a href="mailto:juris.o@gmail.com">Juris O</a>)
 * Lithuanian (lt_LT) (thanks to <a href="mailto:arnas.metal@gmail.com">Arnas</a>)
 * Norwegian (nb_NO) (thanks to Tore Hjartland)
 * Polish (pl_PL) (thanks to Krzysztof Opuchlik)
@@ -50,13 +55,15 @@ The Captcha plugin allows you to protect your website from spam by means of math
 * Russian (ru_RU)
 * Serbian (sr_RS) (thanks to Radovan Georgijevic)
 * Slovak (sk_SK) (thanks to Branco Radenovich)
+* Slovenian (sl_SI) (thanks to <a href="mailto:uros.klopcic@gmail.com">Uroš Klopčič</a>, www.klopcic.net)
 * Spain (es_ES) (thanks to Iván García Cubero)
-* Swedish (sv_SE) (thanks to Christer Rönningborg)
+* Swedish (sv_SE) (thanks to Christer Rönningborg, <a href="mailto:blittan@xbmc.org">Blittan</a>)
+* Tagalog (tl) (thanks to <a href="mailto:rjalali@languageconnect.net">Roozbeh Jalali</a>, www.languageconnect.net)
 * Turkish (tr_TR) (thanks to Can Atasever, www.candanblog.com)
 * Ukrainian (uk_UA) (thanks to Oleg Bondarenko)
 * Vietnamese (vi_VN) (thanks to NDT Solutions)
 
-If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com" target="_blank">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
 
 = Technical support =
 
@@ -141,6 +148,42 @@ You could add this line to the variable and display this variable in the require
 5. Login form with Captcha.
 
 == Changelog ==
+
+= V3.7.8 - 23.08.2013 =
+* Update : The French language file is updated in the plugin.
+* Update : The Brazilian Portuguese language file is updated in the plugin.
+* Bugfix : The bug of displaying captha error when adding a new user in the multisite is fixed.
+* NEW : The Tagalog language file is added to the plugin.
+
+= V3.7.7 - 13.08.2013 =
+* Update : The Japanese language file is updated in the plugin.
+
+= V3.7.6 - 05.08.2013 =
+* NEW : The Slovenian language file is added to the plugin.
+* Update : We updated all functionality for wordpress 3.6.
+
+= V3.7.5 - 30.07.2013 =
+* NEW : The Croatian language file is added to the plugin.
+
+= V3.7.4 - 24.07.2013 =
+* Bugfix : Added html-blocks and attributes in captcha displaying.
+* Update : The Czech language file is updated in the plugin.
+* Update : The Brazilian Portuguese language file is updated in the plugin.
+* Update : The Swedish language file is updated in the plugin.
+
+= V3.7.3 - 18.07.2013 =
+* NEW : Added an ability to view and send system information by mail.
+
+= V3.7.2 - 09.07.2013 =
+* NEW : The Bangla language file is added to the plugin.
+* Update : The French language file is updated in the plugin.
+* Update : We updated all functionality for wordpress 3.5.2.
+
+= V3.7.1 - 27.06.2013 =
+* NEW : The Latvian language file is added to the plugin.
+
+= V3.7 - 21.06.2013 =
+* NEW : Ability to use Captcha with Contact Form Pro.
 
 = V3.6 - 03.06.2013 =
 * Update : BWS plugins section is updated.
@@ -308,6 +351,33 @@ You could add this line to the variable and display this variable in the require
 * Select functionality of mathematical actions and level of their difficulty are implemented.
 
 == Upgrade Notice ==
+
+= V3.7.8 =
+The French language file is updated in the plugin. The Brazilian Portuguese language file is updated in the plugin. The bug of displaying captha error when adding a new user in the multisite is fixed. The Tagalog language file is added to the plugin.
+
+= V3.7.7 =
+The Japanese language file is updated in the plugin.
+
+= V3.7.6 =
+The Slovenian language file is added to the plugin. We updated all functionality for wordpress 3.6.
+
+= V3.7.5 =
+The Croatian language file is added to the plugin.
+
+= V3.7.4 =
+Added html-blocks and attributes in captcha displaying. The Czech language file is updated in the plugin. The Brazilian Portuguese language file is updated in the plugin. The Swedish language file is updated in the plugin.
+
+= V3.7.3 =
+Added an ability to view and send system information by mail.
+
+= V3.7.2 =
+The Bangla language file is added to the plugin. The French language file is updated in the plugin. We updated all functionality for wordpress 3.5.2
+
+= V3.7.1 =
+The Latvian language file is added to the plugin.
+
+= V3.7 =
+Ability to use Captcha with Contact Form Pro
 
 = V3.6 =
 BWS plugins section is updated.

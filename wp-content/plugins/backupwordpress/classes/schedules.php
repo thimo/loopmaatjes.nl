@@ -13,12 +13,23 @@ class HMBKP_Schedules {
 	 */
 	private $schedules;
 
+	protected static $instance;
+
+	public static function get_instance(){
+
+		if( null === self::$instance ){
+			self::$instance = new self;
+		}
+
+		return self::$instance;
+	}
+
 	/**
 	 * Load the schedules from wp_options and store in $this->schedules
 	 *
 	 * @access public
 	 */
-	public function __construct() {
+	private function __construct() {
 
 		global $wpdb;
 
@@ -42,7 +53,8 @@ class HMBKP_Schedules {
 
 	/**
 	 * Get a schedule by ID
-	 * 
+	 *
+	 * @param $id
 	 * @return HMBKP_Scheduled_Backup
 	 */
 	public function get_schedule( $id ) {
