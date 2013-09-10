@@ -53,10 +53,15 @@ class EasyContactFormsApplicationSettings extends EasyContactFormsBase {
 				'FixStatus0' => 0,
 				'ProductVersion' => '',
 				'PhoneRegEx' => '',
-				'DateFormat' => '',
-				'DateTimeFormat' => '',
 				'InitTime' => 0,
 				'ShowPoweredBy' => 0,
+				'DateFormat' => '',
+				'DateTimeFormat' => '',
+				'FixStatus02' => 0,
+				'w3cCompliant' => 0,
+				'w3cStyle' => '',
+				'FixJSLoading2' => 0,
+				'AllowMarkupInEntries' => 0,
 			);
 
 		if ($objdata) {
@@ -86,6 +91,10 @@ class EasyContactFormsApplicationSettings extends EasyContactFormsBase {
 		$request = EasyContactFormsUtils::parseRequest($request, 'FixStatus0', 'boolean');
 		$request = EasyContactFormsUtils::parseRequest($request, 'InitTime', 'date');
 		$request = EasyContactFormsUtils::parseRequest($request, 'ShowPoweredBy', 'boolean');
+		$request = EasyContactFormsUtils::parseRequest($request, 'FixStatus02', 'boolean');
+		$request = EasyContactFormsUtils::parseRequest($request, 'w3cCompliant', 'boolean');
+		$request = EasyContactFormsUtils::parseRequest($request, 'FixJSLoading2', 'boolean');
+		$request = EasyContactFormsUtils::parseRequest($request, 'AllowMarkupInEntries', 'boolean');
 
 		parent::update($request, $id);
 
@@ -134,48 +143,39 @@ class EasyContactFormsApplicationSettings extends EasyContactFormsBase {
 	}
 
 	/**
-	 * 	getInstance
+	 * 	get
 	 *
-	 * 	Returns a single EasyContactFormsApplicationSettings instance
+	 * 	Overrides the base class get function
 	 *
-	 * @param  $showmessages
-	 * 
+	 * @param string $prop
+	 * 	the object property name
 	 *
-	 * @return object
-	 * 	the EasyContactFormsApplicationSettings instance
+	 * @return arbitrary
+	 * 	the requested value
 	 */
-	function getInstance($showmessages = TRUE) {
+	function get($prop) {
 
-		static $obj;
-		if (!isset($obj)) {
-			$obj = new EasyContactFormsApplicationSettings();
-			$obj->selectstmt = "SELECT * FROM " . $obj->getTableName() . " WHERE id = :id";
-			$obj->fields = $obj->getObjectData(1);
-			$needssave = FALSE;
-			if ($obj->get('SecretWord') == '') {
-				$obj->set('SecretWord', md5('mt=' . microtime()));
-				$needssave = TRUE;
-			}
-			if ($obj->hasField('InitTime') && $obj->isEmpty('InitTime')) {
-				$obj->set('InitTime', date(DATE_ATOM));
-				$needssave = TRUE;
-			}
-			if ($obj->hasField('PhoneRegEx') && $obj->get('PhoneRegEx') == '') {
-				$obj->set('PhoneRegEx', '(\+{0,1}\d{1,2})*\s*(\(?\d{3}\)?\s*)*\d{3}(-{0,1}|\s{0,1})\d{2}(-{0,1}|\s{0,1})\d{2}$');
-				$needssave = TRUE;
-			}
-			if ($obj->hasField('FileFolder') && $obj->get('FileFolder') == '') {
-				$obj->set('FileFolder', 'files');
-				$needssave = TRUE;
-			}
-			if ($needssave) {
-				$obj->save();
-			}
+		if (isset($this->fields->$prop)) {
+			return $this->fields->$prop;
 		}
-		if ($showmessages) {
-			$obj->getLinkMessage();
-		}
-		return $obj;
+		$value = $this->getValue($prop, 1);
+		$this->fields->$prop = $value;
+		return $value;
+
+	}
+
+	/**
+	 * 	getAvaliableFormStyles
+	 *
+	 *
+	 * @return
+	 * 
+	 */
+	function getAvaliableFormStyles() {
+
+		echo '<option value="">...</option>';
+		$forms = EasyContactFormsClassLoader::getObject('CustomForms');
+		echo $forms->basicGetAvaliableStyles($this->get('w3cStyle'));
 
 	}
 
@@ -248,6 +248,54 @@ class EasyContactFormsApplicationSettings extends EasyContactFormsBase {
 	}
 
 	/**
+	 * 	getInstance
+	 *
+	 * 	Returns a single EasyContactFormsApplicationSettings instance
+	 *
+	 * @param  $showmessages
+	 * 
+	 *
+	 * @return object
+	 * 	the EasyContactFormsApplicationSettings instance
+	 */
+	function getInstance($showmessages = TRUE) {
+
+		static $obj;
+		if (!isset($obj)) {
+			$obj = new EasyContactFormsApplicationSettings();
+
+			$obj->selectstmt = "SELECT id, UseTinyMCE, ApplicationWidth, ApplicationWidth2, FixJSLoading, FormCompletionMinTime, FormCompletionMaxTime, FixStatus0, InitTime, ShowPoweredBy, FixStatus02, w3cCompliant, FixJSLoading2, AllowMarkupInEntries, FileFolder, PhoneRegEx FROM " . $obj->getTableName() . " WHERE id = :id";
+
+			$obj->fields = $obj->getObjectData(1);
+			$needssave = FALSE;
+			if ($obj->get('SecretWord') == '') {
+				$obj->set('SecretWord', md5('mt=' . microtime()));
+				$needssave = TRUE;
+			}
+			if ($obj->hasField('InitTime') && $obj->isEmpty('InitTime')) {
+				$obj->set('InitTime', date(DATE_ATOM));
+				$needssave = TRUE;
+			}
+			if ($obj->hasField('PhoneRegEx') && $obj->isEmpty('PhoneRegEx')) {
+				$obj->set('PhoneRegEx', '(\+{0,1}\d{1,2})*\s*(\(?\d{3}\)?\s*)*\d{3}(-{0,1}|\s{0,1})\d{2}(-{0,1}|\s{0,1})\d{2}$');
+				$needssave = TRUE;
+			}
+			if ($obj->hasField('FileFolder') && $obj->get('FileFolder') == '') {
+				$obj->set('FileFolder', 'files');
+				$needssave = TRUE;
+			}
+			if ($needssave) {
+				$obj->save();
+			}
+		}
+		if ($showmessages) {
+			$obj->getLinkMessage();
+		}
+		return $obj;
+
+	}
+
+	/**
 	 * 	getLinkMessage
 	 *
 	 *
@@ -275,8 +323,6 @@ class EasyContactFormsApplicationSettings extends EasyContactFormsBase {
 		if (time() - $inittime > 60 * 60 * 24 * 3 && !$reply && !$link && class_exists('EasyContactFormsT')) {
 			$message = "";
 			$message .= EasyContactFormsT::get('AllowPoweredBy');
-
-			$message .= "&nbsp;&nbsp;<a href='javascript:;' onclick='ufo.allowPBLink(\"allowbplink\");'>" . EasyContactFormsT::get('Allow') . "</a>";
 
 			$message .= "&nbsp;&nbsp;<a href='javascript:;' onclick='ufo.setOptionValue({divid:\"allowbplink\", undef:\"ApplicationSettings\", t:\"ApplicationSettings\", fld:\"ShowPoweredBy\", a:1});'>" . EasyContactFormsT::get('NeverAskMeAgain') . "</a>";
 
@@ -334,6 +380,28 @@ class EasyContactFormsApplicationSettings extends EasyContactFormsBase {
 	}
 
 	/**
+	 * 	isEmpty
+	 *
+	 * 	overrides the base class function
+	 *
+	 * @param string $prop
+	 * 	the property name
+	 *
+	 * @return boolean
+	 * 	TRUE if the field is unset or empty
+	 */
+	function isEmpty($prop) {
+
+		if (isset($this->fields->$prop)) {
+			return empty($this->fields->$prop);
+		}
+		$value = $this->getValue($prop, 1);
+		$this->fields->$prop = $value;
+		return empty($value);
+
+	}
+
+	/**
 	 * 	setOption
 	 *
 	 * @param  $group
@@ -385,9 +453,9 @@ class EasyContactFormsApplicationSettings extends EasyContactFormsBase {
 	 */
 	function setOptionValue($map) {
 
-		$name = addslashes($map['fld']);
-		$value = addslashes($map['a']);
-		$group = addslashes($map['undef']);
+		$name = mysql_real_escape_string($map['fld']);
+		$value = mysql_real_escape_string($map['a']);
+		$group = mysql_real_escape_string($map['undef']);
 		$this->setOption($group, $name, $value);
 
 	}
@@ -483,18 +551,32 @@ class EasyContactFormsApplicationSettings extends EasyContactFormsBase {
 		$obj->ShowPoweredByChecked = $obj->get('ShowPoweredBy') ? 'checked' : '';
 		$obj->ShowPoweredBy = $obj->get('ShowPoweredBy') ? 'on' : 'off';
 
-		$obj->set('PhoneRegEx', htmlspecialchars($obj->get('PhoneRegEx'), ENT_QUOTES));
-		$this->DateFormat = $this->getDateFormatList();
+		$obj->set('DefaultStyle', htmlspecialchars($obj->get('DefaultStyle'), ENT_QUOTES));
 		$obj->set('SecretWord', htmlspecialchars($obj->get('SecretWord'), ENT_QUOTES));
+		$this->DateFormat = $this->getDateFormatList();
+		$obj->set('PhoneRegEx', htmlspecialchars($obj->get('PhoneRegEx'), ENT_QUOTES));
 		$obj->set('FileFolder', htmlspecialchars($obj->get('FileFolder'), ENT_QUOTES));
 
 		$obj->FixJSLoadingChecked = $obj->get('FixJSLoading') ? 'checked' : '';
 		$obj->FixJSLoading = $obj->get('FixJSLoading') ? 'on' : 'off';
+		$obj->FixJSLoading2Disabled = $obj->get('FixJSLoading') ? '' : 'disabled';
+
+		$obj->FixJSLoading2Checked = $obj->get('FixJSLoading2') ? 'checked' : '';
+		$obj->FixJSLoading2 = $obj->get('FixJSLoading2') ? 'on' : 'off';
 
 		$obj->FixStatus0Checked = $obj->get('FixStatus0') ? 'checked' : '';
 		$obj->FixStatus0 = $obj->get('FixStatus0') ? 'on' : 'off';
 
-		$obj->set('DefaultStyle', htmlspecialchars($obj->get('DefaultStyle'), ENT_QUOTES));
+		$obj->FixStatus02Checked = $obj->get('FixStatus02') ? 'checked' : '';
+		$obj->FixStatus02 = $obj->get('FixStatus02') ? 'on' : 'off';
+
+		$obj->w3cCompliantChecked = $obj->get('w3cCompliant') ? 'checked' : '';
+		$obj->w3cCompliant = $obj->get('w3cCompliant') ? 'on' : 'off';
+
+		$obj->AllowMarkupInEntriesChecked
+			= $obj->get('AllowMarkupInEntries') ? 'checked' : '';
+		$obj->AllowMarkupInEntries = $obj->get('AllowMarkupInEntries') ? 'on' : 'off';
+
 		$obj->set('SendFrom', htmlspecialchars($obj->get('SendFrom'), ENT_QUOTES));
 		$obj->set('NotLoggenInText', htmlspecialchars($obj->get('NotLoggenInText')));
 

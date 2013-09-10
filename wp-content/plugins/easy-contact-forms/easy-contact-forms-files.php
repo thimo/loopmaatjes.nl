@@ -607,12 +607,12 @@ class EasyContactFormsFiles extends EasyContactFormsBase {
 		$filename = $_FILES[$filerequestid]['name'];
 		$tmpname	= $_FILES[$filerequestid]['tmp_name'];
 		$filesize = $_FILES[$filerequestid]['size'];
-		$filetype = EasyContactFormsUtils::addMSlashes($_FILES[$filerequestid]['type']);
+		$filetype = mysql_real_escape_string($_FILES[$filerequestid]['type']);
 
 		$id = intval($_uldmap['oid']);
-		$Type = EasyContactFormsUtils::addMSlashes($_uldmap['t']);
-		$fieldname = EasyContactFormsUtils::addMSlashes($_uldmap['fld']);
-		$filename = EasyContactFormsUtils::addMSlashes($filename);
+		$Type = mysql_real_escape_string($_uldmap['t']);
+		$fieldname = mysql_real_escape_string($_uldmap['fld']);
+		$filename = mysql_real_escape_string($filename);
 
 		$ds = DIRECTORY_SEPARATOR;
 
@@ -622,9 +622,11 @@ class EasyContactFormsFiles extends EasyContactFormsBase {
 
 		$name = EasyContactFormsDB::getValue($query);
 
-		if (is_file($targdir . $ds . $name)) {
-			unlink($targdir . $ds . $name);
+		$filepath = $targdir . $ds . $name;
+		if (is_file($filepath)) {
+			unlink($filepath);
 		}
+		$filepath = $targdir . $ds . $filename;
 
 		$query = "DELETE FROM #wp__easycontactforms_files WHERE Doctype='$Type' AND Docid='$id' AND Docfield='$fieldname'";
 		EasyContactFormsDB::query($query);
@@ -653,11 +655,9 @@ class EasyContactFormsFiles extends EasyContactFormsBase {
 			EasyContactFormsUtils::createFolder($targdir);
 		}
 
-		$newpath = $targdir . $ds . $filename;
+		move_uploaded_file($tmpname, $filepath);
 
-		move_uploaded_file($tmpname, $newpath);
-
-		if (isset($_uldmap['thumbnailx'])) {
+		if (isset($_uldmap['thumbnailx']) && intval($_uldmap['thumbnailx']) != 0) {
 			$newfieldname = 'thumb' . $fieldname;
 			$newfilename = 'thumb' . $filename;
 			$newtargdir = EASYCONTACTFORMS__fileUploadDir . $ds . $Type . $ds . $id . $ds . $newfieldname;
@@ -671,7 +671,7 @@ class EasyContactFormsFiles extends EasyContactFormsBase {
 
 			EasyContactFormsUtils::createFolder($newtargdir);
 
-			EasyContactFormsFiles::imgResize($newpath, $newtargdir . $ds . $newfilename, $_uldmap['thumbnailx'], $_uldmap['thumbnaily'], 0xFFFFFF, 80);
+			EasyContactFormsFiles::imgResize($filepath, $newtargdir . $ds . $newfilename, $_uldmap['thumbnailx'], $_uldmap['thumbnaily'], 0xFFFFFF, 80);
 
 			$query = "DELETE FROM #wp__easycontactforms_files WHERE Doctype='$Type' AND Docid='$id' AND Docfield='$newfieldname'";
 
@@ -691,6 +691,12 @@ class EasyContactFormsFiles extends EasyContactFormsBase {
 			$valuemap['ObjectOwner'] = $oowner;
 
 			EasyContactFormsDB::insert($valuemap, 'Files');
+		}
+		if (isset($_uldmap['resizex']) && intval($_uldmap['resizex']) != 0) {
+			EasyContactFormsFiles::imgResize($filepath, $filepath, $_uldmap['resizex'], $_uldmap['resizey'], 0xFFFFFF, 80);
+			$valuemap = array();
+			$valuemap['Size'] = filesize($filepath);
+			EasyContactFormsDB::update($valuemap, 'Files', $isid);
 		}
 		echo json_encode(array('success' => 'TRUE'));
 		return TRUE;
@@ -721,6 +727,10 @@ class EasyContactFormsFiles extends EasyContactFormsBase {
 	 */
 	function imgResize($src, $dest, $width, $height, $rgb = 0xFFFFFF, $quality = 80) {
 
+		if ($height == 0) {
+			return FALSE;
+		}
+
 		if (!file_exists($src)) {
 			return FALSE;
 		}
@@ -737,17 +747,21 @@ class EasyContactFormsFiles extends EasyContactFormsBase {
 			return FALSE;
 		}
 
-		$div = min($size[0], $size[1]);
+		$targprop = $width/$height;
+		$imgprop = $size[0]/$size[1];
+
+		$min = min($targprop, $imgprop);
+
 		$usex = FALSE;
 		$usey = FALSE;
 
-		if ($div == $size[0]) {
-			$ratio = $width / $div;
-			$usex = TRUE;
+		if ($min == $imgprop) {
+			$ratio = $width/$size[0];
+			$usey = TRUE;
 		}
 		else {
-			$ratio = $height / $div;
-			$usey = TRUE;
+			$ratio = $height/$size[1];
+			$usex = TRUE;
 		}
 
 		$new_width = floor($size[0] * $ratio);

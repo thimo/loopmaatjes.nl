@@ -41,7 +41,7 @@
 										'', '', $event->post_id
 									); ?>
 									<div class="ai1ec-event-time">
-										<?php echo $event->get_timespan_html( 'hidden' ); ?>
+										<?php echo $event->get_timespan_html( 'short' ); ?>
 									</div><!--/.ai1ec-event-time-->
 								</div><!--/.ai1ec-event-header-->
 

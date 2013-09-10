@@ -35,18 +35,7 @@
     </div>
   </div>
   <div>
-    <div id='divCustomFormEntryFilesFilter' class='ufo-filter'>
-      <div class='ufofilterbutton'>
-        <?php echo EasyContactFormsIHTML::getButton(
-          array(
-            'label' => EasyContactFormsT::get('Filter'),
-            'events' => " onclick='ufo.filter($obj->jsconfig);'",
-            'iclass' => " class='icon_filter_pane' ",
-            'bclass' => "button internalimage",
-          )
-        );?>
-      </div>
-      <div class='ufo-clear-both'></div>
+    <div class='ufo-filter'>
       <div>
         <div></div>
       </div>
@@ -57,7 +46,7 @@
       <table class='vtable'>
         <tr>
           <th style='width:8px'>
-            <input type='checkbox' class='ufo-id-link' style='margin:0' onchange='ufo.checkAll(this)'>
+            <input type='checkbox' class='ufo-id-link' style='margin:0' onchange='ufo.checkAll(this)'/>
           </th>
           <th style='width:30px'>
             <?php EasyContactFormsIHTML::getColumnHeader(array('view' => $obj, 'field' => "id"));?>

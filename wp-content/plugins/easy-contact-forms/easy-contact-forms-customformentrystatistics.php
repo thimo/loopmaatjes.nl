@@ -52,7 +52,8 @@ class EasyContactFormsCustomFormEntryStatistics extends EasyContactFormsBase {
 	/**
 	 * 	getDeleteStatements
 	 *
-	 * 	prepares delete statements to be executed to delete a  record
+	 * 	prepares delete statements to be executed to delete a
+	 * 	customformentrystatistics record
 	 *
 	 * @param int $id
 	 * 	object id
@@ -92,7 +93,7 @@ class EasyContactFormsCustomFormEntryStatistics extends EasyContactFormsBase {
 	/**
 	 * 	getEmptyObject. Overrides EasyContactFormsBase::getEmptyObject()
 	 *
-	 * 	creates and initializes a new
+	 * 	creates and initializes a new CustomFormEntryStatistics
 	 *
 	 * @param array $map
 	 * 	request data
@@ -364,7 +365,7 @@ class EasyContactFormsCustomFormEntryStatistics extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomFormEntryStatistics'><?php
 
-		require_once 'views/easy-contact-forms-customformentrystatisticsdetailedmainview.php';
+		include 'views/easy-contact-forms-customformentrystatisticsdetailedmainview.php';
 
 	}
 

@@ -34,7 +34,7 @@ function ai1ec_initiate_constants() {
 	// = Plugin Version =
 	// ==================
 	if ( ! defined( 'AI1EC_VERSION' ) ) {
-		define( 'AI1EC_VERSION',            '1.9.6-standard' );
+		define( 'AI1EC_VERSION',            '1.10-standard' );
 	}
 
 	// ====================
@@ -48,23 +48,23 @@ function ai1ec_initiate_constants() {
 	// = Bundled themes version & edition =
 	// ====================================
 	if ( ! defined( 'AI1EC_THEMES_VERSION' ) ) {
-		define( 'AI1EC_THEMES_VERSION',     '24-standard' );
+		define( 'AI1EC_THEMES_VERSION',     '25-standard' );
 	}
 
 	// ================
 	// = Cron Version =
 	// ================
 	if ( ! defined( 'AI1EC_CRON_VERSION' ) ) {
-		define( 'AI1EC_CRON_VERSION',       107 );
+		define( 'AI1EC_CRON_VERSION',       108 );
 	}
 	if ( ! defined( 'AI1EC_N_CRON_VERSION' ) ) {
-		define( 'AI1EC_N_CRON_VERSION',     105 );
+		define( 'AI1EC_N_CRON_VERSION',     106 );
 	}
 	if ( ! defined( 'AI1EC_N_CRON_FREQ' ) ) {
 		define( 'AI1EC_N_CRON_FREQ',        'daily' );
 	}
 	if ( ! defined( 'AI1EC_U_CRON_VERSION' ) ) {
-		define( 'AI1EC_U_CRON_VERSION',     110 );
+		define( 'AI1EC_U_CRON_VERSION',     111 );
 	}
 	if ( ! defined( 'AI1EC_U_CRON_FREQ' ) ) {
 		define( 'AI1EC_U_CRON_FREQ',        'hourly' );

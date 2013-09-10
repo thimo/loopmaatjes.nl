@@ -178,7 +178,7 @@ class EasyContactFormsCustomFormEntryFiles extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomFormEntryFiles'><?php
 
-		require_once 'views/easy-contact-forms-customformentryfilesdetailedmainview.php';
+		include 'views/easy-contact-forms-customformentryfilesdetailedmainview.php';
 
 	}
 
@@ -251,7 +251,7 @@ class EasyContactFormsCustomFormEntryFiles extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomFormEntryFiles'><?php
 
-		require_once 'views/easy-contact-forms-customformentryfilesmainview.php';
+		include 'views/easy-contact-forms-customformentryfilesmainview.php';
 
 	}
 

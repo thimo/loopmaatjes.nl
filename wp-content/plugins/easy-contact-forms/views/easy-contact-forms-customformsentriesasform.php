@@ -20,10 +20,10 @@
     <div>
       <?php EasyContactFormsIHTML::echoDate($obj->get('Date'), EasyContactFormsApplicationSettings::getInstance()->getDateFormat('PHP', TRUE), 0);?>
     </div>
-    <div>
-      <?php echo $obj->get('PageName');?>
-    </div>
     <div class='ufo-as-list-hidden'>
       <?php EasyContactFormsIHTML::echoStr($obj->get('Content'), '', 3000);?>
+    </div>
+    <div>
+      <?php echo $obj->get('PageName');?>
     </div>
   </div>

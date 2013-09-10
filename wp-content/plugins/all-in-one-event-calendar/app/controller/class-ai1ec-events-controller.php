@@ -213,16 +213,19 @@ class Ai1ec_Events_Controller {
 		}
 
 		try {
+			$excpt = NULL;
 			try {
 				$event = new Ai1ec_Event( $post->ID, $instance_id );
 			} catch ( Ai1ec_Event_Not_Found $excpt ) {
 				global $ai1ec_localization_helper;
 				$translatable_id = $ai1ec_localization_helper
 					->get_translatable_id();
-				if ( false === $translatable_id ) {
-					throw $excpt;
+				if ( false !== $translatable_id ) {
+					$event = new Ai1ec_Event( $translatable_id, $instance_id );
 				}
-				$event = new Ai1ec_Event( $translatable_id, $instance_id );
+			}
+			if ( NULL !== $excpt ) {
+				throw $excpt;
 			}
 
 			// Existing event was found. Initialize form values with values from

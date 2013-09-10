@@ -124,7 +124,7 @@ class EasyContactFormsContactTypes extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='ContactTypes'><?php
 
-		require_once 'views/easy-contact-forms-contacttypesmainview.php';
+		include 'views/easy-contact-forms-contacttypesmainview.php';
 
 	}
 

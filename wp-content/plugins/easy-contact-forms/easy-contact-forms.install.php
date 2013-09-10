@@ -14,312 +14,246 @@ function easycontactforms_install() {
 
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 	require_once dirName(__FILE__) . DIRECTORY_SEPARATOR . 'easy-contact-forms-database.php';
-
-	$sqls = array();
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_customformfields');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX FieldSet";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX CustomForms";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Type";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX ListPosition";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_customformsentries');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX CustomForms";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Users";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX SiteUser";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_contacttypes');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_customformentryfiles');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX CustomFormsEntries";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_customforms_mailinglists');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX CustomForms";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Contacts";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_users');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX ContactType";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX CMSId";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Role";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX descriptionname";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_customformentrystatistics');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX CustomForms";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_customforms');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX ObjectOwner";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_applicationsettings');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_options');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX OptionGroup";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_customformfieldtypes');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Description";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX ListPosition";
-	}
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_files');
-	if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name) {
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX Docid";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX typefieldid";
-		$sqls[] = "ALTER TABLE {$table_name} DROP INDEX ObjectOwner";
-	}
-	foreach($sqls as $sql) {
-		$wpdb->query($sql);
-	}
 				
 	$sqls = array();
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_applicationsettings (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				TinyMCEConfig TEXT,
-				UseTinyMCE BOOLEAN,
-				ApplicationWidth INT(10),
-				ApplicationWidth2 INT(10),
-				DefaultStyle VARCHAR(50),
-				DefaultStyle2 VARCHAR(50),
-				SecretWord VARCHAR(50),
-				NotLoggenInText TEXT,
-				FileFolder VARCHAR(900),
-				SendFrom VARCHAR(100),
-				FixJSLoading BOOLEAN,
-				FormCompletionMinTime INT(10),
-				FormCompletionMaxTime INT(10),
-				FixStatus0 BOOLEAN,
-				ProductVersion VARCHAR(25),
-				PhoneRegEx VARCHAR(100),
-				DateFormat VARCHAR(500),
-				DateTimeFormat VARCHAR(500),
-				InitTime INT(11),
-				ShowPoweredBy BOOLEAN,
+				id int(11) NOT NULL auto_increment,
+				Description varchar(200) NOT NULL DEFAULT '',
+				TinyMCEConfig text,
+				UseTinyMCE tinyint(1),
+				ApplicationWidth int(10),
+				ApplicationWidth2 int(10),
+				DefaultStyle varchar(50),
+				DefaultStyle2 varchar(50),
+				SecretWord varchar(50),
+				NotLoggenInText text,
+				FileFolder varchar(900),
+				SendFrom varchar(100),
+				FixJSLoading tinyint(1),
+				FormCompletionMinTime int(10),
+				FormCompletionMaxTime int(10),
+				FixStatus0 tinyint(1),
+				ProductVersion varchar(25),
+				PhoneRegEx varchar(100),
+				InitTime int(11),
+				ShowPoweredBy tinyint(1),
+				DateFormat varchar(500),
+				DateTimeFormat varchar(500),
+				FixStatus02 tinyint(1),
+				w3cCompliant tinyint(1),
+				w3cStyle varchar(50),
+				FixJSLoading2 tinyint(1),
+				AllowMarkupInEntries tinyint(1),
 				PRIMARY KEY  (id),
-				INDEX Description (Description)) $collate;";
+				KEY Description (Description)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_contacttypes (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				Notes TEXT,
+				id int(11) NOT NULL auto_increment,
+				Description varchar(200) NOT NULL DEFAULT '',
+				Notes text,
 				PRIMARY KEY  (id),
-				INDEX Description (Description)) $collate;";
+				KEY Description (Description)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_customformentryfiles (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				Date INT(11),
-				CustomFormsEntries INT(11) NOT NULL DEFAULT 0,
+				id int(11) NOT NULL auto_increment,
+				Description varchar(200) NOT NULL DEFAULT '',
+				Date int(11),
+				CustomFormsEntries int(11) NOT NULL DEFAULT 0,
 				PRIMARY KEY  (id),
-				INDEX Description (Description),
-				INDEX CustomFormsEntries (CustomFormsEntries)) $collate;";
+				KEY Description (Description),
+				KEY CustomFormsEntries (CustomFormsEntries)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_customformentrystatistics (
-				id INT(11) NOT NULL auto_increment ,
-				PageName VARCHAR(300),
-				TotalEntries INT(10),
-				IncludeIntoReporting BOOLEAN,
-				CustomForms INT(11) NOT NULL DEFAULT 0,
-				Impressions INT(10),
+				id int(11) NOT NULL auto_increment,
+				PageName varchar(300),
+				TotalEntries int(10),
+				IncludeIntoReporting tinyint(1),
+				CustomForms int(11) NOT NULL DEFAULT 0,
+				Impressions int(10),
 				PRIMARY KEY  (id),
-				INDEX CustomForms (CustomForms)) $collate;";
+				KEY CustomForms (CustomForms)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_customformfields (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				Type INT(11) NOT NULL DEFAULT 0,
-				Settings TEXT,
-				Template TEXT,
-				ListPosition INT(10) NOT NULL DEFAULT 0,
-				CustomForms INT(11) NOT NULL DEFAULT 0,
-				FieldSet INT(10),
+				id int(11) NOT NULL auto_increment,
+				Description varchar(200) NOT NULL DEFAULT '',
+				Type int(11) NOT NULL DEFAULT 0,
+				Settings text,
+				Template text,
+				ListPosition int(10) NOT NULL DEFAULT 0,
+				CustomForms int(11) NOT NULL DEFAULT 0,
+				FieldSet int(10),
 				PRIMARY KEY  (id),
-				INDEX FieldSet (FieldSet),
-				INDEX Description (Description),
-				INDEX CustomForms (CustomForms),
-				INDEX Type (Type),
-				INDEX ListPosition (ListPosition)) $collate;";
+				KEY FieldSet (FieldSet),
+				KEY Description (Description),
+				KEY CustomForms (CustomForms),
+				KEY Type (Type),
+				KEY ListPosition (ListPosition)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_customformfieldtypes (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				CssClass VARCHAR(100),
-				Settings TEXT,
-				Signature TEXT,
-				ListPosition INT(10) NOT NULL DEFAULT 0,
-				ValueField BOOLEAN,
-				HelpLink TEXT,
+				id int(11) NOT NULL auto_increment,
+				Description varchar(200) NOT NULL DEFAULT '',
+				CssClass varchar(100),
+				Settings text,
+				Signature text,
+				ListPosition int(10) NOT NULL DEFAULT 0,
+				ValueField tinyint(1),
+				HelpLink text,
 				PRIMARY KEY  (id),
-				INDEX Description (Description),
-				INDEX ListPosition (ListPosition)) $collate;";
+				KEY Description (Description),
+				KEY ListPosition (ListPosition)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_customforms (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				NotificationSubject VARCHAR(200),
-				SendFrom VARCHAR(200),
-				SendConfirmation BOOLEAN,
-				ConfirmationSubject VARCHAR(200),
-				ConfirmationText TEXT,
-				Redirect BOOLEAN,
-				RedirectURL TEXT,
-				ShortCode VARCHAR(300),
-				Template BOOLEAN,
-				ObjectOwner INT(11) NOT NULL DEFAULT 0,
-				SubmissionSuccessText TEXT,
-				StyleSheet TEXT,
-				HTML MEDIUMTEXT,
-				SendFromAddress VARCHAR(200),
-				ShowSubmissionSuccess BOOLEAN,
-				SuccessMessageClass VARCHAR(200),
-				FailureMessageClass VARCHAR(200),
-				Width INT(10),
-				WidthUnit VARCHAR(5),
-				LineHeight INT(10),
-				LineHeightUnit VARCHAR(5),
-				FormClass VARCHAR(200),
-				FormStyle TEXT,
-				Style VARCHAR(50),
-				ConfirmationStyleSheet TEXT,
-				TotalEntries INT(10),
-				TotalProcessedEntries INT(10),
-				Impressions INT(10),
-				NotificationText TEXT,
-				IncludeVisitorsAddressInReplyTo BOOLEAN,
-				ReplyToNameTemplate VARCHAR(200),
-				ConfirmationReplyToName VARCHAR(200),
-				ConfirmationReplyToAddress VARCHAR(200),
-				NotificationStyleSheet TEXT,
-				SendConfirmationAsText BOOLEAN,
-				SendNotificationAsText BOOLEAN,
-				FadingDelay INT(10),
-				MessageDelay INT(10),
-				IncludeIntoReporting BOOLEAN,
+				id int(11) NOT NULL auto_increment,
+				Description varchar(200) NOT NULL DEFAULT '',
+				NotificationSubject varchar(200),
+				SendFrom varchar(200),
+				SendConfirmation tinyint(1),
+				ConfirmationSubject varchar(200),
+				ConfirmationText text,
+				Redirect tinyint(1),
+				RedirectURL text,
+				ShortCode varchar(300),
+				Template tinyint(1),
+				ObjectOwner int(11) NOT NULL DEFAULT 0,
+				SubmissionSuccessText text,
+				StyleSheet text,
+				HTML mediumtext,
+				SendFromAddress varchar(200),
+				ShowSubmissionSuccess tinyint(1),
+				SuccessMessageClass varchar(200),
+				FailureMessageClass varchar(200),
+				Width int(10),
+				WidthUnit varchar(5),
+				LineHeight int(10),
+				LineHeightUnit varchar(5),
+				FormClass varchar(200),
+				FormStyle text,
+				Style varchar(50),
+				ConfirmationStyleSheet text,
+				TotalEntries int(10),
+				TotalProcessedEntries int(10),
+				Impressions int(10),
+				NotificationText text,
+				IncludeVisitorsAddressInReplyTo tinyint(1),
+				ReplyToNameTemplate varchar(200),
+				ConfirmationReplyToName varchar(200),
+				ConfirmationReplyToAddress varchar(200),
+				NotificationStyleSheet text,
+				SendConfirmationAsText tinyint(1),
+				SendNotificationAsText tinyint(1),
+				FadingDelay int(10),
+				MessageDelay int(10),
+				IncludeIntoReporting tinyint(1),
 				PRIMARY KEY  (id),
-				INDEX ObjectOwner (ObjectOwner),
-				INDEX Description (Description)) $collate;";
+				KEY ObjectOwner (ObjectOwner),
+				KEY Description (Description)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_customforms_mailinglists (
-				id INT(11) NOT NULL auto_increment ,
-				CustomForms INT(11) NOT NULL DEFAULT 0,
-				Contacts INT(11) NOT NULL DEFAULT 0,
+				id int(11) NOT NULL auto_increment,
+				CustomForms int(11) NOT NULL DEFAULT 0,
+				Contacts int(11) NOT NULL DEFAULT 0,
 				PRIMARY KEY  (id),
-				INDEX CustomForms (CustomForms),
-				INDEX Contacts (Contacts)) $collate;";
+				KEY CustomForms (CustomForms),
+				KEY Contacts (Contacts)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_customformsentries (
-				id INT(11) NOT NULL auto_increment ,
-				Date INT(11),
-				Content MEDIUMTEXT,
-				Header TEXT,
-				Data TEXT,
-				CustomForms INT(11) NOT NULL DEFAULT 0,
-				Users INT(11) NOT NULL DEFAULT 0,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				SiteUser INT(11) NOT NULL DEFAULT 0,
-				PageName VARCHAR(300),
+				id int(11) NOT NULL auto_increment,
+				Date int(11),
+				Content mediumtext,
+				Header text,
+				Data text,
+				CustomForms int(11) NOT NULL DEFAULT 0,
+				Users int(11) NOT NULL DEFAULT 0,
+				Description varchar(200) NOT NULL DEFAULT '',
+				SiteUser int(11) NOT NULL DEFAULT 0,
+				PageName varchar(300),
 				PRIMARY KEY  (id),
-				INDEX Description (Description),
-				INDEX CustomForms (CustomForms),
-				INDEX Users (Users),
-				INDEX SiteUser (SiteUser)) $collate;";
+				KEY Description (Description),
+				KEY CustomForms (CustomForms),
+				KEY Users (Users),
+				KEY SiteUser (SiteUser)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_files (
-				id INT(11) NOT NULL auto_increment ,
-				Doctype VARCHAR(80),
-				Docfield VARCHAR(80),
-				Docid INT(10),
-				Name VARCHAR(300),
-				Type VARCHAR(80),
-				Size INT(10),
-				Protected BOOLEAN,
-				Webdir BOOLEAN,
-				Count INT(11),
-				Storagename VARCHAR(300),
-				ObjectOwner INT(11),
+				id int(11) NOT NULL auto_increment,
+				Doctype varchar(80),
+				Docfield varchar(80),
+				Docid int(10),
+				Name varchar(300),
+				Type varchar(80),
+				Size int(10),
+				Protected tinyint(1),
+				Webdir tinyint(1),
+				Count int(11),
+				Storagename varchar(300),
+				ObjectOwner int(11),
 				PRIMARY KEY  (id),
-				INDEX Docid (Docid),
-				INDEX typefieldid (Doctype, Docfield, Docid),
-				INDEX ObjectOwner (ObjectOwner)) $collate;";
+				KEY Docid (Docid),
+				KEY typefieldid (Doctype,Docfield,Docid),
+				KEY ObjectOwner (ObjectOwner)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_options (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				Value TEXT,
-				OptionGroup VARCHAR(20),
+				id int(11) NOT NULL auto_increment,
+				Description varchar(200) NOT NULL DEFAULT '',
+				OptionGroup varchar(20),
+				Value text,
 				PRIMARY KEY  (id),
-				INDEX OptionGroup (OptionGroup),
-				INDEX Description (Description)) $collate;";
+				KEY OptionGroup (OptionGroup),
+				KEY Description (Description)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_roles (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(100) NOT NULL DEFAULT '',
-				Admin BOOLEAN,
-				Employee BOOLEAN,
+				id int(11) NOT NULL auto_increment,
+				Description varchar(100) NOT NULL DEFAULT '',
+				Admin tinyint(1),
+				Employee tinyint(1),
 				PRIMARY KEY  (id)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_users (
-				id INT(11) NOT NULL auto_increment ,
-				Description VARCHAR(200) NOT NULL DEFAULT '',
-				Name VARCHAR(100),
-				ContactType INT(11) NOT NULL DEFAULT 0,
-				Birthday INT(11),
-				Role INT(11) NOT NULL DEFAULT 0,
-				CMSId INT(11),
-				Notes TEXT,
-				email VARCHAR(100),
-				email2 VARCHAR(100),
-				Cell VARCHAR(30),
-				Phone1 VARCHAR(30),
-				Phone2 VARCHAR(30),
-				Phone3 VARCHAR(30),
-				SkypeId VARCHAR(100),
-				Website VARCHAR(200),
-				ContactField3 TEXT,
-				ContactField4 TEXT,
-				Country VARCHAR(300),
-				Address TEXT,
-				City VARCHAR(300),
-				State VARCHAR(300),
-				Zip VARCHAR(20),
-				Comment TEXT,
-				History TEXT,
-				Options TEXT,
+				id int(11) NOT NULL auto_increment,
+				Description varchar(200) NOT NULL DEFAULT '',
+				Name varchar(100),
+				ContactType int(11) NOT NULL DEFAULT 0,
+				Birthday int(11),
+				Role int(11) NOT NULL DEFAULT 0,
+				CMSId int(11),
+				Notes text,
+				email varchar(100),
+				email2 varchar(100),
+				Cell varchar(30),
+				Phone1 varchar(30),
+				Phone2 varchar(30),
+				Phone3 varchar(30),
+				SkypeId varchar(100),
+				Website varchar(200),
+				ContactField3 text,
+				ContactField4 text,
+				Country varchar(300),
+				Address text,
+				City varchar(300),
+				State varchar(300),
+				Zip varchar(20),
+				Comment text,
+				History text,
+				Options text,
 				PRIMARY KEY  (id),
-				INDEX ContactType (ContactType),
-				INDEX CMSId (CMSId),
-				INDEX Description (Description),
-				INDEX Role (Role),
-				INDEX descriptionname (Description, Name)) $collate;";
+				KEY ContactType (ContactType),
+				KEY CMSId (CMSId),
+				KEY Description (Description),
+				KEY Role (Role),
+				KEY descriptionname (Description,Name)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_acl (
-				id INT(11) NOT NULL auto_increment,
-				objtype VARCHAR(50) NOT NULL,
-				method VARCHAR(50) NOT NULL,
-				name VARCHAR(50) NOT NULL,
-				role VARCHAR(50) NOT NULL,
+				id int(11) NOT NULL auto_increment,
+				objtype varchar(50) NOT NULL,
+				method varchar(50) NOT NULL,
+				name varchar(50) NOT NULL,
+				role varchar(50) NOT NULL,
 				PRIMARY KEY  (id)) $collate;";
 				
 	$sqls[] = "CREATE TABLE #wp__easycontactforms_sessions (
-				id INT(11) NOT NULL auto_increment,
-				opentime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-				value TEXT,
-				sid CHAR(32) NOT NULL,
+				id int(11) NOT NULL auto_increment,
+				opentime timestamp DEFAULT CURRENT_TIMESTAMP,
+				value text,
+				sid char(32) NOT NULL,
 				PRIMARY KEY  (id)) $collate;";
 				
 	foreach ($sqls as $sql){
@@ -337,58 +271,1016 @@ function easycontactforms_install_data() {
 
 	$rows = array(
 		array(
-			'id' => 254,
-			'Description' => 'Flores',
-			'Name' => 'Leroy',
-			'ContactType' => 1,
-			'Birthday' => 330213600,
-			'Role' => 4,
-			'Notes' => 'Suspendisse potenti.',
-			'email' => 'leroy@example.com',
-			'email2' => 'leroy2@example.com',
-			'Cell' => '+11 222-7766',
-			'Phone1' => '+60 033-3993',
-			'Phone2' => '+37 744-4000',
-			'Phone3' => '+00 999-9977',
-			'ContactField3' => 'Fusce massa odio, aliquam ac ullamcorper congue, rutrum sed felis.',
-			'ContactField4' => 'In nunc purus, volutpat vitae pharetra non, mattis vel quam.',
-			'Country' => 'USA',
-			'Address' => '258 Bell Street',
-			'City' => 'New York',
-			'State' => 'NY',
-			'Zip' => '10031',
+			'objtype' => 'CustomForms',
+			'method' => 'copy',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
 		),
 		array(
-			'id' => 225,
-			'Description' => 'Admin',
-			'Name' => 'Admin',
+			'objtype' => 'DashBoardView',
+			'method' => 'getFormPageStatistics',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactTypes',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFieldValues',
+			'method' => 'viewDetailed',
+			'name' => 'detailed',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormEntryFiles',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Orders',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactTypes',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'viewDetailed',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'getSettingsForm',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormsEntries',
+			'method' => 'processEntry',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Options',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'ApplicationSettings',
+			'method' => 'setOptionValue',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'OrderFiles',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'OrderFiles',
+			'method' => 'viewDetailed',
+			'name' => 'detailed',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'refreshForm',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormsEntries',
+			'method' => 'processEntry',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Orders_Products',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'val',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'ApplicationSettings',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'updateOrder',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormsEntries',
+			'method' => 'viewDetailed',
+			'name' => 'detailedMain',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'DashBoardView',
+			'method' => 'getFormStatistics',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'resetFormPageStatistics',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFields',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'deleteField',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactTypes',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'ApplicationSettings',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'viewDetailed',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Users',
+			'method' => 'getEUserASList',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'OrderField1',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'ProductUnitTypes',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactField1',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Users',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'moveFieldSet',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'deletefile',
+			'name' => 'main',
+			'role' => 'Guest',
+		),
+		array(
+			'objtype' => 'CustomFormEntryFiles',
+			'method' => 'viewDetailed',
+			'name' => 'detailedMain',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'AppTranslations',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Tasks',
+			'method' => 'viewDetailed',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFieldTypes',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'ApplicationSettings',
+			'method' => 'allowPBLink',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'resetFormPageStatistics',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'download',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Orders',
+			'method' => 'viewDetailed',
+			'name' => 'detailed',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Tasks',
+			'method' => 'viewDetailed',
+			'name' => 'detailed',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'updateFieldData',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'setFormPageStatisticsShowOnDashboard',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Roles',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ApplicationSettings',
+			'method' => 'allowPBLink',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Products',
+			'method' => 'viewDetailed',
+			'name' => 'detailed',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'addCustomField',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFieldValues',
+			'method' => 'viewDetailed',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms_MailingLists',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'val',
+			'name' => 'main',
+			'role' => 'Guest',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'viewDetailed',
+			'name' => 'detailedMain',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'copyField',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'TaskStatuses',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'DashBoardView',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'RemoteSites',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'deletefile',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Users',
+			'method' => 'getUserASList',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'add',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'getSettingsForm',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Options',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'OrderFiles',
+			'method' => 'viewDetailed',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormEntryFiles',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'setFormPageStatisticsShowOnDashboard',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Options',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'updateOrder',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFieldTemplates',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'DashBoardView',
+			'method' => 'getEntryStatistics',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Priorities',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ApplicationSettings',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Tasks',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'DashBoardView',
+			'method' => 'getUserStatistics',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'copyField',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Users',
+			'method' => 'getEUserASList',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Templates',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Users',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'ApplicationSettings',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'viewDetailed',
+			'name' => 'detailedMain',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFieldTypes',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'val',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'download',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'resetStatistics',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'upload',
+			'name' => 'main',
+			'role' => 'Guest',
+		),
+		array(
+			'objtype' => 'Users',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'deletefile',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Locales',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Orders',
+			'method' => 'viewDetailed',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactFiles',
+			'method' => 'viewDetailed',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormsEntries',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'preview',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'OrderStatuses',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ProductCategories',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFieldTypes',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Orders_MailingLists',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactFiles',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'add',
+			'name' => 'main',
+			'role' => 'Guest',
+		),
+		array(
+			'objtype' => 'CustomFormEntryFiles',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFieldValues',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormsEntries',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms_MailingLists',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Users',
+			'method' => 'getUserASList',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'DashBoardView',
+			'method' => 'getEntryStatistics',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'DashBoardView',
+			'method' => 'getFormStatistics',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'refreshForm',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormEntryFiles',
+			'method' => 'viewDetailed',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactFiles',
+			'method' => 'viewDetailed',
+			'name' => 'detailed',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Users',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ApplicationSettings',
+			'method' => 'setOptionValue',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'addCustomField',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'OrderField2',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactField2',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Tasks_MailingLists',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'copy',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'download',
+			'name' => 'main',
+			'role' => 'Guest',
+		),
+		array(
+			'objtype' => 'CustomFormEntryStatistics',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Options',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'DashBoardView',
+			'method' => 'getFormPageStatistics',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'deleteField',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFields',
+			'method' => 'viewDetailed',
+			'name' => 'detailed',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomFormEntryFiles',
+			'method' => 'new',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'TaskTypes',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'upload',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'add',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'moveFieldSet',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'ContactTypes',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Files',
+			'method' => 'upload',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'CustomForms',
+			'method' => 'preview',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFields',
+			'method' => 'updateFieldData',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormFieldTypes',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'Products',
+			'method' => 'show',
+			'name' => 'main',
+			'role' => 'Owner',
+		),
+		array(
+			'objtype' => 'CustomFormsEntries',
+			'method' => 'view',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+		array(
+			'objtype' => 'DashBoardView',
+			'method' => 'getUserStatistics',
+			'name' => 'main',
+			'role' => 'SuperAdmin',
+		),
+	);
+
+	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_acl');
+	$wpdb->query('DELETE FROM ' . $table_name . ' WHERE 1;' );
+	foreach ($rows as $row) {
+		$wpdb->insert($table_name, $row);
+	}
+
+
+	$rows = array(
+		array(
+			'id' => 285,
+			'Description' => 'Employee',
+			'Name' => 'Employee',
 			'ContactType' => 4,
-			'Birthday' => 109202400,
-			'Role' => 1,
-			'CMSId' => $userid,
-			'email' => $adminemail,
-		),
-		array(
-			'id' => 255,
-			'Description' => 'Jackson',
-			'Name' => 'Brian',
-			'ContactType' => 1,
-			'Birthday' => 297036000,
-			'Role' => 4,
-			'Notes' => 'Duis purus ipsum, consectetur quis scelerisque in, fringilla id nunc. In bibendum eros quis nulla tempus vitae iaculis ante euismod.',
-			'email' => 'brian@example.com',
-			'email2' => 'brian2@example.com',
-			'Cell' => '+22 444-3322',
-			'Phone1' => '+55 115-5226',
-			'Phone2' => '+66 322-1228',
-			'Phone3' => '+80 014-4877',
-			'ContactField3' => 'Cras massa libero, laoreet non semper id, vulputate nec neque.',
-			'ContactField4' => 'Aliquam facilisis dolor id diam tempus sed vestibulum magna varius.',
+			'Birthday' => 300492000,
+			'Role' => 3,
+			'Notes' => 'Ut auctor ultrices elementum. Donec quis velit quam, ac mattis turpis. Praesent venenatis auctor sagittis.<br /><br />Morbi pulvinar malesuada risus in tempor. Fusce eu sapien a sem aliquet pulvinar. Nullam elementum facilisis quam, sed sollicitudin tortor gravida et.',
+			'email' => 'employee@championforms.example.com',
+			'email2' => 'employee2@championforms.example.com',
+			'Cell' => '+65 446-8025',
+			'Phone1' => '+51 939-3961',
+			'Phone2' => '+17 383-6744',
+			'Phone3' => '+56 624-1157',
+			'ContactField3' => 'Morbi pulvinar malesuada risus in tempor. Fusce eu sapien a sem aliquet pulvinar. Nullam elementum facilisis quam, sed sollicitudin tortor gravida et.',
+			'ContactField4' => 'Etiam neque nunc, fermentum sit amet fermentum ut, ultrices vitae neque. Maecenas nibh enim, dictum a semper et, sagittis viverra purus.',
 			'Country' => 'USA',
-			'Address' => '18 Filbert Street',
+			'Address' => '239 Filbert Street',
 			'City' => 'Ridley Park',
 			'State' => 'PA',
 			'Zip' => '19078',
+		),
+		array(
+			'id' => 286,
+			'Description' => 'SuperAdmin',
+			'Name' => 'SuperAdmin',
+			'ContactType' => 4,
+			'Birthday' => 299800800,
+			'Role' => 1,
+			'CMSId' => $userid,
+			'Notes' => 'Maecenas eget lectus ut odio mattis fringilla. Nunc sem leo, interdum id euismod sit amet, varius vel lorem.<br /><br />Ut auctor ultrices elementum. Donec quis velit quam, ac mattis turpis. Praesent venenatis auctor sagittis.',
+			'email' => $adminemail,
+			'Cell' => '+67 709-8655',
+			'Phone1' => '+64 555-1383',
+			'Phone2' => '+99 040-6159',
+			'Phone3' => '+86 839-8655',
+			'ContactField3' => 'Morbi quis magna urna, id viverra ipsum. Fusce nibh orci, interdum id pharetra ut, ultricies vel metus.',
+			'ContactField4' => 'Nulla tincidunt justo nec diam molestie feugiat. Aenean et est non sapien ultrices posuere id a odio.',
+			'Country' => 'USA',
+			'Address' => '28 Victoria Court',
+			'City' => 'Sanford',
+			'State' => 'ME',
+			'Zip' => '04073',
+		),
+		array(
+			'id' => 287,
+			'Description' => 'Pierce',
+			'Name' => 'Courtney',
+			'ContactType' => 4,
+			'Birthday' => 173570400,
+			'Role' => 4,
+			'Notes' => 'Morbi quis magna urna, id viverra ipsum. Fusce nibh orci, interdum id pharetra ut, ultricies vel metus.<br /><br />Aliquam eu nisi vel lorem ultricies laoreet. Nulla eget mi ac leo porttitor luctus a nec purus. Phasellus in erat at nulla feugiat aliquam.',
+			'email' => 'courtney@championforms.example.com',
+			'email2' => 'courtney2@championforms.example.com',
+			'Cell' => '+13 566-5699',
+			'Phone1' => '+29 240-9540',
+			'Phone2' => '+79 799-9207',
+			'Phone3' => '+67 288-1822',
+			'ContactField3' => 'Maecenas lacinia arcu nec nisl elementum nec cursus massa consequat.',
+			'ContactField4' => 'Praesent vel quam nunc. Aliquam cursus blandit semper.',
+			'Country' => 'USA',
+			'Address' => '188 Seth Street',
+			'City' => 'Fredonia',
+			'State' => 'TX',
+			'Zip' => '76842',
+		),
+		array(
+			'id' => 288,
+			'Description' => 'Hawkins',
+			'Name' => 'Josefina',
+			'ContactType' => 4,
+			'Birthday' => 237420000,
+			'Role' => 4,
+			'Notes' => 'Maecenas egestas consectetur nisl quis convallis. Maecenas nisi sapien, molestie ac rutrum et, vehicula sed orci.<br /><br />Etiam neque nunc, fermentum sit amet fermentum ut, ultrices vitae neque. Maecenas nibh enim, dictum a semper et, sagittis viverra purus.',
+			'email' => 'josefina@championforms.example.com',
+			'email2' => 'josefina2@championforms.example.com',
+			'Cell' => '+41 946-6091',
+			'Phone1' => '+68 539-2340',
+			'Phone2' => '+58 360-0962',
+			'Phone3' => '+09 670-2242',
+			'ContactField3' => 'Nullam a neque dolor. Pellentesque elementum, magna quis interdum volutpat, libero ipsum scelerisque turpis, porta pretium dolor lectus ac risus.',
+			'ContactField4' => 'Morbi quis magna urna, id viverra ipsum. Fusce nibh orci, interdum id pharetra ut, ultricies vel metus.',
+			'Country' => 'USA',
+			'Address' => '20 Franklin Street',
+			'City' => 'Montgomery',
+			'State' => 'AL',
+			'Zip' => '36107',
+		),
+		array(
+			'id' => 289,
+			'Description' => 'Maldonado',
+			'Name' => 'Nicole',
+			'ContactType' => 1,
+			'Birthday' => 364168800,
+			'Role' => 4,
+			'Notes' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis tincidunt tortor, non bibendum risus lobortis ac.<br /><br />Praesent ut facilisis odio. Maecenas congue neque ut nisi placerat vitae suscipit mauris fermentum.',
+			'email' => 'nicole@championforms.example.com',
+			'email2' => 'nicole2@championforms.example.com',
+			'Cell' => '+40 612-5881',
+			'Phone1' => '+34 120-0730',
+			'Phone2' => '+85 284-3971',
+			'Phone3' => '+45 100-8004',
+			'ContactField3' => 'Ut auctor ultrices elementum. Donec quis velit quam, ac mattis turpis. Praesent venenatis auctor sagittis.',
+			'ContactField4' => 'Maecenas lacinia arcu nec nisl elementum nec cursus massa consequat.',
+			'Country' => 'USA',
+			'Address' => '53 Graystone Lakes',
+			'City' => 'Unadilla',
+			'State' => 'GA',
+			'Zip' => '31091',
+		),
+		array(
+			'id' => 290,
+			'Description' => 'Vega',
+			'Name' => 'Dan',
+			'ContactType' => 1,
+			'Birthday' => 112399200,
+			'Role' => 4,
+			'Notes' => 'Maecenas eget lectus ut odio mattis fringilla. Nunc sem leo, interdum id euismod sit amet, varius vel lorem.<br /><br />Phasellus in metus in magna vestibulum ultricies. In nec metus mauris, vitae semper justo.',
+			'email' => 'dan@championforms.example.com',
+			'email2' => 'dan2@championforms.example.com',
+			'Cell' => '+55 667-1370',
+			'Phone1' => '+41 365-4503',
+			'Phone2' => '+92 160-0475',
+			'Phone3' => '+04 365-5904',
+			'ContactField3' => 'Nulla tincidunt justo nec diam molestie feugiat. Aenean et est non sapien ultrices posuere id a odio.',
+			'ContactField4' => 'Nunc molestie hendrerit arcu, non dapibus nulla suscipit ac. Nam eget nulla sit amet ante mollis pharetra.',
+			'Country' => 'USA',
+			'Address' => '149 Seneca Drive',
+			'City' => 'Silverton',
+			'State' => 'OR',
+			'Zip' => '97381',
 		),
 	);
 
@@ -402,22 +1294,6 @@ function easycontactforms_install_data() {
 
 
 	$rows = array(
-		array(
-			'id' => 659,
-			'Description' => 'Last Name',
-			'Type' => 14,
-			'Settings' => '<?xml version="1.0"?>
-<form><LabelPosition>left-align-left</LabelPosition><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>bottom</DescriptionPosition><DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass><DescriptionCSSStyle/><SetDefaultValue>off</SetDefaultValue><DefaultValue/><IsBlankValue>on</IsBlankValue><DefaultValueCSSClass/><Required>off</Required><RequiredMessage>This field is required</RequiredMessage><RequiredMessagePosition>right</RequiredMessagePosition><SetRequiredSuffix>on</SetRequiredSuffix><RequiredSuffix>*</RequiredSuffix><RequiredSuffixCSSClass>ufo-customfields-required-suffix</RequiredSuffixCSSClass><RequiredSuffixCSSStyle/><AbsolutePosition>on</AbsolutePosition><InvalidCSSClass/><RequiredMessageCSSClass/><RequiredMessageCSSStyle/><Validate>off</Validate><MinLength/><MaxLength/><SetValidMessage>off</SetValidMessage><ValidMessageAbsolutePosition>on</ValidMessageAbsolutePosition><ValidMessage/><ValidMessagePosition>right</ValidMessagePosition><ValidCSSClass/><ValidCSSStyle/><SetStyle>off</SetStyle><CSSClass/><CSSStyle/><RowCSSClass/><SetSize>off</SetSize><Width>230</Width><WidthUnit>px</WidthUnit><Label><![CDATA[Last Name]]></Label><ShowLabel><![CDATA[on]]></ShowLabel></form>',
-			'Template' => '<field>
-      <ShowLabel position="left"><![CDATA[
-   <label for=\'ufo-field-id-659\'  style=\'text-align:left\'>
-     Last Name   </label>]]></ShowLabel>
-            <Input ><![CDATA[<input type=\'text\' id=\'ufo-field-id-659\' value=\'{id-659}\' name=\'id-659\' >]]></Input>
-</field>',
-			'ListPosition' => 639,
-			'CustomForms' => 2,
-			'FieldSet' => 622,
-		),
 		array(
 			'id' => 622,
 			'Description' => 'Section',
@@ -447,31 +1323,6 @@ function easycontactforms_install_data() {
      ]]></Container>
 </field>',
 			'ListPosition' => 625,
-			'CustomForms' => 2,
-			'FieldSet' => 622,
-		),
-		array(
-			'id' => 630,
-			'Description' => 'Submit',
-			'Type' => 6,
-			'Settings' => '<?xml version="1.0"?>
-<form>
-  
-  
-  
-  <Advanced/>
-  <LabelCSSClass/>
-  <LabelCSSStyle/>
-  <SetStyle>off</SetStyle>
-  <CSSClass/>
-  <CSSStyle/>
-  <RowCSSClass/>
-  <SetSize>off</SetSize>
-  <Width>100</Width>
-  <WidthUnit>px</WidthUnit>
-<Label><![CDATA[Submit]]></Label><InputPosition><![CDATA[left]]></InputPosition><ShowLabel><![CDATA[on]]></ShowLabel></form>',
-			'Template' => '<field><Validation><![CDATA[<script type=\'text/javascript\'>var c = {};c.id = \'ufo-field-id-630\';c.form = \'ufo-form-id-2\';c.Label = \'Submit\';ufoFormsConfig.submits.push(c);</script>]]></Validation><Input><![CDATA[<span id=\'ufo-field-id-630-span\'><noscript><button type=\'submit\' id=\'ufo-field-id-630\' name=\'id-630\' >Submit</button></noscript></span>]]></Input></field>',
-			'ListPosition' => 675,
 			'CustomForms' => 2,
 			'FieldSet' => 622,
 		),
@@ -527,74 +1378,6 @@ function easycontactforms_install_data() {
 <LinkToAppField><![CDATA[Users_email]]></LinkToAppField><SetValidMessage><![CDATA[on]]></SetValidMessage><AbsolutePosition><![CDATA[on]]></AbsolutePosition><SetContactOptions><![CDATA[on]]></SetContactOptions><LabelPosition><![CDATA[left-align-left]]></LabelPosition><RequiredMessagePosition><![CDATA[right]]></RequiredMessagePosition><RegistredUsersOptions><![CDATA[showfill]]></RegistredUsersOptions><ShowLabel><![CDATA[on]]></ShowLabel></form>',
 			'Template' => '<field><ShowLabel position="left"><![CDATA[<label for=\'ufo-field-id-625\'  style=\'text-align:left\'>Email<span class=\'ufo-customfields-required-suffix\'>*</span></label>]]></ShowLabel><RequiredMessage position="right"><![CDATA[<div id=\'ufo-field-id-625-invalid\'  style=\'display:none\'></div>]]></RequiredMessage><ValidMessage position="right"><![CDATA[<div id=\'ufo-field-id-625-valid\'  style=\'display:none\'></div>]]></ValidMessage><Validation><![CDATA[<script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required","email"]},"Required":true,"Validate":true,"showValid":true,"ValidMessageAbsolutePosition":true,"ValidMessagePosition":"right","RequiredMessage":"Please enter you email","AbsolutePosition":true,"RequiredMessagePosition":"right","id":"ufo-field-id-625","form":"ufo-form-id-2"});</script>]]></Validation><Input ><![CDATA[<input type=\'text\' id=\'ufo-field-id-625\' value=\'{id-625}\' name=\'id-625\' >]]></Input></field>',
 			'ListPosition' => 648,
-			'CustomForms' => 2,
-			'FieldSet' => 622,
-		),
-		array(
-			'id' => 647,
-			'Description' => 'Last name',
-			'Type' => 4,
-			'Settings' => '<?xml version="1.0"?>
-<form>
-  
-  
-  <LabelPosition>left-align-left</LabelPosition>
-  <Advanced/>
-  <LabelCSSClass/>
-  <LabelCSSStyle/>
-  <ShowDescription>off</ShowDescription>
-  <Description/>
-  <DescriptionPosition>bottom</DescriptionPosition>
-  <DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass>
-  <DescriptionCSSStyle/>
-  <SetDefaultValue>off</SetDefaultValue>
-  <DefaultValue/>
-  <IsBlankValue>on</IsBlankValue>
-  <DefaultValueCSSClass/>
-  
-  
-  
-  <SetRequiredSuffix>on</SetRequiredSuffix>
-  <RequiredSuffix>*</RequiredSuffix>
-  <RequiredSuffixCSSClass>ufo-customfields-required-suffix</RequiredSuffixCSSClass>
-  <RequiredSuffixCSSStyle/>
-  
-  <InvalidCSSClass/>
-  <RequiredMessageCSSClass/>
-  <RequiredMessageCSSStyle/>
-  
-  
-  
-  
-  <ValidMessageAbsolutePosition>on</ValidMessageAbsolutePosition>
-  <ValidMessage/>
-  <ValidMessagePosition>right</ValidMessagePosition>
-  <ValidCSSClass/>
-  <ValidCSSStyle/>
-  <SetStyle>off</SetStyle>
-  <CSSClass/>
-  <CSSStyle/>
-  <RowCSSClass/>
-  <SetSize>off</SetSize>
-  <Width>230</Width>
-  <WidthUnit>px</WidthUnit>
-  
-  
-  
-<Label><![CDATA[Last name]]></Label><Required><![CDATA[on]]></Required><Validate><![CDATA[on]]></Validate><SetValidMessage><![CDATA[on]]></SetValidMessage><AbsolutePosition><![CDATA[on]]></AbsolutePosition><LinkToAppField><![CDATA[Users_Description]]></LinkToAppField><SetContactOptions><![CDATA[on]]></SetContactOptions><MinLength><![CDATA[2]]></MinLength><MaxLength><![CDATA[45]]></MaxLength><RequiredMessage><![CDATA[Your last name is required (from 2 to 45 characters)]]></RequiredMessage><RequiredMessagePosition><![CDATA[right]]></RequiredMessagePosition><RegistredUsersOptions><![CDATA[showfill]]></RegistredUsersOptions><ShowLabel><![CDATA[on]]></ShowLabel></form>',
-			'Template' => '<field>
-      <ShowLabel position="left"><![CDATA[
-   <label for=\'ufo-field-id-647\'  style=\'text-align:left\'>
-     Last name         <span class=\'ufo-customfields-required-suffix\'>
-           *         </span>
-            </label>]]></ShowLabel>
-          <RequiredMessage position="right"><![CDATA[<div id=\'ufo-field-id-647-invalid\'  style=\'display:none\'></div>]]></RequiredMessage>
-        <ValidMessage position="right"><![CDATA[<div id=\'ufo-field-id-647-valid\'  style=\'display:none\'>
-        </div>]]></ValidMessage>
-        <Validation><![CDATA[<script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required","minmax"]},"Required":true,"Validate":true,"showValid":true,"ValidMessageAbsolutePosition":true,"ValidMessagePosition":"right","RequiredMessage":"Your last name is required (from 2 to 45 characters)","AbsolutePosition":true,"RequiredMessagePosition":"right","min":"2","max":"45","id":"ufo-field-id-647","form":"ufo-form-id-2"});</script>]]></Validation>
-    <Input ><![CDATA[<input type=\'text\' id=\'ufo-field-id-647\' value=\'{id-647}\' name=\'id-647\' >]]></Input>
-</field>',
-			'ListPosition' => 647,
 			'CustomForms' => 2,
 			'FieldSet' => 622,
 		),
@@ -667,6 +1450,107 @@ function easycontactforms_install_data() {
 			'FieldSet' => 622,
 		),
 		array(
+			'id' => 630,
+			'Description' => 'Submit',
+			'Type' => 6,
+			'Settings' => '<?xml version="1.0"?>
+<form>
+  
+  
+  
+  <Advanced/>
+  <LabelCSSClass/>
+  <LabelCSSStyle/>
+  <SetStyle>off</SetStyle>
+  <CSSClass/>
+  <CSSStyle/>
+  <RowCSSClass/>
+  
+  <Width>100</Width>
+  <WidthUnit>px</WidthUnit>
+<Label><![CDATA[Submit]]></Label><InputPosition><![CDATA[left]]></InputPosition><ShowLabel><![CDATA[on]]></ShowLabel><SetSize><![CDATA[off]]></SetSize></form>',
+			'Template' => '<field>
+    <Validation><![CDATA[<script type=\'text/javascript\'>var c = {};c.id = \'ufo-field-id-630\';c.form = \'ufo-form-id-2\';c.Label = \'Submit\';ufoFormsConfig.submits.push(c);</script>]]></Validation>
+  <Input><![CDATA[<span id=\'ufo-field-id-630-span\'>
+                 <noscript>
+          <button type=\'submit\' id=\'ufo-field-id-630\' name=\'id-630\' >
+       Submit     </button>
+            </noscript>
+        </span>]]></Input>
+</field>',
+			'ListPosition' => 675,
+			'CustomForms' => 2,
+			'FieldSet' => 622,
+		),
+		array(
+			'id' => 647,
+			'Description' => 'Last name',
+			'Type' => 4,
+			'Settings' => '<?xml version="1.0"?>
+<form>
+  
+  
+  <LabelPosition>left-align-left</LabelPosition>
+  <Advanced/>
+  <LabelCSSClass/>
+  <LabelCSSStyle/>
+  <ShowDescription>off</ShowDescription>
+  <Description/>
+  <DescriptionPosition>bottom</DescriptionPosition>
+  <DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass>
+  <DescriptionCSSStyle/>
+  <SetDefaultValue>off</SetDefaultValue>
+  <DefaultValue/>
+  <IsBlankValue>on</IsBlankValue>
+  <DefaultValueCSSClass/>
+  
+  
+  
+  <SetRequiredSuffix>on</SetRequiredSuffix>
+  <RequiredSuffix>*</RequiredSuffix>
+  <RequiredSuffixCSSClass>ufo-customfields-required-suffix</RequiredSuffixCSSClass>
+  <RequiredSuffixCSSStyle/>
+  
+  <InvalidCSSClass/>
+  <RequiredMessageCSSClass/>
+  <RequiredMessageCSSStyle/>
+  
+  
+  
+  
+  <ValidMessageAbsolutePosition>on</ValidMessageAbsolutePosition>
+  <ValidMessage/>
+  <ValidMessagePosition>right</ValidMessagePosition>
+  <ValidCSSClass/>
+  <ValidCSSStyle/>
+  <SetStyle>off</SetStyle>
+  <CSSClass/>
+  <CSSStyle/>
+  <RowCSSClass/>
+  <SetSize>off</SetSize>
+  <Width>230</Width>
+  <WidthUnit>px</WidthUnit>
+  
+  
+  
+<Label><![CDATA[Last name]]></Label><Required><![CDATA[on]]></Required><Validate><![CDATA[on]]></Validate><SetValidMessage><![CDATA[on]]></SetValidMessage><AbsolutePosition><![CDATA[on]]></AbsolutePosition><LinkToAppField><![CDATA[Users_Description]]></LinkToAppField><SetContactOptions><![CDATA[on]]></SetContactOptions><MinLength><![CDATA[2]]></MinLength><MaxLength><![CDATA[45]]></MaxLength><RequiredMessage><![CDATA[Your last name is required (from 2 to 45 characters)]]></RequiredMessage><RequiredMessagePosition><![CDATA[right]]></RequiredMessagePosition><RegistredUsersOptions><![CDATA[showfill]]></RegistredUsersOptions><ShowLabel><![CDATA[on]]></ShowLabel></form>',
+			'Template' => '<field>
+      <ShowLabel position="left"><![CDATA[
+   <label for=\'ufo-field-id-647\'  style=\'text-align:left\'>
+     Last name         <span class=\'ufo-customfields-required-suffix\'>
+           *         </span>
+            </label>]]></ShowLabel>
+          <RequiredMessage position="right"><![CDATA[<div id=\'ufo-field-id-647-invalid\'  style=\'display:none\'></div>]]></RequiredMessage>
+        <ValidMessage position="right"><![CDATA[<div id=\'ufo-field-id-647-valid\'  style=\'display:none\'>
+        </div>]]></ValidMessage>
+        <Validation><![CDATA[<script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required","minmax"]},"Required":true,"Validate":true,"showValid":true,"ValidMessageAbsolutePosition":true,"ValidMessagePosition":"right","RequiredMessage":"Your last name is required (from 2 to 45 characters)","AbsolutePosition":true,"RequiredMessagePosition":"right","min":"2","max":"45","id":"ufo-field-id-647","form":"ufo-form-id-2"});</script>]]></Validation>
+    <Input ><![CDATA[<input type=\'text\' id=\'ufo-field-id-647\' value=\'{id-647}\' name=\'id-647\' >]]></Input>
+</field>',
+			'ListPosition' => 647,
+			'CustomForms' => 2,
+			'FieldSet' => 622,
+		),
+		array(
 			'id' => 648,
 			'Description' => 'Your request',
 			'Type' => 10,
@@ -707,7 +1591,7 @@ function easycontactforms_install_data() {
   <ValidMessagePosition>right</ValidMessagePosition>
   <ValidCSSClass/>
   <ValidCSSStyle/>
-  <SetStyle>off</SetStyle>
+  
   <CSSClass/>
   <CSSStyle/>
   <RowCSSClass/>
@@ -716,9 +1600,34 @@ function easycontactforms_install_data() {
   <WidthUnit>px</WidthUnit>
   
   <HeightUnit>px</HeightUnit>
-<Label><![CDATA[Your request]]></Label><Description><![CDATA[Please provide us with your request details]]></Description><DescriptionPosition><![CDATA[top]]></DescriptionPosition><Required><![CDATA[on]]></Required><SetSize><![CDATA[on]]></SetSize><LabelPosition><![CDATA[top-align-left]]></LabelPosition><ShowDescription><![CDATA[off]]></ShowDescription><Height><![CDATA[150]]></Height><Width><![CDATA[360]]></Width><ShowLabel><![CDATA[on]]></ShowLabel></form>',
-			'Template' => '<field><ShowLabel position="top"><![CDATA[<label for=\'ufo-field-id-648\'  style=\'text-align:left\'>Your request<span class=\'ufo-customfields-required-suffix\'>*</span></label>]]></ShowLabel><RequiredMessage position="right"><![CDATA[<div id=\'ufo-field-id-648-invalid\'  style=\'display:none\'></div>]]></RequiredMessage><Validation><![CDATA[<script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required"]},"Required":true,"RequiredMessage":"This field is required","AbsolutePosition":true,"RequiredMessagePosition":"right","id":"ufo-field-id-648","form":"ufo-form-id-2"});</script>]]></Validation><Input  width="360px"><![CDATA[<textarea id=\'ufo-field-id-648\' name=\'id-648\'  style=\'height:150px;width:360px\'>{id-648}</textarea>]]></Input></field>',
+<Label><![CDATA[Your request]]></Label><Description><![CDATA[Please provide us with your request details]]></Description><DescriptionPosition><![CDATA[top]]></DescriptionPosition><Required><![CDATA[on]]></Required><SetSize><![CDATA[on]]></SetSize><LabelPosition><![CDATA[top-align-left]]></LabelPosition><ShowDescription><![CDATA[off]]></ShowDescription><Height><![CDATA[150]]></Height><Width><![CDATA[360]]></Width><ShowLabel><![CDATA[on]]></ShowLabel><SetContactOptions>off</SetContactOptions><SetStyle><![CDATA[off]]></SetStyle></form>',
+			'Template' => '<field>
+      <ShowLabel position="top"><![CDATA[
+   <label for=\'ufo-field-id-648\'  style=\'text-align:left\'>
+     Your request         <span class=\'ufo-customfields-required-suffix\'>
+           *         </span>
+            </label>]]></ShowLabel>
+          <RequiredMessage position="right"><![CDATA[<div id=\'ufo-field-id-648-invalid\'  style=\'display:none\'></div>]]></RequiredMessage>
+          <Validation><![CDATA[<script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required"]},"Required":true,"RequiredMessage":"This field is required","AbsolutePosition":true,"RequiredMessagePosition":"right","id":"ufo-field-id-648","form":"ufo-form-id-2"});</script>]]></Validation>
+    <Input  width="360px"><![CDATA[<textarea id=\'ufo-field-id-648\' name=\'id-648\'  style=\'height:150px;width:360px\'>{id-648}</textarea>]]></Input>
+</field>',
 			'ListPosition' => 660,
+			'CustomForms' => 2,
+			'FieldSet' => 622,
+		),
+		array(
+			'id' => 659,
+			'Description' => 'Last Name',
+			'Type' => 14,
+			'Settings' => '<?xml version="1.0"?>
+<form><LabelPosition>left-align-left</LabelPosition><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>bottom</DescriptionPosition><DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass><DescriptionCSSStyle/><SetDefaultValue>off</SetDefaultValue><DefaultValue/><IsBlankValue>on</IsBlankValue><DefaultValueCSSClass/><Required>off</Required><RequiredMessage>This field is required</RequiredMessage><RequiredMessagePosition>right</RequiredMessagePosition><SetRequiredSuffix>on</SetRequiredSuffix><RequiredSuffix>*</RequiredSuffix><RequiredSuffixCSSClass>ufo-customfields-required-suffix</RequiredSuffixCSSClass><RequiredSuffixCSSStyle/><AbsolutePosition>on</AbsolutePosition><InvalidCSSClass/><RequiredMessageCSSClass/><RequiredMessageCSSStyle/><Validate>off</Validate><MinLength/><MaxLength/><SetValidMessage>off</SetValidMessage><ValidMessageAbsolutePosition>on</ValidMessageAbsolutePosition><ValidMessage/><ValidMessagePosition>right</ValidMessagePosition><ValidCSSClass/><ValidCSSStyle/><SetStyle>off</SetStyle><CSSClass/><CSSStyle/><RowCSSClass/><SetSize>off</SetSize><Width>230</Width><WidthUnit>px</WidthUnit><Label><![CDATA[Last Name]]></Label><ShowLabel><![CDATA[on]]></ShowLabel></form>',
+			'Template' => '<field>
+      <ShowLabel position="left"><![CDATA[
+   <label for=\'ufo-field-id-659\'  style=\'text-align:left\'>
+     Last Name   </label>]]></ShowLabel>
+            <Input ><![CDATA[<input type=\'text\' id=\'ufo-field-id-659\' value=\'{id-659}\' name=\'id-659\' >]]></Input>
+</field>',
+			'ListPosition' => 639,
 			'CustomForms' => 2,
 			'FieldSet' => 622,
 		),
@@ -747,7 +1656,10 @@ function easycontactforms_install_data() {
   <Width>230</Width>
   <WidthUnit>px</WidthUnit>
 <ShowLabel><![CDATA[off]]></ShowLabel><Label><![CDATA[Please fill in the fields below]]></Label></form>',
-			'Template' => '<field><Container containertag="div" addcf="off"><![CDATA[<div>]]></Container></field>',
+			'Template' => '<field>
+    <Container containertag="div" addcf="off"><![CDATA[<div>
+     ]]></Container>
+</field>',
 			'ListPosition' => 624,
 			'CustomForms' => 2,
 			'FieldSet' => 675,
@@ -772,11 +1684,12 @@ function easycontactforms_install_data() {
 			'SendConfirmation' => 0,
 			'ConfirmationSubject' => 'We have received your request',
 			'Redirect' => 0,
-			'ShortCode' => '[champion_forms fid=2]',
+			'ShortCode' => '[easy_contact_forms fid=2]',
 			'Template' => 0,
-			'ObjectOwner' => 225,
+			'ObjectOwner' => 286,
 			'SubmissionSuccessText' => 'Thank you for contacting us! We are glad to hear from you.',
-			'HTML' => '<script type=\'text/javascript\'>if (typeof(ecfconfig) == \'undefined\'){var ecfconfig={};}ecfconfig[2]={};var ufobaseurl =  \'http://192.168.1.100/wordpress-3.3/wp-admin/admin-ajax.php\';if (typeof(ufoFormsConfig) == \'undefined\') {var ufoFormsConfig = {};ufoFormsConfig.submits = [];ufoFormsConfig.resets = [];ufoFormsConfig.validations = [];}ufoFormsConfig.phonenumberre = /^(\+{0,1}\d{1,2})*\s*(\(?\d{3}\)?\s*)*\d{3}(-{0,1}|\s{0,1})\d{2}(-{0,1}|\s{0,1})\d{2}$/;</script><link href=\'http://192.168.1.100/wordpress-3.3/wp-content/plugins/champion-forms/forms/styles/easyform/css/std.css?ver=1.5\' rel=\'stylesheet\' type=\'text/css\'/><style>.ufo-row-659{display:none;}</style><div class=\'ufo-form\' id=\'ufo-form-id-2\'><noscript><form method=\'POST\'><input type=\'hidden\' name=\'cf-no-script\' value=\'1\'></noscript><input type=\'hidden\' value=\'ufo-form-id-2\' name=\'hidden-2\' id=\'ufo-form-hidden-2\'><input type=\'hidden\' value=\'{__pagename}\' name=\'ufo-form-pagename\' id=\'ufo-form-pagename\'>{preview}<input type=\'hidden\' value=\'{ufosignature}\' name=\'ufo-sign\' id=\'ufo-sign\'><div></div><div>
+			'HTML' => '<script type=\'text/javascript\'>if (typeof(ecfconfig) == \'undefined\'){var ecfconfig={};}ecfconfig[2]={};var ufobaseurl =  \'http://workhorse/wordpress-3.3/wp-admin/admin-ajax.php\';if (typeof(ufoFormsConfig) == \'undefined\') {var ufoFormsConfig = {};ufoFormsConfig.submits = [];ufoFormsConfig.resets = [];ufoFormsConfig.validations = [];}</script><link href=\'http://workhorse/wordpress-3.3/wp-content/plugins/champion-forms/forms/styles/easyform/css/std.css?ver=1.5.5\' rel=\'stylesheet\' type=\'text/css\'/><style type=\'text/css\'>.ufo-row-659{display:none;}</style><div class=\'ufo-form\' id=\'ufo-form-id-2\'><noscript><form method=\'post\'><input type=\'hidden\' name=\'cf-no-script\' value=\'1\'/></noscript><input type=\'hidden\' value=\'ufo-form-id-2\' name=\'hidden-2\' id=\'ufo-form-hidden-2\'/><input type=\'hidden\' value=\'{__pagename}\' name=\'ufo-form-pagename\' id=\'ufo-form-pagename\'/>{preview}<input type=\'hidden\' value=\'{ufosignature}\' name=\'ufo-sign\' id=\'ufo-sign\'/><div>
+     </div><div>
      <div class=\'ufo-fieldtype-14 ufo-customform-row ufo-row-659\' style=\'margin-top:2px;{display-659}\'><div class=\'ufo-cell-659-2-row\' id=\'ufo-cell-659-2\'><span class=\'ufo-cell-left\' id=\'ufo-cell-659-2-left\'>
    <label for=\'ufo-field-id-659\'  style=\'text-align:left\'>
      Last Name   </label></span><span class=\'ufo-cell-center\' id=\'ufo-cell-659-2-center\'><input type=\'text\' id=\'ufo-field-id-659\' value=\'{id-659}\' name=\'id-659\' ></span></div></div><div class=\'ufo-fieldtype-4 ufo-customform-row ufo-row-627\' style=\'margin-top:2px;{display-627}\'><div class=\'ufo-cell-627-2-row\' id=\'ufo-cell-627-2\'><span class=\'ufo-cell-left\' id=\'ufo-cell-627-2-left\'>
@@ -789,12 +1702,22 @@ function easycontactforms_install_data() {
      Last name         <span class=\'ufo-customfields-required-suffix\'>
            *         </span>
             </label></span><span class=\'ufo-cell-center\' id=\'ufo-cell-647-2-center\'><script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required","minmax"]},"Required":true,"Validate":true,"showValid":true,"ValidMessageAbsolutePosition":true,"ValidMessagePosition":"right","RequiredMessage":"Your last name is required (from 2 to 45 characters)","AbsolutePosition":true,"RequiredMessagePosition":"right","min":"2","max":"45","id":"ufo-field-id-647","form":"ufo-form-id-2"});</script><input type=\'text\' id=\'ufo-field-id-647\' value=\'{id-647}\' name=\'id-647\' ></span><span class=\'ufo-cell-right\' id=\'ufo-cell-647-2-right\'><div id=\'ufo-field-id-647-invalid\'  style=\'display:none\'></div><div id=\'ufo-field-id-647-valid\'  style=\'display:none\'>
-        </div></span></div></div><div class=\'ufo-fieldtype-5 ufo-customform-row ufo-row-625\' style=\'margin-top:2px;{display-625}\'><div class=\'ufo-cell-625-2-row\' id=\'ufo-cell-625-2\'><span class=\'ufo-cell-left\' id=\'ufo-cell-625-2-left\'><label for=\'ufo-field-id-625\'  style=\'text-align:left\'>Email<span class=\'ufo-customfields-required-suffix\'>*</span></label></span><span class=\'ufo-cell-center\' id=\'ufo-cell-625-2-center\'><script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required","email"]},"Required":true,"Validate":true,"showValid":true,"ValidMessageAbsolutePosition":true,"ValidMessagePosition":"right","RequiredMessage":"Please enter you email","AbsolutePosition":true,"RequiredMessagePosition":"right","id":"ufo-field-id-625","form":"ufo-form-id-2"});</script><input type=\'text\' id=\'ufo-field-id-625\' value=\'{id-625}\' name=\'id-625\' ></span><span class=\'ufo-cell-right\' id=\'ufo-cell-625-2-right\'><div id=\'ufo-field-id-625-invalid\'  style=\'display:none\'></div><div id=\'ufo-field-id-625-valid\'  style=\'display:none\'></div></span></div></div><div class=\'ufo-fieldtype-10 ufo-customform-row ufo-row-648\' style=\'margin-top:2px;{display-648}\'><div class=\'ufo-cell-648-1-row\' id=\'ufo-cell-648-1\'><span class=\'ufo-cell-center\' style=\'width:360px\' id=\'ufo-cell-648-1-center\'><label for=\'ufo-field-id-648\'  style=\'text-align:left\'>Your request<span class=\'ufo-customfields-required-suffix\'>*</span></label></span><span class=\'ufo-cell-right\' id=\'ufo-cell-648-1-right\'><p style=\'display:none\'></p></span></div><div class=\'ufo-cell-648-2-row\' id=\'ufo-cell-648-2\'><span class=\'ufo-cell-center\' style=\'width:360px\' id=\'ufo-cell-648-2-center\'><script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required"]},"Required":true,"RequiredMessage":"This field is required","AbsolutePosition":true,"RequiredMessagePosition":"right","id":"ufo-field-id-648","form":"ufo-form-id-2"});</script><textarea id=\'ufo-field-id-648\' name=\'id-648\'  style=\'height:150px;width:360px\'>{id-648}</textarea></span><span class=\'ufo-cell-right\' id=\'ufo-cell-648-2-right\'><div id=\'ufo-field-id-648-invalid\'  style=\'display:none\'></div></span></div></div><div class=\'ufo-fieldtype-6 ufo-customform-row ufo-row-630\' style=\'margin-top:2px;{display-630}\'><div class=\'ufo-cell-630-2-row\' id=\'ufo-cell-630-2\'><span class=\'ufo-cell-center\' id=\'ufo-cell-630-2-center\'><script type=\'text/javascript\'>var c = {};c.id = \'ufo-field-id-630\';c.form = \'ufo-form-id-2\';c.Label = \'Submit\';ufoFormsConfig.submits.push(c);</script><span id=\'ufo-field-id-630-span\'><noscript><button type=\'submit\' id=\'ufo-field-id-630\' name=\'id-630\' >Submit</button></noscript></span></span></div></div></div><div id=\'ufo-form-id-2-message\'></div><noscript></form></noscript></div>',
+        </div></span></div></div><div class=\'ufo-fieldtype-5 ufo-customform-row ufo-row-625\' style=\'margin-top:2px;{display-625}\'><div class=\'ufo-cell-625-2-row\' id=\'ufo-cell-625-2\'><span class=\'ufo-cell-left\' id=\'ufo-cell-625-2-left\'><label for=\'ufo-field-id-625\'  style=\'text-align:left\'>Email<span class=\'ufo-customfields-required-suffix\'>*</span></label></span><span class=\'ufo-cell-center\' id=\'ufo-cell-625-2-center\'><script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required","email"]},"Required":true,"Validate":true,"showValid":true,"ValidMessageAbsolutePosition":true,"ValidMessagePosition":"right","RequiredMessage":"Please enter you email","AbsolutePosition":true,"RequiredMessagePosition":"right","id":"ufo-field-id-625","form":"ufo-form-id-2"});</script><input type=\'text\' id=\'ufo-field-id-625\' value=\'{id-625}\' name=\'id-625\' ></span><span class=\'ufo-cell-right\' id=\'ufo-cell-625-2-right\'><div id=\'ufo-field-id-625-invalid\'  style=\'display:none\'></div><div id=\'ufo-field-id-625-valid\'  style=\'display:none\'></div></span></div></div><div class=\'ufo-fieldtype-10 ufo-customform-row ufo-row-648\' style=\'margin-top:2px;{display-648}\'><div class=\'ufo-cell-648-1-row\' id=\'ufo-cell-648-1\'><span class=\'ufo-cell-center\' style=\'width:360px\' id=\'ufo-cell-648-1-center\'>
+   <label for=\'ufo-field-id-648\'  style=\'text-align:left\'>
+     Your request         <span class=\'ufo-customfields-required-suffix\'>
+           *         </span>
+            </label></span><span class=\'ufo-cell-right\' id=\'ufo-cell-648-1-right\'><p style=\'display:none\'></p></span></div><div class=\'ufo-cell-648-2-row\' id=\'ufo-cell-648-2\'><span class=\'ufo-cell-center\' style=\'width:360px\' id=\'ufo-cell-648-2-center\'><script type=\'text/javascript\'>ufoFormsConfig.validations.push({"events":{"blur":["required"]},"Required":true,"RequiredMessage":"This field is required","AbsolutePosition":true,"RequiredMessagePosition":"right","id":"ufo-field-id-648","form":"ufo-form-id-2"});</script><textarea id=\'ufo-field-id-648\' name=\'id-648\'  style=\'height:150px;width:360px\'>{id-648}</textarea></span><span class=\'ufo-cell-right\' id=\'ufo-cell-648-2-right\'><div id=\'ufo-field-id-648-invalid\'  style=\'display:none\'></div></span></div></div><div class=\'ufo-fieldtype-6 ufo-customform-row ufo-row-630\' style=\'margin-top:2px;{display-630}\'><div class=\'ufo-cell-630-2-row\' id=\'ufo-cell-630-2\'><span class=\'ufo-cell-center\' id=\'ufo-cell-630-2-center\'><script type=\'text/javascript\'>var c = {};c.id = \'ufo-field-id-630\';c.form = \'ufo-form-id-2\';c.Label = \'Submit\';ufoFormsConfig.submits.push(c);</script><span id=\'ufo-field-id-630-span\'>
+                 <noscript>
+          <button type=\'submit\' id=\'ufo-field-id-630\' name=\'id-630\' >
+       Submit     </button>
+            </noscript>
+        </span></span></div></div></div><div id=\'ufo-form-id-2-message\'></div><noscript></form></noscript></div>',
 			'ShowSubmissionSuccess' => 1,
 			'WidthUnit' => 'px',
 			'LineHeight' => 2,
 			'LineHeightUnit' => 'px',
 			'Style' => 'easyform',
+			'Impressions' => 1,
 			'IncludeVisitorsAddressInReplyTo' => 1,
 			'SendConfirmationAsText' => 0,
 			'SendNotificationAsText' => 0,
@@ -814,13 +1737,68 @@ function easycontactforms_install_data() {
 	$rows = array(
 		array(
 			'id' => 1,
+			'Description' => '2012-01-25',
+			'OptionGroup' => 'dateformats',
+			'Value' => 'Y-m-d^%Y-%m-%d^\d{4}-\d{2}-\d{2}$^2012-01-25',
+		),
+		array(
+			'id' => 2,
+			'Description' => 'Y-m-d hh:mm',
+			'OptionGroup' => 'datetimeformats',
+			'Value' => 'Y-m-d H:i^%Y-%m-%d %H:%M^\d{4}-\d{1,2}-\d{1,2}\s\d{1,2}:\d{1,2}^Y-m-d hh:mm',
+		),
+		array(
+			'id' => 3,
+			'Description' => '01/25/2012',
+			'OptionGroup' => 'dateformats',
+			'Value' => 'm/d/Y^%m/%d/%Y^\d{2}\/\d{2}\/\d{4}$^01/25/2012',
+		),
+		array(
+			'id' => 4,
+			'Description' => 'd.m.Y hh:mm',
+			'OptionGroup' => 'datetimeformats',
+			'Value' => 'd.m.Y H:i^%d.%m.%Y %H:%M^\d{1,2}\.\d{1,2}\.\d{4}\s\d{1,2}:\d{1,2}^d.m.Y hh:mm',
+		),
+		array(
+			'id' => 5,
+			'Description' => '25/01/2012',
+			'OptionGroup' => 'dateformats',
+			'Value' => 'd/m/Y^%d/%m/%Y^\d{2}\/\d{2}\/\d{4}$^25/01/2012',
+		),
+		array(
+			'id' => 6,
+			'Description' => '25.01.2012',
+			'OptionGroup' => 'dateformats',
+			'Value' => 'd.m.Y^%d.%m.%Y^\d{2}\.\d{2}\.\d{4}$^25.01.2012',
+		),
+		array(
+			'id' => 7,
+			'Description' => '25-01-2012',
+			'OptionGroup' => 'dateformats',
+			'Value' => 'd-m-Y^%d-%m-%Y^\d{2}-\d{2}-\d{4}$^25-01-2012',
+		),
+	);
+
+	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_options');
+	$existent = $wpdb->get_col( 'SELECT Description FROM ' . $table_name . ';' );
+	foreach ($rows as $row) {
+		$rid = $row['Description'];
+		if (!in_array($rid, $existent)) {
+			$wpdb->insert($table_name, $row);
+		}
+	}
+
+
+	$rows = array(
+		array(
+			'id' => 1,
 			'Description' => 'Client',
-			'Notes' => 'Maecenas eget lectus ut odio mattis fringilla. Nunc sem leo, interdum id euismod sit amet, varius vel lorem. Nam quis augue a lectus ultrices suscipit a facilisis lacus. Morbi at nisl sit amet nunc porttitor posuere id id risus. Vestibulum eget enim ornare augue venenatis placerat sed vitae mi. Nam elit justo, tincidunt id venenatis et, ullamcorper non tellus. Phasellus quis lorem tortor. <br /><br />Praesent ut facilisis odio. Maecenas congue neque ut nisi placerat vitae suscipit mauris fermentum. Praesent non sem tincidunt odio placerat tincidunt. Nulla gravida lectus sed urna mollis lacinia. Ut egestas viverra volutpat. Vestibulum quis nunc erat. Donec faucibus magna at quam condimentum convallis lobortis ante aliquet. Mauris tempor, ipsum a sollicitudin molestie, orci dui laoreet nulla, non accumsan erat libero a nisl. Quisque id luctus enim. Pellentesque id purus odio. Sed cursus pharetra enim eget tempor.',
+			'Notes' => 'Aliquam euismod tincidunt velit, in lobortis velit aliquam id. Morbi risus eros, fringilla et blandit at, semper sit amet magna.',
 		),
 		array(
 			'id' => 4,
 			'Description' => 'Employee',
-			'Notes' => 'Suspendisse potenti. <br /><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis tincidunt tortor, non bibendum risus lobortis ac. Fusce at eros sed dolor aliquam vestibulum. Mauris eget ante sapien. Donec eu justo ac purus consectetur faucibus. Nullam consectetur scelerisque massa et scelerisque. Ut a eros justo, et pellentesque felis. Duis at mi erat, nec dapibus nulla. Nam laoreet, eros et tempor convallis, arcu ante fermentum eros, sit amet luctus tellus lorem id nisi. Phasellus tempus, tortor et lacinia fringilla, magna metus dignissim dolor, vel vulputate purus massa non turpis.',
+			'Notes' => 'Nulla tincidunt justo nec diam molestie feugiat. Aenean et est non sapien ultrices posuere id a odio.',
 		),
 	);
 
@@ -834,6 +1812,22 @@ function easycontactforms_install_data() {
 
 
 	$rows = array(
+		array(
+			'id' => 1,
+			'Description' => 'Fieldset',
+			'CssClass' => 'ufo-customfield-fieldset',
+			'Settings' => '<form><ShowLabel>on</ShowLabel><Label>Fieldset</Label><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>top</DescriptionPosition><DescriptionCSSClass>ufo-customfields-container-description</DescriptionCSSClass><DescriptionCSSStyle/><SetStyle>off</SetStyle><CSSClass/><CSSStyle/><AddCF>off</AddCF><SetSize>off</SetSize><Width>230</Width><WidthUnit>px</WidthUnit></form>',
+			'ListPosition' => 100,
+			'ValueField' => 0,
+		),
+		array(
+			'id' => 2,
+			'Description' => 'Section',
+			'CssClass' => 'ufo-customfield-section',
+			'Settings' => '<form><ShowLabel>on</ShowLabel><Label>Section</Label><LabelTagName>h3</LabelTagName><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>top</DescriptionPosition><DescriptionCSSClass>ufo-customfields-container-description</DescriptionCSSClass><DescriptionCSSStyle/><SetStyle>off</SetStyle><CSSClass/><CSSStyle/><AddCF>off</AddCF><SetSize>off</SetSize><Width>230</Width><WidthUnit>px</WidthUnit></form>',
+			'ListPosition' => 200,
+			'ValueField' => 0,
+		),
 		array(
 			'id' => 3,
 			'Description' => 'Select',
@@ -867,6 +1861,14 @@ function easycontactforms_install_data() {
 			'ValueField' => 0,
 		),
 		array(
+			'id' => 9,
+			'Description' => 'Checkbox',
+			'CssClass' => 'ufo-customfield-checkbox',
+			'Settings' => '<form><ShowLabel>on</ShowLabel><Label>Checkbox</Label><LabelPosition>right-align-left</LabelPosition><Advanced/><LabelCSSClass/><LabelCSSStyle>width:200px;</LabelCSSStyle><DisplayValueOn>on</DisplayValueOn><DisplayValueOff>off</DisplayValueOff><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>bottom</DescriptionPosition><DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass><DescriptionCSSStyle/><Required>off</Required><RequiredMessage>This field is required</RequiredMessage><RequiredMessagePosition>right</RequiredMessagePosition><SetRequiredSuffix>on</SetRequiredSuffix><RequiredSuffix>*</RequiredSuffix><RequiredSuffixCSSClass>ufo-customfields-required-suffix</RequiredSuffixCSSClass><RequiredSuffixCSSStyle/><AbsolutePosition>on</AbsolutePosition><InvalidCSSClass/><RequiredMessageCSSClass/><RequiredMessageCSSStyle>width:200px;</RequiredMessageCSSStyle><SetStyle>off</SetStyle><CSSClass/><CSSStyle/><RowCSSClass/><SetSize>on</SetSize><Width>20</Width><WidthUnit>px</WidthUnit></form>',
+			'ListPosition' => 700,
+			'ValueField' => 1,
+		),
+		array(
 			'id' => 10,
 			'Description' => 'Text Area',
 			'CssClass' => 'ufo-customfield-textarea',
@@ -888,14 +1890,6 @@ function easycontactforms_install_data() {
 			'CssClass' => 'ufo-customfield-radiogroup',
 			'Settings' => '<form><ShowLabel>on</ShowLabel><Label>Radio Group</Label><LabelPosition>left-align-left</LabelPosition><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>bottom</DescriptionPosition><DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass><DescriptionCSSStyle/><SetOptions>on</SetOptions><Options><option index="1">Option1</option><option index="2">Option2</option><option index="3">Option3</option></Options><Required>off</Required><RequiredMessage>This field is required</RequiredMessage><RequiredMessagePosition>right</RequiredMessagePosition><SetRequiredSuffix>on</SetRequiredSuffix><RequiredSuffix>*</RequiredSuffix><RequiredSuffixCSSClass>ufo-customfields-required-suffix</RequiredSuffixCSSClass><RequiredSuffixCSSStyle/><AbsolutePosition>on</AbsolutePosition><InvalidCSSClass/><RequiredMessageCSSClass/><RequiredMessageCSSStyle/><SetStyle>on</SetStyle><CSSClass/><CSSStyle>float:left</CSSStyle><RowCSSClass/><SetSize>off</SetSize><Width>230</Width><WidthUnit>px</WidthUnit></form>',
 			'ListPosition' => 900,
-			'ValueField' => 1,
-		),
-		array(
-			'id' => 9,
-			'Description' => 'Checkbox',
-			'CssClass' => 'ufo-customfield-checkbox',
-			'Settings' => '<form><ShowLabel>on</ShowLabel><Label>Checkbox</Label><LabelPosition>right-align-left</LabelPosition><Advanced/><LabelCSSClass/><LabelCSSStyle>width:200px;</LabelCSSStyle><DisplayValueOn>on</DisplayValueOn><DisplayValueOff>off</DisplayValueOff><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>bottom</DescriptionPosition><DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass><DescriptionCSSStyle/><Required>off</Required><RequiredMessage>This field is required</RequiredMessage><RequiredMessagePosition>right</RequiredMessagePosition><SetRequiredSuffix>on</SetRequiredSuffix><RequiredSuffix>*</RequiredSuffix><RequiredSuffixCSSClass>ufo-customfields-required-suffix</RequiredSuffixCSSClass><RequiredSuffixCSSStyle/><AbsolutePosition>on</AbsolutePosition><InvalidCSSClass/><RequiredMessageCSSClass/><RequiredMessageCSSStyle>width:200px;</RequiredMessageCSSStyle><SetStyle>off</SetStyle><CSSClass/><CSSStyle/><RowCSSClass/><SetSize>on</SetSize><Width>20</Width><WidthUnit>px</WidthUnit></form>',
-			'ListPosition' => 700,
 			'ValueField' => 1,
 		),
 		array(
@@ -923,11 +1917,11 @@ function easycontactforms_install_data() {
 			'ValueField' => 1,
 		),
 		array(
-			'id' => 17,
-			'Description' => 'Meeting Scheduler',
-			'CssClass' => 'ufo-customfield-meetingscheduler',
-			'Settings' => '<form><SetVCitaOptions>on</SetVCitaOptions><ShowLabel>on</ShowLabel><Label>Schedule a meeting with us</Label><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>bottom</DescriptionPosition><Advanced/><DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass><DescriptionCSSStyle/><SetStyle>on</SetStyle><CSSClass>ufo-frontendbutton blue</CSSClass><CSSStyle/><RowCSSClass/><UseLink>off</UseLink></form>',
-			'ListPosition' => 1250,
+			'id' => 20,
+			'Description' => 'Google Map',
+			'CssClass' => 'ufo-customfield-googlemap',
+			'Settings' => '<form><GoolgeMapSettings>on</GoolgeMapSettings><Latitude/><Longitude/><Zoom>16</Zoom><ShowLabel>on</ShowLabel><Label>Google Map</Label><LabelPosition>top-align-left</LabelPosition><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>top</DescriptionPosition><DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass><DescriptionCSSStyle/><SetStyle>off</SetStyle><CSSClass>ufo-google-map</CSSClass><CSSStyle/><RowCSSClass/><SetSize>on</SetSize><Width>400</Width><WidthUnit>px</WidthUnit><Height>500</Height><HeightUnit>px</HeightUnit></form>',
+			'ListPosition' => 950,
 			'ValueField' => 0,
 		),
 		array(
@@ -937,22 +1931,6 @@ function easycontactforms_install_data() {
 			'Settings' => '<form><FileSettings>on</FileSettings><ButtonText>Upload</ButtonText><UploadingText>Uploading...</UploadingText><OnlyAdminsCanDownload>on</OnlyAdminsCanDownload><AttachToConfirmation>off</AttachToConfirmation><AttachToNotification>off</AttachToNotification><ShowLabel>off</ShowLabel><Label>File Upload</Label><LabelPosition>left-align-left</LabelPosition><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>bottom</DescriptionPosition><DescriptionCSSClass>ufo-customfields-field-description</DescriptionCSSClass><DescriptionCSSStyle/><Required>off</Required><RequiredMessage>Please select a file</RequiredMessage><RequiredMessagePosition>right</RequiredMessagePosition><SetRequiredSuffix>on</SetRequiredSuffix><RequiredSuffix>*</RequiredSuffix><RequiredSuffixCSSClass>ufo-customfields-required-suffix</RequiredSuffixCSSClass><RequiredSuffixCSSStyle/><AbsolutePosition>on</AbsolutePosition><InvalidCSSClass/><RequiredMessageCSSClass/><RequiredMessageCSSStyle/><Validate>off</Validate><SetValidMessage>on</SetValidMessage><ValidMessageAbsolutePosition>on</ValidMessageAbsolutePosition><ValidMessage/><ValidMessagePosition>right</ValidMessagePosition><ValidCSSClass/><ValidCSSStyle/><SetStyle>on</SetStyle><CSSClass>ufo-frontendbutton blue</CSSClass><CSSStyle>width:130px;</CSSStyle><RowCSSClass/></form>',
 			'ListPosition' => 925,
 			'ValueField' => 1,
-		),
-		array(
-			'id' => 1,
-			'Description' => 'Fieldset',
-			'CssClass' => 'ufo-customfield-fieldset',
-			'Settings' => '<form><ShowLabel>on</ShowLabel><Label>Fieldset</Label><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>top</DescriptionPosition><DescriptionCSSClass>ufo-customfields-container-description</DescriptionCSSClass><DescriptionCSSStyle/><SetStyle>off</SetStyle><CSSClass/><CSSStyle/><AddCF>off</AddCF><SetSize>off</SetSize><Width>230</Width><WidthUnit>px</WidthUnit></form>',
-			'ListPosition' => 100,
-			'ValueField' => 0,
-		),
-		array(
-			'id' => 2,
-			'Description' => 'Section',
-			'CssClass' => 'ufo-customfield-section',
-			'Settings' => '<form><ShowLabel>on</ShowLabel><Label>Section</Label><LabelTagName>h3</LabelTagName><Advanced/><LabelCSSClass/><LabelCSSStyle/><ShowDescription>off</ShowDescription><Description/><DescriptionPosition>top</DescriptionPosition><DescriptionCSSClass>ufo-customfields-container-description</DescriptionCSSClass><DescriptionCSSStyle/><SetStyle>off</SetStyle><CSSClass/><CSSStyle/><AddCF>off</AddCF><SetSize>off</SetSize><Width>230</Width><WidthUnit>px</WidthUnit></form>',
-			'ListPosition' => 200,
-			'ValueField' => 0,
 		),
 	);
 
@@ -971,340 +1949,6 @@ function easycontactforms_install_data() {
 
 	$rows = array(
 		array(
-			'objtype' => 'CustomForms',
-			'method' => 'val',
-			'name' => 'main',
-			'role' => 'Guest',
-		),
-		array(
-			'objtype' => 'CustomFormEntryStatistics',
-			'method' => 'viewDetailed',
-			'name' => 'detailedMain',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormFields',
-			'method' => 'deleteField',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'ApplicationSettings',
-			'method' => 'show',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Files',
-			'method' => 'deletefile',
-			'name' => 'main',
-			'role' => 'Guest',
-		),
-		array(
-			'objtype' => 'CustomFormsEntries',
-			'method' => 'view',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms_MailingLists',
-			'method' => 'view',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormFields',
-			'method' => 'updateFieldData',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'DashBoard',
-			'method' => 'show',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'add',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormEntryFiles',
-			'method' => 'view',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'DashBoard',
-			'method' => 'getFormPageStatistics',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormsEntries',
-			'method' => 'show',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'ContactTypes',
-			'method' => 'view',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'val',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'new',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'ContactTypes',
-			'method' => 'show',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormEntryStatistics',
-			'method' => 'show',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormEntryStatistics',
-			'method' => 'view',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormFields',
-			'method' => 'moveFieldSet',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Files',
-			'method' => 'download',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'refreshForm',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'view',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'preview',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormEntryStatistics',
-			'method' => 'setFormPageStatisticsShowOnDashboard',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Files',
-			'method' => 'download',
-			'name' => 'main',
-			'role' => 'Guest',
-		),
-		array(
-			'objtype' => 'Files',
-			'method' => 'upload',
-			'name' => 'main',
-			'role' => 'Guest',
-		),
-		array(
-			'objtype' => 'DashBoard',
-			'method' => 'getUserStatistics',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormEntryStatistics',
-			'method' => 'resetFormPageStatistics',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Files',
-			'method' => 'upload',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormEntryStatistics',
-			'method' => 'new',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Users',
-			'method' => 'getEUserASList',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'show',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormEntryFiles',
-			'method' => 'viewDetailed',
-			'name' => 'detailedMain',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormsEntries',
-			'method' => 'viewDetailed',
-			'name' => 'detailedMain',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormFields',
-			'method' => 'updateOrder',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormFields',
-			'method' => 'copyField',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormsEntries',
-			'method' => 'processEntry',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormFields',
-			'method' => 'addCustomField',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'DashBoard',
-			'method' => 'getFormStatistics',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormFields',
-			'method' => 'getSettingsForm',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Users',
-			'method' => 'view',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'DashBoard',
-			'method' => 'getEntryStatistics',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomFormFields',
-			'method' => 'viewDetailed',
-			'name' => 'detailedMain',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'add',
-			'name' => 'main',
-			'role' => 'Guest',
-		),
-		array(
-			'objtype' => 'Users',
-			'method' => 'getUserASList',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'ApplicationSettings',
-			'method' => 'allowPBLink',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Users',
-			'method' => 'new',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Users',
-			'method' => 'show',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'resetStatistics',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'ApplicationSettings',
-			'method' => 'setOptionValue',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'Files',
-			'method' => 'deletefile',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'CustomForms',
-			'method' => 'copy',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-		array(
-			'objtype' => 'ContactTypes',
-			'method' => 'new',
-			'name' => 'main',
-			'role' => 'SuperAdmin',
-		),
-	);
-
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_acl');
-	$wpdb->query('DELETE FROM ' . $table_name . ' WHERE 1;' );
-	foreach ($rows as $row) {
-		$wpdb->insert($table_name, $row);
-	}
-
-
-	$rows = array(
-		array(
 			'id' => 1,
 			'Description' => 'AppSettings',
 			'TinyMCEConfig' => '{theme_advanced_buttons4:"",mode:"exact",theme_advanced_statusbar_location:"",theme_advanced_toolbar_align:"left",theme_advanced_resizing:"true",plugins:"fullscreen",theme_advanced_toolbar_location:"top",theme_advanced_buttons1:"bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect",theme_advanced_buttons2:"bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink,anchor,image,cleanup,|,forecolor,backcolor,|,fullscreen",theme_advanced_buttons3:"",theme:"advanced", relative_urls : false, remove_script_host: false}',
@@ -1317,9 +1961,16 @@ function easycontactforms_install_data() {
 			'FileFolder' => 'files',
 			'FixJSLoading' => 0,
 			'FixStatus0' => 0,
+			'ProductVersion' => '1.4.7',
+			'InitTime' => 0,
+			'ShowPoweredBy' => 0,
 			'DateFormat' => 'Y-m-d^%Y-%m-%d^\d{4}-\d{2}-\d{2}$^2012-01-25',
 			'DateTimeFormat' => 'Y-m-d H:i^%Y-%m-%d %H:%M^\d{4}-\d{1,2}-\d{1,2}\s\d{1,2}:\d{1,2}^Y-m-d hh:mm',
-			'ShowPoweredBy' => 0,
+			'FixStatus02' => 0,
+			'w3cCompliant' => 0,
+			'w3cStyle' => 'easyform',
+			'FixJSLoading2' => 0,
+			'AllowMarkupInEntries' => 0,
 		),
 	);
 
@@ -1335,62 +1986,13 @@ function easycontactforms_install_data() {
 	$rows = array(
 		array(
 			'id' => 1,
-			'Description' => '2012-01-25',
-			'Value' => 'Y-m-d^%Y-%m-%d^\d{4}-\d{2}-\d{2}$^2012-01-25',
-			'OptionGroup' => 'dateformats',
+			'Description' => 'SuperAdmin',
+			'Admin' => 0,
+			'Employee' => 0,
 		),
 		array(
 			'id' => 2,
-			'Description' => 'Y-m-d hh:mm',
-			'Value' => 'Y-m-d H:i^%Y-%m-%d %H:%M^\d{4}-\d{1,2}-\d{1,2}\s\d{1,2}:\d{1,2}^Y-m-d hh:mm',
-			'OptionGroup' => 'datetimeformats',
-		),
-		array(
-			'id' => 3,
-			'Description' => '01/25/2012',
-			'Value' => 'm/d/Y^%m/%d/%Y^\d{2}\/\d{2}\/\d{4}$^01/25/2012',
-			'OptionGroup' => 'dateformats',
-		),
-		array(
-			'id' => 4,
-			'Description' => 'd.m.Y hh:mm',
-			'Value' => 'd.m.Y H:i^%d.%m.%Y %H:%M^\d{1,2}\.\d{1,2}\.\d{4}\s\d{1,2}:\d{1,2}^d.m.Y hh:mm',
-			'OptionGroup' => 'datetimeformats',
-		),
-		array(
-			'id' => 5,
-			'Description' => '25/01/2012',
-			'Value' => 'd/m/Y^%d/%m/%Y^\d{2}\/\d{2}\/\d{4}$^25/01/2012',
-			'OptionGroup' => 'dateformats',
-		),
-		array(
-			'id' => 6,
-			'Description' => '25.01.2012',
-			'Value' => 'd.m.Y^%d.%m.%Y^\d{2}\.\d{2}\.\d{4}$^25.01.2012',
-			'OptionGroup' => 'dateformats',
-		),
-		array(
-			'id' => 7,
-			'Description' => '25-01-2012',
-			'Value' => 'd-m-Y^%d-%m-%Y^\d{2}-\d{2}-\d{4}$^25-01-2012',
-			'OptionGroup' => 'dateformats',
-		),
-	);
-
-	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_options');
-	$existent = $wpdb->get_col( 'SELECT Description FROM ' . $table_name . ';' );
-	foreach ($rows as $row) {
-		$rid = $row['Description'];
-		if (!in_array($rid, $existent)) {
-			$wpdb->insert($table_name, $row);
-		}
-	}
-
-
-	$rows = array(
-		array(
-			'id' => 1,
-			'Description' => 'SuperAdmin',
+			'Description' => 'Owner',
 			'Admin' => 0,
 			'Employee' => 0,
 		),
@@ -1403,15 +2005,17 @@ function easycontactforms_install_data() {
 	);
 
 	$table_name = EasyContactFormsDB::wptn('#wp__easycontactforms_roles');
-	$wpdb->query('DELETE FROM ' . $table_name . ' WHERE 1;' );
-	foreach ($rows as $row) {
-		$wpdb->insert($table_name, $row);
+	$count = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $table_name . ';' );
+	if ($count == 0) {
+		foreach ($rows as $row) {
+			$wpdb->insert($table_name, $row);
+		}
 	}
 
 	require_once dirName(__FILE__) . DIRECTORY_SEPARATOR . 'easy-contact-forms-root.php';
 	require_once dirName(__FILE__) . DIRECTORY_SEPARATOR . 'easy-contact-forms-applicationsettings.php';
 	$as = EasyContactFormsApplicationSettings::getInstance();
-	$as->set('ProductVersion', '1.4.2');
+	$as->set('ProductVersion', '1.4.7');
 	$as->save();}
 
 

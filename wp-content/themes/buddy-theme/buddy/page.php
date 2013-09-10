@@ -104,7 +104,7 @@
 			
 			<!-- BEGIN COMMENTS -->
 			
-			<?php comments_template(); ?>
+			<!-- ?php comments_template(); ? -->
 			
 			<!-- END COMMENTS -->
 			

@@ -66,7 +66,7 @@ class EasyContactFormsMenu {
       <div class='menupanel'>
         <ul class='ufoMenu'>
           <li>
-            <a href='javascript:ufo.mcall("t=DashBoard&m=show")'>
+            <a href='javascript:ufo.mcall("t=DashBoardView&m=show")'>
               <?php echo EasyContactFormsT::get('DashBoard');?>
             </a>
           </li>

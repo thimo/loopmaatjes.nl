@@ -36,8 +36,8 @@ class EasyContactFormsOptions extends EasyContactFormsBase {
 		$this->fieldmap = array(
 				'id' => NULL,
 				'Description' => '',
-				'Value' => '',
 				'OptionGroup' => '',
+				'Value' => '',
 			);
 
 		if ($objdata) {

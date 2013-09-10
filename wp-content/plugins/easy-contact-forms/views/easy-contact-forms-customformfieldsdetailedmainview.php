@@ -72,11 +72,11 @@
             </div>
             <div class='ufo-clear-both'></div>
             <div>
-              <label for='<?php echo $obj->sId('Description');?>' style='width:40px'><?php echo EasyContactFormsT::get('Label');?></label>
+              <label for='<?php echo $obj->sId('Description');?>' style='width:40px !important'><?php echo EasyContactFormsT::get('Label');?></label>
               <select id='<?php echo $obj->sId('Description');?>' class='ufo-select ufo-filtersign'>
                  <?php echo $obj->sList('string');?>
               </select>
-              <input type='text' id='Description' class='textinput ufo-text ufo-filtervalue' style='width:100px'>
+              <input type='text' id='Description' class='textinput ufo-text ufo-filtervalue' style='width:100px'/>
             </div>
             <div>
               <label for='<?php echo $obj->sId('Type');?>' style='width:40px !important'><?php echo EasyContactFormsT::get('Type');?></label>

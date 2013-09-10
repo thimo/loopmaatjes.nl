@@ -52,6 +52,7 @@ class EasyContactFormsRoot {
 	 */
 	function processEvent($_mainmap) {
 
+
 		$_dispmethod = $_mainmap["m"];
 
 		if ($_dispmethod == "save") {
@@ -259,11 +260,11 @@ class EasyContactFormsRoot {
 	 */
 	function listObjects($_ismap) {
 
+		$obj = EasyContactFormsClassLoader::getObject($_ismap['t']);
 		if (! EasyContactFormsSecurityManager::roleObjectCheck($_ismap)) {
 			return '{}';
 		}
 
-		$obj = EasyContactFormsClassLoader::getObject($_ismap['t']);
 		$t_name = $obj->getTableName();
 		$fields = $obj->getFieldNames();
 		$mastervalue = intval($_ismap['oid']);
@@ -495,11 +496,11 @@ class EasyContactFormsClassLoader {
 				$inst = new $classname($data, $new_id);
 				$valid =	$inst->isValid();
 				if ($data && !empty($new_id) && !$valid) {
-					return null;
+					return NULL;
 				}
 				return $inst;
 			} catch (Exception $e) {
-				return null;
+				return NULL;
 			}
 		}
 		else {

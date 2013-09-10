@@ -44,7 +44,7 @@ function getCustomFormsEntriesDetailedMainViewRow($view, $obj, $i, $map) {
   ?>
   <tr class='ufohighlight <?php EasyContactFormsIHTML::getTrSwapClassName($i);?>'>
     <td class='firstcolumn'>
-      <input type='checkbox' id='<?php echo $view->idJoin('cb', $obj->getId());?>' value='off' class='ufo-deletecb' onchange='this.value=(this.checked)?"on":"off";'>
+      <input type='checkbox' id='<?php echo $view->idJoin('cb', $obj->getId());?>' value='off' class='ufo-deletecb' onchange='this.value=(this.checked)?"on":"off";'/>
     </td>
     <td>
       <?php
@@ -64,12 +64,12 @@ function getCustomFormsEntriesDetailedMainViewRow($view, $obj, $i, $map) {
       <?php EasyContactFormsIHTML::echoDate($obj->get('Date'), EasyContactFormsApplicationSettings::getInstance()->getDateFormat('PHP', TRUE), 0);?>
     </td>
     <td>
-      <?php echo $obj->get('PageName');?>
-    </td>
-    <td>
       <a onclick='ufo.redirect({m:"show", oid:"<?php echo $obj->get('Users');?>", t:"Users"})'>
         <?php echo $obj->get('UsersDescription');?>
       </a>
+    </td>
+    <td>
+      <?php echo $obj->get('PageName');?>
     </td>
     <td>
       <?php echo $obj->SiteUser;?>

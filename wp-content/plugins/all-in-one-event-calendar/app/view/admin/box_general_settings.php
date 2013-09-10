@@ -118,7 +118,7 @@
 
 		<label for="show_year_in_agenda_dates">
 			<input class="checkbox" name="show_year_in_agenda_dates" id="show_year_in_agenda_dates" type="checkbox" value="1" <?php echo $show_year_in_agenda_dates ?> />
-			<?php _e( '<strong>Show year</strong> in Agenda view date labels', AI1EC_PLUGIN_NAME ) ?>
+			<?php _e( '<strong>Show year</strong> in Posterboard, Agenda and widget view date labels', AI1EC_PLUGIN_NAME ) ?>
 		</label>
 
 		<label for="show_location_in_title">

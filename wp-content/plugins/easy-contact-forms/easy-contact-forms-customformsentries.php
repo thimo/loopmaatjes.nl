@@ -123,36 +123,73 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 	/**
 	 * 	processEntry
 	 *
-	 * @param  $map
-	 * 
+	 * 	Add button onclick handler
 	 *
-	 * @return
-	 * 
+	 * @param array $map
+	 * 	Request data
 	 */
 	function processEntry($map) {
 		$currentuser = isset($map['easycontactusr']) ? $map['easycontactusr'] : NULL;
 		if (is_null($currentuser)) {
 			return;
 		}
-		$newobjectmap = array();
-		$newobjectmap['easycontactusr'] = $currentuser;
+		$ownerid = $currentuser->id;
 
 		$id = intval($map['oid']);
 		if ($id == 0) {
 			return;
 		}
-		$entry = EasyContactFormsClassLoader::getObject('CustomFormsEntries', TRUE, $id);
-		$content = $entry->get('Content');
 
+		$entry = EasyContactFormsClassLoader::getObject('CustomFormsEntries', TRUE, $id);
+		$entry->process($ownerid);
+
+		unset($map['oid']);
+		unset($map['n']);
+		$mn = isset($map['a']) ? 'viewDetailed' : 'view';
+		$map['m'] =  $mn;
+		EasyContactFormsRoot::processEvent($map);
+
+	}
+
+	/**
+	 * 	process
+	 *
+	 * 	Applies the form entry data to db
+	 *
+	 * @param int $ownerid
+	 * 	User who owns the results
+	 */
+	function process($ownerid = NULL) {
+
+		$form = EasyContactFormsClassLoader::getObject('CustomForms', true, $this->get('CustomForms'));
+
+		if (!class_exists('EasyContactFormsT')) {
+			$l_locale = get_locale();
+			$tag = strtolower(str_replace('_', '-', $l_locale));
+			require_once 'easy-contact-forms-strings.php';
+			if (!(@include_once 'easy-contact-forms-resources_' . $tag . '.php')) {
+				require_once 'easy-contact-forms-resources_en-gb.php';
+			}
+		}
+		if (is_null($ownerid)) {
+			$ownerid = $form->get('ObjectOwner');
+		}
+
+		$content = $this->get('Content');
 		$xml = simplexml_load_string($content);
 
 		$userid = (string) $xml->attributes()->userid;
 		$userid = empty($userid) ? NULL : intval($userid);
-		if (empty($userid)) {
+
+		if (is_null($userid)) {
+
 			$users = EasyContactFormsClassLoader::getObject('Users');
-			$user = $users->getEmptyObject($newobjectmap);
-			$siteuserid = $entry->get('SiteUser');
+			$user = $users->getEmptyObject(array());
+			$user->set('ObjectOwner', $ownerid);
+
+			$siteuserid = $this->get('SiteUser');
 			$siteuserid = empty($siteuserid) ? NULL : $siteuserid;
+
 			if (!is_null($siteuserid)) {
 
 				$usrquery = "SELECT
@@ -167,33 +204,59 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 				$susr = EasyContactFormsDB::getObjects($usrquery);
 				$susr = $susr[0];
 				$susrname = !empty($susr->name) ? $susr->name : $susr->username;
-				if (empty($susrname)) {
+				if (!empty($susrname)) {
 					$user->set('Description', $susrname);
 				}
-				if (empty($susr->email)) {
+				if (!empty($susr->email)) {
 					$user->set('email', $susr->email);
 				}
 				$user->set('CMSId', $siteuserid);
+
 			}
 		}
 		else {
 			$user = EasyContactFormsClassLoader::getObject('Users', true, $userid);
-			$user->user = $currentuser;
+			$user->set('Role', NULL);
 		}
 
+		$fields = EasyContactFormsClassLoader::getObject('CustomFormFields');
+
+		foreach ($xml->children() as $xmlfld) {
+			$value = (string) $xmlfld->h1;
+			unset($xmlfld->h1);
+			if (empty($value)) {
+				continue;
+			}
+			$fldid = (string) $xmlfld->attributes()->id;
+			$fldid = intval($fldid);
+
+			$settings = $fields->getValue('Settings', $fldid);
+
+			if (empty($settings)) {
+				continue;
+			}
+
+			$settings = simplexml_load_string($settings);
+
+			$link = (string) $settings->LinkToAppField;
+			if (!empty($link)) {
+				$link = explode('_', $link);
+				if (count($link) > 1) {
+					$user->set($link[1], $value);
+				}
+			}
+		}
+
+		$content = $xml->asXML();
+		$user->set('History',	$content . '<br /><br />' . $user->get('History'));
 		$user->save();
-		$entry->set('Date', EasyContactFormsUtils::getDate($entry->get('Date'), false, true, true));
-		$entry->set('Users', $user->get('id'));
-		$entry->save();
-		$form = EasyContactFormsClassLoader::getObject('CustomForms', true, $entry->get('CustomForms'));
+
+		$this->set('Date', EasyContactFormsUtils::getDate($this->get('Date'), false, true, true));
+		$this->set('Users', $user->get('id'));
+		$this->save();
+
 		$form->set('TotalProcessedEntries', $form->get('TotalProcessedEntries') + 1);
 		$form->save();
-
-		unset($map['oid']);
-		unset($map['n']);
-		$mn = isset($map['a']) ? 'viewDetailed' : 'view';
-		$map['m'] =  $mn;
-		EasyContactFormsRoot::processEvent($map);
 
 	}
 
@@ -260,9 +323,9 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 		$fields = array();
 		$fields[] = 'id';
 		$fields[] = 'Date';
-		$fields[] = 'PageName';
 		$fields[] = 'Content';
 		$fields[] = 'Description';
+		$fields[] = 'PageName';
 
 		$obj = $this->formInit($formmap, $fields);
 
@@ -344,9 +407,9 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 		$sortfields = array(
 			'id',
 			'Date',
-			'PageName',
 			'CustomFormsDescription',
 			'UsersDescription',
+			'PageName',
 			'SiteUser',
 		);
 
@@ -359,10 +422,10 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'id', 'int');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'Date', 'date');
-		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'PageName');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'Content');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'Users', 'int');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'SiteUser', 'int');
+		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'PageName');
 		EasyContactFormsRoot::mDelete('CustomFormsEntries', $viewmap);
 
 		$query = "SELECT
@@ -412,7 +475,7 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomFormsEntries'><?php
 
-		require_once 'views/easy-contact-forms-customformsentriesdetailedmainview.php';
+		include 'views/easy-contact-forms-customformsentriesdetailedmainview.php';
 
 	}
 
@@ -432,8 +495,8 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 			'id',
 			'Date',
 			'CustomFormsDescription',
-			'PageName',
 			'UsersDescription',
+			'PageName',
 			'SiteUser',
 		);
 
@@ -443,13 +506,13 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 		$viewfilters = array();
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'id', 'int');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'Date', 'date');
-		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'PageName');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'Content');
 
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'CustomForms', 'int');
 
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'Users', 'int');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'SiteUser', 'int');
+		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'CustomFormsEntries.', 'PageName');
 		EasyContactFormsRoot::mDelete('CustomFormsEntries', $viewmap);
 
 		$query = "SELECT
@@ -499,7 +562,7 @@ class EasyContactFormsCustomFormsEntries extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomFormsEntries'><?php
 
-		require_once 'views/easy-contact-forms-customformsentriesmainview.php';
+		include 'views/easy-contact-forms-customformsentriesmainview.php';
 
 	}
 

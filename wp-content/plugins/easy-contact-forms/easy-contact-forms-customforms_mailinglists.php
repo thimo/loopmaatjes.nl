@@ -132,7 +132,7 @@ class EasyContactFormsCustomForms_MailingLists extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomForms_MailingLists'><?php
 
-		require_once 'views/easy-contact-forms-customforms_mailinglistscustomformsmainview.php';
+		include 'views/easy-contact-forms-customforms_mailinglistscustomformsmainview.php';
 
 	}
 
@@ -179,7 +179,7 @@ class EasyContactFormsCustomForms_MailingLists extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomForms_MailingLists'><?php
 
-		require_once 'views/easy-contact-forms-customforms_mailinglistsusersmainview.php';
+		include 'views/easy-contact-forms-customforms_mailinglistsusersmainview.php';
 
 	}
 

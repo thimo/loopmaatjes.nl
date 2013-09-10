@@ -312,6 +312,7 @@ class EasyContactFormsUtils {
 					$dvalue = strtotime($value);
 					return $dvalue;
 				}
+
 		}
 		return $value;
 
@@ -379,7 +380,7 @@ class EasyContactFormsUtils {
 
 		$format = EasyContactFormsApplicationSettings::getInstance()->getDateFormat('PHP', $datetime);
 
-		if (( $date == 0 ) || ( $date == '' ) || ( !isset($date) )) {
+		if ((!isset($date)) || ($date == 0) || ($date == '')) {
 			$datestr = $setcurrent ? date($format) : '';
 		}
 		else {
@@ -735,6 +736,70 @@ class EasyContactFormsUtils {
 
 	}
 
+	/**
+	 * 	getSimpleObjectTable
+	 *
+	 * 	Produces a simple html table based on a given object
+	 *
+	 * @param object $obj
+	 * 	the object to produce the table from
+	 *
+	 * @return string
+	 * 	the html table
+	 */
+	function getSimpleObjectTable($obj) {
+
+		$obj = (array) $obj;
+
+		$html = '';
+
+		foreach ($obj as $key=>$value) {
+			$value = nl2br(htmlspecialchars($value));
+
+			$html .= "<tr><th style='padding:5px'>{$key}</th><td><div style='padding:5px;max-width:400px;overflow-x:auto;'>{$value}</div></td></tr>";
+
+		}
+		$html = "<table class='ufo-object-table'>{$html}</table>";
+
+		return $html;
+	}
+
+	/**
+	 * 	getSimpleTable
+	 *
+	 * 	produces a simple html table based on object array
+	 *
+	 * @param array $objs
+	 * 	the object array to produce the table from
+	 *
+	 * @return string
+	 * 	html table
+	 */
+	function getSimpleTable($objs) {
+
+		if (sizeof ($objs) == 0)	{
+			return '';
+		}
+
+		$html = '';
+
+		foreach($objs as $obj) {
+			$html .= "<p>";
+
+			$name = isset($obj->Description) ? $obj->Description : null;
+			$name = isset($obj->Name) ? $obj->Name : $name;
+			if (!is_null($name)) {
+				$html .= "<h3>{$name}</h3>";
+			}
+
+			$html .= EasyContactFormsUtils::getSimpleObjectTable($obj);
+			$html .= "</p>";
+		}
+
+			return $html;
+
+	}
+
 }
 
 /**
@@ -805,7 +870,7 @@ class EasyContactFormsSimpleXML extends SimpleXMLElement {
 	/**
 	 * 	copyright fedek6-at-gmail-dot-com
 	 *
-	 * @param  $___base
+	 * @param  &$base
 	 * 
 	 * @param  $add
 	 * 

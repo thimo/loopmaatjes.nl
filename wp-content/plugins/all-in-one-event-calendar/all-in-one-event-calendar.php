@@ -5,7 +5,7 @@
  * Description: A calendar system with posterboard, month, week, day, agenda views, upcoming events widget, color-coded categories, recurrence, and import/export of .ics feeds.
  * Author: Timely Network Inc
  * Author URI: http://time.ly/
- * Version: 1.9.6-standard
+ * Version: 1.10-standard
  */
 
 @set_time_limit( 0 );

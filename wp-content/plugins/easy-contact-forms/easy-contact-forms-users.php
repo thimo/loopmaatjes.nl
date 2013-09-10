@@ -20,7 +20,7 @@ require_once 'easy-contact-forms-baseclass.php';
  * 	EasyContactFormsUsers
  *
  */
-class EasyContactFormsUsers extends EasyContactFormsBase {
+class EasyContactFormsUsers extends EasyContactFormsBusinessObject {
 
 	/**
 	 * 	EasyContactFormsUsers class constructor
@@ -269,11 +269,6 @@ class EasyContactFormsUsers extends EasyContactFormsBase {
 		$request = EasyContactFormsUtils::parseRequest($request, 'Role', 'int');
 		$request = EasyContactFormsUtils::parseRequest($request, 'CMSId', 'int');
 
-		if (isset($this->user)) {
-			require_once 'easy-contact-forms-backoffice.php';
-			$bo = new EasyContactFormsBackOffice();
-			$request = $bo->processHistory($request, $this->type, $id, $this->user->id);
-		}
 		parent::update($request, $id);
 
 	}
@@ -345,12 +340,12 @@ class EasyContactFormsUsers extends EasyContactFormsBase {
 		$query = "SELECT
 				Users.id,
 				Users.Name,
-				Users.Description,
 				Users.Notes,
 				Users.email,
 				Users.Cell,
 				Users.Phone1,
 				Users.ContactField3,
+				Users.Description,
 				ContactTypes.Description AS ContactTypeDescription
 			FROM
 				#wp__easycontactforms_users AS Users
@@ -505,8 +500,7 @@ class EasyContactFormsUsers extends EasyContactFormsBase {
 				Users.email,
 				ContactTypes.Description AS ContactTypeDescription,
 				Users.ContactType AS ContactType,
-				Roles.Description AS RoleDescription,
-				Users.Role AS Role
+				Roles.Description AS RoleDescription
 			FROM
 				#wp__easycontactforms_users AS Users
 			LEFT JOIN
@@ -535,7 +529,7 @@ class EasyContactFormsUsers extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='Users'><?php
 
-		require_once 'views/easy-contact-forms-usersmainview.php';
+		include 'views/easy-contact-forms-usersmainview.php';
 
 	}
 
@@ -556,8 +550,8 @@ class EasyContactFormsUsers extends EasyContactFormsBase {
 		$viewfilters = array();
 		$viewfilters = EasyContactFormsDB::getMTMFilter($viewmap, $viewfilters, 'Users');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'Users.', 'id', 'int');
-		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'Users.', 'Name');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'Users.', 'Description');
+		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'Users.', 'Name');
 		$viewfilters = EasyContactFormsDB::getSignFilter($viewfilters, $rparams, 'Users.', 'ContactType', 'int');
 
 		$query = "SELECT
@@ -577,7 +571,7 @@ class EasyContactFormsUsers extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='Users'><?php
 
-		require_once 'views/easy-contact-forms-usersmanagemainview.php';
+		include 'views/easy-contact-forms-usersmanagemainview.php';
 
 	}
 

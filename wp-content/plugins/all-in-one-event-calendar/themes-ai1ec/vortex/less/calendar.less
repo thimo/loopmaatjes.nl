@@ -312,10 +312,11 @@ table.ai1ec-oneday-view-original {
 		color: @posterboardDateTitleText;
 		float: right;
 		margin: 0 0 5px 7px;
-		min-width: 48px;
+		min-width: 50px;
 		.opacity( 75 );
 		position: relative;
 		text-align: center;
+		text-shadow: 0 -1px 1px rgba(0,0,0,0.5);
 		.transition( 0.1s opacity );
 		z-index: 1;
 		&:hover {
@@ -328,19 +329,25 @@ table.ai1ec-oneday-view-original {
 	.ai1ec-month {
 		background: fade( @posterboardDateTitleText, 20% );
 		font-size: 0.8em;
-		display: block;
 		letter-spacing: 0.2em;
 		padding: 0 0.4em;
 		text-transform: uppercase;
 	}
 	.ai1ec-day {
 		font-size: 2.2em;
-		display: block;
-		padding: 0.35em 0.2em 0.45em;
+		padding: 0.3em 0.2em 0.2em;
 		font-weight: bold;
 	}
 	.ai1ec-weekday {
-		line-height: 1.5em;
+		font-size: 0.7em;
+		letter-spacing: 0.2em;
+		line-height: 1.8em;
+	}
+	.ai1ec-year {
+		background: fade( @posterboardDateTitleText, 20% );
+		font-size: 0.7em;
+		letter-spacing: 0.2em;
+		line-height: 1.8em;
 	}
 	// Posterboard view event tiles.
 	.ai1ec-event-wrap {

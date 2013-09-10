@@ -513,11 +513,10 @@ class Ai1ec_Event {
 	 * 	- instantaneous events
 	 * 	- all-day events
 	 * 	- multi-day events
-	 * Display of start date can be hidden (non-all-day events only), weekday
-	 * only, or full date. All-day status, if any, is enclosed in a
-	 * span.ai1ec-allday-badge element.
+	 * Display of start date can be hidden (non-all-day events only) or full date.
+   * All-day status, if any, is enclosed in a span.ai1ec-allday-badge element.
 	 *
-	 * @param  string $start_date_display Can be one of 'hidden', 'weekday', 'short', or 'long'.
+	 * @param  string $start_date_display Can be one of 'hidden', 'short', or 'long'.
 	 * @return string
 	 */
 	public function get_timespan_html( $start_date_display = 'long' ) {
@@ -552,17 +551,11 @@ class Ai1ec_Event {
 			$bits_end['mon'], $bits_end['mday'], $bits_end['year']
 		);
 
-		// Get start weekday.
-		$day_start = Ai1ec_Time_Utility::date_i18n( 'l', $start, true );
-
 		$output = '';
 
 		// Display start date, depending on $start_date_display.
 		switch ( $start_date_display ) {
 			case 'hidden':
-				break;
-			case 'weekday':
-				$output .= $day_start;
 				break;
 			case 'short':
 			case 'long':

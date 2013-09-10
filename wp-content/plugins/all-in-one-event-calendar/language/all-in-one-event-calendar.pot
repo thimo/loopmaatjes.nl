@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the All-in-One Event Calendar by Timely package.
 msgid ""
 msgstr ""
-"Project-Id-Version: All-in-One Event Calendar by Timely 1.9.6-standard\n"
+"Project-Id-Version: All-in-One Event Calendar by Timely 1.10-standard\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/all-in-one-event-calendar\n"
-"POT-Creation-Date: 2013-04-09 15:25:00+00:00\n"
+"POT-Creation-Date: 2013-05-21 17:21:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,37 +55,37 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: app/controller/class-ai1ec-app-controller.php:661
 #: app/controller/class-ai1ec-app-controller.php:662
+#: app/controller/class-ai1ec-app-controller.php:663
 msgid "Upgrade"
 msgstr ""
 
-#: app/controller/class-ai1ec-app-controller.php:675
 #: app/controller/class-ai1ec-app-controller.php:676
-msgid "Upgrade Calendar"
+#: app/controller/class-ai1ec-app-controller.php:677
+msgid "Upgrade Calendar to Pro"
 msgstr ""
 
-#: app/controller/class-ai1ec-app-controller.php:888
-#: app/controller/class-ai1ec-app-controller.php:935
+#: app/controller/class-ai1ec-app-controller.php:890
+#: app/controller/class-ai1ec-app-controller.php:937
 msgid "You do not have sufficient permissions to update plugins for this site."
 msgstr ""
 
-#: app/controller/class-ai1ec-app-controller.php:896
+#: app/controller/class-ai1ec-app-controller.php:898
 msgid ""
 "Download package is needed and was not supplied. Visit <a href=\"http://time."
 "ly/\" target=\"_blank\">time.ly</a> to download the newest version of the "
 "plugin."
 msgstr ""
 
-#: app/controller/class-ai1ec-app-controller.php:965
+#: app/controller/class-ai1ec-app-controller.php:967
 msgid "The license key you entered is not valid. Please try again."
 msgstr ""
 
-#: app/controller/class-ai1ec-app-controller.php:968
+#: app/controller/class-ai1ec-app-controller.php:970
 msgid "A system error has occurred. Please try again."
 msgstr ""
 
-#: app/controller/class-ai1ec-app-controller.php:975
+#: app/controller/class-ai1ec-app-controller.php:977
 msgid "All-in-One Event Calendar: Error processing license key"
 msgstr ""
 
@@ -1214,34 +1214,34 @@ msgstr ""
 msgid "Plug-in disabled due to unrecoverable database update error"
 msgstr ""
 
-#: app/model/class-ai1ec-event.php:581 app/model/class-ai1ec-event.php:611
+#: app/model/class-ai1ec-event.php:574 app/model/class-ai1ec-event.php:604
 msgctxt "Event time separator"
 msgid " @ "
 msgstr ""
 
-#: app/model/class-ai1ec-event.php:593
+#: app/model/class-ai1ec-event.php:586
 msgctxt "Event start/end separator"
 msgid " – "
 msgstr ""
 
-#: app/model/class-ai1ec-event.php:625
+#: app/model/class-ai1ec-event.php:618
 #: themes-ai1ec/vortex/agenda-widget.php:39
 msgid "all-day"
 msgstr ""
 
-#: app/model/class-ai1ec-event.php:1072
+#: app/model/class-ai1ec-event.php:1069
 msgid "E-mail"
 msgstr ""
 
-#: app/model/class-ai1ec-event.php:1078
+#: app/model/class-ai1ec-event.php:1075
 msgid "Event website"
 msgstr ""
 
-#: app/model/class-ai1ec-event.php:1118
+#: app/model/class-ai1ec-event.php:1115
 msgid ", and "
 msgstr ""
 
-#: app/model/class-ai1ec-event.php:1437
+#: app/model/class-ai1ec-event.php:1434
 msgid "Back to Calendar"
 msgstr ""
 
@@ -1545,7 +1545,8 @@ msgid "Keep all events <strong>expanded</strong> in Agenda view"
 msgstr ""
 
 #: app/view/admin/box_general_settings.php:121
-msgid "<strong>Show year</strong> in Agenda view date labels"
+msgid ""
+"<strong>Show year</strong> in Posterboard, Agenda and widget view date labels"
 msgstr ""
 
 #: app/view/admin/box_general_settings.php:126
@@ -1810,7 +1811,7 @@ msgstr ""
 msgid "view all news"
 msgstr ""
 
-#: app/view/admin/box_support.php:28
+#: app/view/admin/box_support.php:38
 msgid "Follow @_Timely"
 msgstr ""
 
@@ -3064,7 +3065,7 @@ msgstr ""
 #: themes-ai1ec/vortex/agenda-widget.php:69 themes-ai1ec/vortex/agenda.php:36
 #: themes-ai1ec/vortex/month.php:67 themes-ai1ec/vortex/oneday.php:37
 #: themes-ai1ec/vortex/oneday.php:58 themes-ai1ec/vortex/oneday.php:166
-#: themes-ai1ec/vortex/oneday.php:188 themes-ai1ec/vortex/posterboard.php:37
+#: themes-ai1ec/vortex/oneday.php:188 themes-ai1ec/vortex/posterboard.php:41
 #: themes-ai1ec/vortex/week.php:38 themes-ai1ec/vortex/week.php:60
 #: themes-ai1ec/vortex/week.php:171 themes-ai1ec/vortex/week.php:193
 msgid "@ %s"
@@ -3072,7 +3073,7 @@ msgstr ""
 
 #: themes-ai1ec/vortex/agenda-widget.php:73 themes-ai1ec/vortex/agenda.php:40
 #: themes-ai1ec/vortex/month.php:71 themes-ai1ec/vortex/oneday.php:62
-#: themes-ai1ec/vortex/oneday.php:192 themes-ai1ec/vortex/posterboard.php:24
+#: themes-ai1ec/vortex/oneday.php:192 themes-ai1ec/vortex/posterboard.php:28
 #: themes-ai1ec/vortex/week.php:64 themes-ai1ec/vortex/week.php:197
 msgid "Edit"
 msgstr ""
@@ -3226,9 +3227,9 @@ msgstr ""
 msgid "All-in-One Event Calendar by Timely"
 msgstr ""
 
-#. #-#-#-#-#  all-in-one-event-calendar.pot (All-in-One Event Calendar by Timely 1.9.6-standard)  #-#-#-#-#
+#. #-#-#-#-#  all-in-one-event-calendar.pot (All-in-One Event Calendar by Timely 1.10-standard)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  all-in-one-event-calendar.pot (All-in-One Event Calendar by Timely 1.9.6-standard)  #-#-#-#-#
+#. #-#-#-#-#  all-in-one-event-calendar.pot (All-in-One Event Calendar by Timely 1.10-standard)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://time.ly/"
 msgstr ""

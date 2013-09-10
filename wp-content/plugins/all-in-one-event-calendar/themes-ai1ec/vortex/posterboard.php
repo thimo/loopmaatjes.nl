@@ -16,8 +16,12 @@
 						<div class="ai1ec-event-wrap clearfix">
 							<div class="ai1ec-date-block-wrap" <?php echo $event->get_category_bg_color(); ?>>
 								<a class="ai1ec-load-view" href="<?php echo $date_info['href']; ?>" <?php echo $data_type; ?> >
-									<span class="ai1ec-month"><?php echo Ai1ec_Time_Utility::date_i18n( 'M', $timestamp, true ) ?></span>
-									<span class="ai1ec-day"><?php echo Ai1ec_Time_Utility::date_i18n( 'j', $timestamp, true ) ?></span>
+									<div class="ai1ec-month"><?php echo Ai1ec_Time_Utility::date_i18n( 'M', $timestamp, true ); ?></div>
+                  <div class="ai1ec-day"><?php echo Ai1ec_Time_Utility::date_i18n( 'j', $timestamp, true ); ?></div>
+									<div class="ai1ec-weekday"><?php echo Ai1ec_Time_Utility::date_i18n( 'D', $timestamp, true ); ?></div>
+                  <?php if ( $show_year_in_agenda_dates ) : ?>
+                    <div class="ai1ec-year"><?php echo Ai1ec_Time_Utility::date_i18n( 'Y', $timestamp, true ) ?></div>
+                  <?php endif; ?>
 								</a><!--/.ai1ec-load-view-->
 							</div><!--/.ai1ec-date-block-wrap-->
 							<?php edit_post_link(
@@ -38,7 +42,7 @@
 									<?php endif; ?>
 								</span><!--/.ai1ec-event-title-->
 								<div class="ai1ec-event-time">
-									<?php echo $event->get_timespan_html( 'weekday' ); ?>
+									<?php echo $event->get_timespan_html(); ?>
 								</div>
 							</div>
 							<div class="clearfix">

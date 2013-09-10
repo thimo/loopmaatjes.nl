@@ -136,7 +136,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		$fields->LineHeight = 10;
 		$fields->LineHeightUnit = 'px';
 		$fields->Style = 'formscompressed';
-		$fields->IncludeVisitorsAddressInReplyTo = true;
+		$fields->IncludeVisitorsAddressInReplyTo = TRUE;
 
 		return parent::getEmptyObject($map, $fields);
 
@@ -242,8 +242,10 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 			return;
 		}
 		$delta = time() - intval($time);
-		$mintime = EasyContactFormsApplicationSettings::getInstance()->get('FormCompletionMinTime');
-		$maxtime = EasyContactFormsApplicationSettings::getInstance()->get('FormCompletionMaxTime');
+
+		$as = EasyContactFormsApplicationSettings::getInstance();
+		$mintime = $as->get('FormCompletionMinTime');
+		$maxtime = $as->get('FormCompletionMaxTime');
 		if ($this->processSpam(!empty($mintime) && $delta < $mintime, $map)) {
 			return;
 		}
@@ -281,7 +283,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 			return;
 		}
 		$cfe = EasyContactFormsClassLoader::getObject('CustomFormsEntries', true);
-		$cfe->set('Date', date(DATE_ATOM));
+		$cfe->set('Date', current_time('mysql'));
 		$cfe->set('CustomForms', $formid);
 		if (isset($map['form-pagename'])) {
 			$cfe->set('PageName', $map['form-pagename']);
@@ -348,6 +350,9 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 				continue;
 			}
 
+			if (!($as->get('AllowMarkupInEntries') && $fld->tid == 10)) {
+				$value = htmlspecialchars($value);
+			}
 			$validate = isset($xml->Validate) && (string) $xml->Validate == 'on';
 			if ($clientemail == '' && $fld->tid == 5 && $validate) {
 				$clientemail = $value;
@@ -359,6 +364,9 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 			$fld = EasyContactFormsClassLoader::getObject('CustomFormFields', true, $fld->id);
 			$phase = (object) array('index' => 6);
 			include $fld->getTMPFileName('proc');
+			if (isset($fld->_skip) && $fld->_skip === TRUE) {
+				continue;
+			}
 			$d = $this->getTemplateTag($fld->get('Description'), $fld->get('id'));
 			$d = trim($d, '{}');
 			$emessagedata->$d = $displayvalue;
@@ -393,8 +401,9 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		}
 		$text->addAttribute('class', 'ufo-form-envelope');
 		$this->doEmailing($text->asCHTML(), $emessagedata, $clientemail, $clientid, $attachments);
-		$this->set('TotalEntries', $this->get('TotalEntries') + 1);
-		$this->save();
+		$update = (object) array();
+		$update->TotalEntries = $this->get('TotalEntries') + 1;
+		$this->update($update, $this->get('id'));
 
 	}
 
@@ -557,11 +566,26 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 	 */
 	function getAvaliableStyles() {
 
+		$current = $this->get('Style');;
+		return $this->basicGetAvaliableStyles($current);
+
+	}
+
+	/**
+	 * 	Lists installed client side form styles
+	 *
+	 * @param  $current
+	 * 
+	 *
+	 * @return
+	 * 
+	 */
+	function basicGetAvaliableStyles($current) {
+
 		$ds = DIRECTORY_SEPARATOR;
 		$styleroot = dirName(__FILE__) . $ds . 'forms' . $ds . 'styles';
 		$dirs = array();
 		$dir = dir($styleroot);
-		$current = $this->get('Style');;
 		while(($cdir = $dir->read()) !== false) {
 			if($cdir != '.' && $cdir != '..' && is_dir($styleroot . $ds . $cdir)) {
 				$selected = $cdir == $current ? ' selected' : '';
@@ -569,7 +593,9 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 			}
 		}
 		$dir->close();
-		$styleroot = ABSPATH . 'wp-content/plugins/easycontact_templates/easycontact_templates.php';
+
+		$styleroot = str_replace('easy-contact-forms', 'easycontact_templates', plugin_dir_path(__FILE__)) . 'easycontact_templates.php';
+
 		if (is_file($styleroot)) {
 			require_once $styleroot;
 			$dirs = easycontact_templates_getavaliablestyles($dirs, $current);
@@ -700,7 +726,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 				$html = array();
 				$html[] = $form->loadStyle();
 				if (!$form->isEmpty('StyleSheet')) {
-					$html[] = '<style>' . $form->get('StyleSheet') . '</style>';
+					$html[] = '<style type="text/css">' . $form->get('StyleSheet') . '</style>';
 				}
 
 				$submitsuccessclass = $form->isEmpty('SuccessMessageClass') ? 'ufo-form-submit-success' : $form->get('SuccessMessageClass');
@@ -796,15 +822,32 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		if ($this->isEmpty('Style')) {
 			return '';
 		}
-		$ds = DIRECTORY_SEPARATOR;
 		$style = $this->get('Style');
+		return $this->basicLoadStyle($style);
+
+	}
+
+	/**
+	 * 	basicLoadStyle
+	 *
+	 * @param  $style
+	 * 
+	 *
+	 * @return
+	 * 
+	 */
+	function basicLoadStyle($style) {
+
+		$ds = DIRECTORY_SEPARATOR;
 		$styleroot = dirName(__FILE__) . $ds . 'forms' . $ds . 'styles' . $ds . $style;
 		ob_start();
 		if (is_dir($styleroot)) {
 			require $styleroot . $ds . 'easy-contact-forms-getstyle.php';
 		}
 		else {
-			$styleroot = ABSPATH . 'wp-content/plugins/easycontact_templates/easycontact_templates.php';
+
+			$styleroot = str_replace('easy-contact-forms', 'easycontact_templates', plugin_dir_path(__FILE__)) . 'easycontact_templates.php';
+
 			if (is_file($styleroot)) {
 				require_once $styleroot;
 				easycontact_templates_loadstyle($style);
@@ -838,21 +881,32 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		$flds = EasyContactFormsDB::getObjects($query);
 		$varmap = is_null($pvarmap) ? array() : $pvarmap;
 		$currentuser = $this->user->id;
+
 		foreach ($flds as $fldid) {
 			$fld = EasyContactFormsClassLoader::getObject('CustomFormFields', true, $fldid->id);
 			$varmap = $this->preprocessField($fld, $varmap, !is_null($pvarmap));
 		}
 		$html = $this->get('HTML');
-		$previewflag =  isset($this->preview) && $this->preview ? '<input type="hidden" id="ufo-preview" value="true">' : '';
+
+		$previewflag =  isset($this->preview) && $this->preview ? '<input type="hidden" id="ufo-preview" value="true"/>' : '';
+
 		$html = str_replace('{preview}', $previewflag, $html);
-		$pagename = isset($this->pageName) ? $this->pageName : '';
-		$html = str_replace('{__pagename}', $pagename, $html);
+
 		foreach ($varmap as $key=>$value){
 			if (!is_string($value)) {
 				continue;
 			}
 			$html = str_replace('{' . $key. '}', $value, $html);
 		}
+
+		$as = EasyContactFormsApplicationSettings::getInstance();
+		if ($as->get('w3cCompliant')) {
+			$html = str_replace('{__requesturi}', htmlspecialchars($_SERVER['REQUEST_URI']), $html);
+		}
+
+		$pagename = isset($this->pageName) ? $this->pageName : '';
+		$html = str_replace('{__pagename}', $pagename, $html);
+
 		$time = time();
 		$sign = md5(EasyContactFormsSecurityManager::getServerPwd() . '' . $time) . '' . $time;
 		$html = str_replace('{ufosignature}', $sign, $html);
@@ -1216,7 +1270,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 					if (!$this->isEmpty('ConfirmationReplyToName')) {
 						$message->replyto->name = $this->get('ConfirmationReplyToName');
 						if (empty($sender->name)) {
-							
+							$sender->name = $this->get('ConfirmationReplyToName');
 						}
 					}
 					if (!$this->isEmpty('ConfirmationReplyToAddress')) {
@@ -1274,8 +1328,8 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 				$fake = (object) array();
 				$fake->subject = '';
 				$fake->body = $this->get('ReplyToNameTemplate');
-				$fake = EasyContactFormsBackOffice::fillInTemplate($fake, $emessagedata);;
-				$message->replyto->name = $fake->body;
+				$fake = EasyContactFormsBackOffice::fillInTemplate($fake, $emessagedata);
+				$message->replyto->name = htmlspecialchars_decode($fake->body);
 			}
 		}
 		$sender = (object) array();
@@ -1340,12 +1394,14 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 
 		$index .= "<script type='text/javascript' src='" . EASYCONTACTFORMS__engineWebAppDirectory . "/js/jquery.js'></script>";
 
+		$index .= "<script type='text/javascript' src='" . EASYCONTACTFORMS__engineWebAppDirectory . "/js/json.js'></script>";
+
 		$index .= "<script type='text/javascript' src='" . EASYCONTACTFORMS__engineWebAppDirectory . "/js/as.js'></script>";
 
-		$index .= "<script type='text/javascript' src='" . EASYCONTACTFORMS__engineWebAppDirectory . "/easy-contact-formshtml.1.4.2.js'></script>";
+		$index .= "<script type='text/javascript' src='" . EASYCONTACTFORMS__engineWebAppDirectory . "/easy-contact-formshtml.1.4.7.js'></script>";
 
 		$index .= "<script>$(document).ready(function(){ufoCf.refreshForm(this, {$fid});});</script>";
-		$index .= "<style>";
+		$index .= "<style type='text/css'>";
 		$index .= "*{margin:0;padding:0}";
 		$index .= "html, body {height:100%;width:100%;overflow:hidden}";
 		$index .= "table {height:100%;width:100%;table-layout:static;border-collapse:collapse}";
@@ -1420,9 +1476,15 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		$form->user = EasyContactFormsSecurityManager::getGuest();
 		$form->preview = true;
 		$html = $form->preprocess();
+
 		$text = array();
 
-		$text[] = "<script type='text/javascript' src='" . EASYCONTACTFORMS__engineWebAppDirectory . "/easy-contact-forms-forms.1.4.2.js'></script>";
+		$as = EasyContactFormsApplicationSettings::getInstance();
+		if ($as->get('w3cCompliant') && !$as->isEmpty('w3cStyle')) {
+			$text[] = $form->basicLoadStyle($as->get('w3cStyle'));
+		}
+
+		$text[] = "<script type='text/javascript' src='" . EASYCONTACTFORMS__engineWebAppDirectory . "/easy-contact-forms-forms.1.4.7.js'></script>";
 
 		$text[] = "<table align=center style='height:100%'><tr>";
 		$text[] = "<td style='padding-top:50px;vertical-align:top'>";
@@ -1467,7 +1529,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 	 *
 	 * @param  $array
 	 * 
-	 * @param  $___stylespec
+	 * @param  &$stylespec
 	 * 
 	 * @param  $phase
 	 * 
@@ -1599,7 +1661,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 					ON
 						FieldSetListPosition.id=CustomFormFields.FieldSet
 			WHERE
-				CustomFormFields.CustomForms=$cf
+				CustomFormFields.CustomForms='$cf'
 			ORDER BY
 				FieldSetListPosition,
 				Container DESC,
@@ -1617,9 +1679,12 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		$containercf = '';
 		$containerbottominside = '';
 		$iscontainer = false;
+		$as = EasyContactFormsApplicationSettings::getInstance();
+		$w3c = $as->get('w3cCompliant');
 
 		$vjs = array();
 		$items = array();
+		$ufovalidators = FALSE;
 		foreach ($fields as $fld) {
 		$fld = EasyContactFormsClassLoader::getObject('CustomFormFields', true, $fld->id);
 		$phase = (object) array('index' => 8);
@@ -1739,22 +1804,25 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		if (!$form->isEmpty('MessageDelay')) {
 			$html[] = "ecfconfig[{$cf}].messageDelay='" . $form->get('MessageDelay') . "';";
 		}
-
-		$ajaxurl = EasyContactFormsApplicationSettings::getInstance()->get('FixStatus0') ? home_url('wp-admin/admin-ajax.php') : admin_url('admin-ajax.php');
-
+		$ajaxurl = $as->get('FixStatus0') ? home_url('wp-admin/admin-ajax.php') : admin_url('admin-ajax.php');
+		$ajaxurl = $as->get('FixStatus02') ? '/wp-admin/admin-ajax.php' : $ajaxurl;
 		$html[] = "var ufobaseurl =  '{$ajaxurl}';";
 
 		$html[] = "if (typeof(ufoFormsConfig) == 'undefined') {var ufoFormsConfig = {};ufoFormsConfig.submits = [];ufoFormsConfig.resets = [];ufoFormsConfig.validations = [];}";
 
-		$as = EasyContactFormsApplicationSettings::getInstance();
 		if (!$as->isEmpty('PhoneRegEx')) {
 			$html[] = "ufoFormsConfig.phonenumberre = /^" . $as->get('PhoneRegEx') . "/;";
 		}
+		if ($as->get('w3cCompliant')) {
+			$html[] = "ufoFormsConfig.w2c=true;";
+		}
 		$html[] = "</script>";
-		$html[] = $form->loadStyle();
-		$stylesheet = $form->getStyle();
-		if (!empty($stylesheet)) {
-			$html[] = "<style>{$stylesheet}</style>";
+		if (!$as->get('w3cCompliant')) {
+			$html[] = $form->loadStyle();
+			$stylesheet = $form->getStyle();
+			if (!empty($stylesheet)) {
+				$html[] = "<style type='text/css'>{$stylesheet}</style>";
+			}
 		}
 		$formclass = array();
 		$formclass[] = 'ufo-form';
@@ -1777,16 +1845,28 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 			$formstyle = '';
 		}
 		$html[] = "<div{$formclass}{$formstyle} id='ufo-form-id-$cf'>";
-		$html[] = "<noscript><form method='POST'><input type='hidden' name='cf-no-script' value='1'></noscript>";
-		$html[] = "<input type='hidden' value='ufo-form-id-$cf' name='hidden-$cf' id='ufo-form-hidden-$cf'>";
-		$html[] = "<input type='hidden' value='{__pagename}' name='ufo-form-pagename' id='ufo-form-pagename'>";
+		if ($as->get('w3cCompliant')) {
+
+			$html[] = "<form method='post' action='{__requesturi}'><input type='hidden' id='cf-no-script-{$cf}' name='cf-no-script' value='1'/>";
+
+		}
+		else {
+			$html[] = "<noscript><form method='post'><input type='hidden' name='cf-no-script' value='1'/></noscript>";
+		}
+		$html[] = "<input type='hidden' value='ufo-form-id-$cf' name='hidden-$cf' id='ufo-form-hidden-$cf'/>";
+		$html[] = "<input type='hidden' value='{__pagename}' name='ufo-form-pagename' id='ufo-form-pagename'/>";
 		$html[] = "{preview}";
-		$html[] = "<input type='hidden' value='{ufosignature}' name='ufo-sign' id='ufo-sign'>";
+		$html[] = "<input type='hidden' value='{ufosignature}' name='ufo-sign' id='ufo-sign'/>";
 		$html = $form->templateHTML($html, $stylespec, 1);
 		$html[] = $rows;
 		$html = $form->templateHTML($html, $stylespec, 3);
 		$html[] = "<div id='ufo-form-id-$cf-message'></div>";
-		$html[] = "<noscript></form></noscript>";
+		if ($as->get('w3cCompliant')) {
+			$html[] = "</form>";
+		}
+		else {
+			$html[] = "<noscript></form></noscript>";
+		}
 		$html[] = "</div>";
 		if (count($vjs) > 0) {
 			$html[] = '<script type="text/javascript">' . implode('', $vjs) . '</script>';
@@ -1818,6 +1898,8 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 	 */
 	function addRow($rows, $center, $left, $right, $fldid, $rowindex) {
 
+		$as = EasyContactFormsApplicationSettings::getInstance();
+		$wrappertag = $as->get('w3cCompliant') ? 'div' : 'span';
 		$prefix = 'ufo-cell';
 		$centerclass = $prefix.'-center';
 		$leftclass = $prefix.'-left';
@@ -1829,7 +1911,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		}
 		$width = $center->width != '' ? " style='width:{$center->width}'" : '';
 		$center = implode('', $center->list);
-		$center = "<span class='{$centerclass}'{$width} id='{$cellspec}-center'>{$center}</span>";
+		$center = "<{$wrappertag} class='{$centerclass}'{$width} id='{$cellspec}-center'>{$center}</{$wrappertag}>";
 		if (!$left) {
 			$left = '';
 		}
@@ -1840,7 +1922,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 			else {
 				$left = "<p style='display:none'></p>";
 			}
-			$left = "<span class='{$leftclass}' id='{$cellspec}-left'>{$left}</span>";
+			$left = "<{$wrappertag} class='{$leftclass}' id='{$cellspec}-left'>{$left}</{$wrappertag}>";
 		}
 		if (!$right) {
 			$right = '';
@@ -1852,7 +1934,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		else {
 			$right = "<p style='display:none'></p>";
 		}
-			$right = "<span class='{$rightclass}' id='{$cellspec}-right'>{$right}</span>";
+			$right = "<{$wrappertag} class='{$rightclass}' id='{$cellspec}-right'>{$right}</{$wrappertag}>";
 		}
 
 		$rows[] = "<div class='{$cellspec}-row' id='{$cellspec}'>" . $left . $center . $right . "</div>";
@@ -2028,6 +2110,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 
 		$obj->RedirectChecked = $obj->get('Redirect') ? 'checked' : '';
 		$obj->Redirect = $obj->get('Redirect') ? 'on' : 'off';
+		$obj->RedirectURLDisabled = $obj->get('Redirect') ? '' : 'disabled';
 
 		$obj->set('RedirectURL', htmlspecialchars($obj->get('RedirectURL'), ENT_QUOTES));
 
@@ -2039,6 +2122,8 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 			= $obj->get('ShowSubmissionSuccess') ? 'checked' : '';
 		$obj->ShowSubmissionSuccess
 			= $obj->get('ShowSubmissionSuccess') ? 'on' : 'off';
+		$obj->SubmissionSuccessTextDisabled
+			= $obj->get('ShowSubmissionSuccess') ? '' : 'disabled';
 
 		$obj->set('SubmissionSuccessText', htmlspecialchars($obj->get('SubmissionSuccessText')));
 		$obj->set('NotificationSubject', htmlspecialchars($obj->get('NotificationSubject'), ENT_QUOTES));
@@ -2136,7 +2221,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomForms'><?php
 
-		require_once 'views/easy-contact-forms-customformsmainview.php';
+		include 'views/easy-contact-forms-customformsmainview.php';
 
 	}
 
@@ -2175,7 +2260,7 @@ class EasyContactFormsCustomForms extends EasyContactFormsBase {
 		$obj = $this;
 		?><input type='hidden' name='t' id='t' value='CustomForms'><?php
 
-		require_once 'views/easy-contact-forms-customformsmanagemainview.php';
+		include 'views/easy-contact-forms-customformsmanagemainview.php';
 
 	}
 

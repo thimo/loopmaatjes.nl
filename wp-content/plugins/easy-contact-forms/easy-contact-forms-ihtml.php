@@ -41,7 +41,7 @@ class EasyContactFormsIHTML {
 
 		$value = empty($value) ? '&nbsp;' : $value . $suffix;
 		$cut = isset($length) && strlen($value) > $length;
-		$value = ( $cut) ? substr($value, 0, $length) . '...' : $value;
+		$value = $cut ? substr($value, 0, $length) . '...' : $value;
 		echo $value;
 
 	}
@@ -225,11 +225,13 @@ class EasyContactFormsIHTML {
 		$bclass = isset($p->bclass) ? $p->bclass : 'button';
 		$iclass = isset($p->iclass) ? $p->iclass : ' class = "internalbutton" ';
 		$label = isset($p->label) ? $p->label : '';
-		$title = isset($p->title) ? ' title = "' . $p->title . '"' : '';
-		$events = isset($p->events) ? ' ' . $p->events : '';
+		$removeevents = isset($p->removeevents) && $p->removeevents === TRUE;
+		$title = isset($p->title) && !$removeevents ? ' title = "' . $p->title . '"' : '';
+		$events = isset($p->events) && !$removeevents ? ' ' . $p->events : '';
+		$disabledclass = $removeevents ? ' button-disabled' : '';
 		$id = isset($p->id) ? ' id = "' . $p->id . '"' : '';
 		?>
-		<span class = '<?php echo $bclass;?>'>
+		<span class = '<?php echo $bclass . $disabledclass;?>'>
 			<span>
 				<a<?php echo $id . $iclass . $title . $events;?>>
 					<?php echo $label;?>
