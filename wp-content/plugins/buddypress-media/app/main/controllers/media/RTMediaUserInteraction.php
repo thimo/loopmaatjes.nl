@@ -245,9 +245,8 @@ class RTMediaUserInteraction {
 		if(empty($this->media)){
 			$this->init();
 		}
-
+                
 		if($this->interactor_privacy >=$this->privacy){
-
 			$result = $this->process();
 		}
 
@@ -264,10 +263,7 @@ class RTMediaUserInteraction {
 	 * @return integer New count
 	 */
 	function process() {
-
 		return $false;
 	}
 
 }
-
-?>

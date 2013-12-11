@@ -13,9 +13,10 @@
 
 		<?php if(has_post_thumbnail() && $gp_settings['image_wrap'] == "Disable" && $gp_settings['show_image'] == "Show") { ?>
 			<div class="post-thumbnail single-thumbnail">
-				<?php $image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)),  $gp_settings['image_width'], $gp_settings['image_height'], true, true); ?>
-				<?php if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)),  $gp_settings['image_width']*2, $gp_settings['image_height']*2, true, true); } else { $retina = ""; } ?>
-				<img src="<?php echo $image; ?>" data-rel="<?php echo $retina; ?>" style="width: <?php echo $gp_settings['image_width']; ?>px;<?php if($gp_settings['hard_crop'] == "Enable") { ?> height: <?php echo $gp_settings['image_height']; ?>px;<?php } ?>" alt="<?php if(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) { echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); } else { echo get_the_title(); } ?>" />				
+				<?php $image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)),  $gp_settings['image_width'], $gp_settings['image_height'], true, true, true); ?>
+				<?php if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)),  $gp_settings['image_width']*2, $gp_settings['image_height']*2, true, true, true); } else { $retina = ""; } ?>
+				<img src="<?php echo $image; ?>" data-rel="<?php echo $retina; ?>" width="<?php echo $gp_settings['image_width']; ?>" height="<?php echo $gp_settings['image_height']; ?>" 
+				style="width: <?php echo $gp_settings['image_width']; ?>px;<?php if($gp_settings['hard_crop'] == "Enable") { ?> height: <?php echo $gp_settings['image_height']; ?>px;<?php } ?>" alt="<?php if(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) { echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); } else { echo get_the_title(); } ?>" />				
 			</div>
 		<?php } ?>
 		
@@ -26,6 +27,9 @@
 							
 		<div class="padder<?php if(has_post_thumbnail() && $gp_settings['image_wrap'] == "Disable" && $gp_settings['show_image'] == "Show") { ?> content-post-thumbnail<?php } ?>">
 
+<?php if ( function_exists('yoast_breadcrumb') ) {
+yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+} ?>
 
 			<!-- BEGIN TITLE -->
 
@@ -66,9 +70,9 @@
 			
 					<?php if(has_post_thumbnail() && $gp_settings['image_wrap'] == "Enable" && $gp_settings['show_image'] == "Show") { ?>
 						<div class="post-thumbnail wrap">
-							<?php $image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)),  $gp_settings['image_width'], $gp_settings['image_height'], true, true); ?>
-							<?php if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)),  $gp_settings['image_width']*2, $gp_settings['image_height']*2, true, true); } else { $retina = ""; } ?>
-							<img src="<?php echo $image; ?>" data-rel="<?php echo $retina; ?>" style="width: <?php echo $gp_settings['image_width']; ?>px;<?php if($gp_settings['hard_crop'] == "Enable") { ?> height: <?php echo $gp_settings['image_height']; ?>px;<?php } ?>" alt="<?php if(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) { echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); } else { echo get_the_title(); } ?>" />				
+							<?php $image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)),  $gp_settings['image_width'], $gp_settings['image_height'], true, true, true); ?>
+							<?php if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)),  $gp_settings['image_width']*2, $gp_settings['image_height']*2, true, true, true); } else { $retina = ""; } ?>
+							<img src="<?php echo $image; ?>" data-rel="<?php echo $retina; ?>" width="<?php echo $gp_settings['image_width']; ?>" height="<?php echo $gp_settings['image_height']; ?>" style="width: <?php echo $gp_settings['image_width']; ?>px;<?php if($gp_settings['hard_crop'] == "Enable") { ?> height: <?php echo $gp_settings['image_height']; ?>px;<?php } ?>" alt="<?php if(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) { echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); } else { echo get_the_title(); } ?>" />				
 						</div>
 					<?php } ?>
 					

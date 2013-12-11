@@ -6,6 +6,8 @@ function gp_contact_form($atts, $content = null) {
 	extract(shortcode_atts(array(
 		'email' => ''
 	),$atts));
+
+	wp_enqueue_script('gp-contact-init');	
 	
 	global $post;
 	

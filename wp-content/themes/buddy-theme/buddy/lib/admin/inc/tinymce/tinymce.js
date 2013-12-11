@@ -41,7 +41,7 @@ function insertgpLink() {
 
 		// Activity Streams
 		if (styleid != 0 && styleid == 'activity') {
-			tagtext = '['+ styleid + ' header="Latest Activity" per_page="5" comments="threaded" order="desc" pagination="true"]';	
+			tagtext = '['+ styleid + ' header="Latest Activity" per_page="5" comments="threaded" allow_comments="false" order="desc" pagination="true"]';	
 		}
 				
 		// Author Info
@@ -123,7 +123,7 @@ function insertgpLink() {
 		
 		// Posts
 		if (styleid != 0 && styleid == 'posts') {
-			tagtext = '['+ styleid + ' content="post" cats="" ids="" images="true" image_width="200" image_height="150" image_wrap="true" hard_crop="false" cols="1" per_page="5" link="both" orderby="date" order="desc" offset="0" content_display="excerpt" excerpt_length="400" title="true" title_size="" title_font="" meta="true" read_more="true" pagination="true" preload="false" spacing="spacing-normal" header=""]';	
+			tagtext = '['+ styleid + ' content="post" cats="" ids="" images="true" image_width="200" image_height="150" image_wrap="true" hard_crop="false" cols="1" per_page="5" link="both" orderby="date" order="desc" offset="0" content_display="excerpt" excerpt_length="700" title="true" title_size="" title_font="" meta="true" read_more="true" pagination="true" preload="false" spacing="spacing-normal" header=""]';	
 		}
 
 		// Register Form
@@ -143,7 +143,7 @@ function insertgpLink() {
 
 		// Slider
 		if (styleid != 0 && styleid == 'slider') {
-			tagtext = '['+ styleid + ' name="slider" content="slide" cats="" ids="" width="670" height="280" hard_crop="false" slides="-1" timeout="6" orderby="menu_order" order="asc" buttons="true" shadow="true" margins="" align="aligncenter" preload="false"]';	
+			tagtext = '['+ styleid + ' content="slide" cats="" ids="" width="670" height="280" hard_crop="false" slides="-1" timeout="6" orderby="menu_order" order="asc" buttons="true" shadow="true" content_display="excerpt" excerpt_length="0" title="true" title_length="40" margins="" align="aligncenter" preload="false"]';	
 		}
 				
 		// Tabs
@@ -164,7 +164,7 @@ function insertgpLink() {
 		
 		// Video
 		if (styleid != 0 && styleid == 'video') {
-			tagtext = '['+ styleid + ' name="video" url="" html5_1="" html5_2="" priority="flash" image="" width="560" height="315" align="alignnone" controlbar="bottom" autostart="false" stretching="fill" icons="true"]';	
+			tagtext = '['+ styleid + ' url="" html5_1="" html5_2="" priority="flash" image="" width="560" height="315" align="alignnone" controlbar="bottom" autostart="false" stretching="fill" icons="true"]';	
 		}
 		
 		// Columns

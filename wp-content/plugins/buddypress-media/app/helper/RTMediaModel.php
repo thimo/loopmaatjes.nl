@@ -37,7 +37,7 @@ class RTMediaModel extends RTDBModel {
      */
     function get ( $columns, $offset = false, $per_page = false, $order_by = 'media_id desc' ) {
         global $wpdb;
-        $select = "SELECT * FROM {$this->table_name}";
+        $select = "SELECT {$this->table_name}.* FROM {$this->table_name}";
         $join = "";
         $where = " where 2=2 ";
         $temp = 65;
@@ -48,7 +48,7 @@ class RTMediaModel extends RTDBModel {
                         $meta_query[ "compare" ] = "=";
                     }
                     $tbl_alias = chr ( $temp ++  );
-                    $join .= " LEFT JOIN {$wpdb->prefix}{$this->meta_table_name} {$tbl_alias} ON {$this->table_name}.id = {$tbl_alias}.media_id ";
+                    $join .= " LEFT JOIN {$wpdb->prefix}{$this->meta_table_name} as {$tbl_alias} ON {$this->table_name}.id = {$tbl_alias}.media_id ";
                     if ( isset ( $meta_query[ "value" ] ) )
                         $where .= " AND  ({$tbl_alias}.meta_key = '{$meta_query[ "key" ]}' and  {$tbl_alias}.meta_value  {$meta_query[ "compare" ]}  '{$meta_query[ "value" ]}' ) ";
                     else
@@ -70,12 +70,13 @@ class RTMediaModel extends RTDBModel {
                     $where .= " AND {$this->table_name}.{$colname} = '{$colvalue}'";
             }
         }
+        $qorder_by = " ORDER BY {$this->table_name}.$order_by";
 
+        $join = apply_filters ( 'rtmedia-model-join-query', $join, $this->table_name );
         $where = apply_filters ( 'rtmedia-model-where-query', $where, $this->table_name );
-        $sql = $select . $join . $where;
+        $qorder_by = apply_filters ( 'rtmedia-model-order-by-query', $qorder_by, $this->table_name );
 
-        $sql .= " ORDER BY {$this->table_name}.$order_by";
-
+        $sql = $select . $join . $where .$qorder_by;
         if ( is_integer ( $offset ) && is_integer ( $per_page ) ) {
             $sql .= ' LIMIT ' . $offset . ',' . $per_page;
         }
@@ -202,7 +203,7 @@ class RTMediaModel extends RTDBModel {
                     } else {
 
                         if ( $colname == "context" && $colvalue == "profile" ) {
-                            //   $query .= " AND {$this->table_name}.{$colname} <> 'group'";
+                               $query .= " AND {$this->table_name}.{$colname} <> 'group'";
                         } else {
                             $query .= " AND {$this->table_name}.{$colname} = '{$colvalue}'";
                         }

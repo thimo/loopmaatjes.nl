@@ -180,7 +180,7 @@ function gp_slide_meta_boxes() {
 		
 		'_'.$dirname.'_slide_title' => array('name' => '_'.$dirname.'_slide_title', 'title' => __('Hide Slide Caption Title', 'gp_lang'), 'desc' => __('Hide the slide caption title.', 'gp_lang'), 'type' => 'checkbox'),
 
-		'_'.$dirname.'_slide_caption_type' => array('name' => '_'.$dirname.'_slide_caption_position', 'title' => __('Caption Position', 'gp_lang'), 'desc' => __('Choose the caption position.', 'gp_lang'), 'options' => array('caption-topleft' => __('Top Left', 'gp_lang'), 'caption-topright' => __('Top Right', 'gp_lang'), 'caption-bottomleft' => __('Bottom Left', 'gp_lang'), 'caption-bottomright' => __('Bottom Right', 'gp_lang')), 'type' => 'select', 'std' => 'caption-bottomright'),
+		'_'.$dirname.'_slide_caption_position' => array('name' => '_'.$dirname.'_slide_caption_position', 'title' => __('Caption Position', 'gp_lang'), 'desc' => __('Choose the caption position.', 'gp_lang'), 'options' => array('caption-topleft' => __('Top Left', 'gp_lang'), 'caption-topright' => __('Top Right', 'gp_lang'), 'caption-bottomleft' => __('Bottom Left', 'gp_lang'), 'caption-bottomright' => __('Bottom Right', 'gp_lang')), 'type' => 'select', 'std' => 'caption-bottomright'),
 							
 	array('type' => 'close'),
 	array('type' => 'clear'),	
@@ -438,7 +438,7 @@ extract($args); global $post; ?>
 		<?php $image_url = site_url().'/wp-includes/images/crystal/video.png';
 		$args = array('post_type' => 'attachment', 'post_parent' => $post->ID, 'numberposts' => -1, 'orderby' => 'date', 'order' => 'desc', 'post__not_in' => array(get_post_thumbnail_id())); $attachments = get_children($args); ?>		
 		<?php if($attachments) { foreach ($attachments as $attachment) { ?>
-			<?php if($attachment->post_mime_type == 'image/jpeg' OR $attachment->post_mime_type == 'image/jpg' OR $attachment->post_mime_type == 'image/png' OR $attachment->post_mime_type == 'image/gif') { $image = aq_resize(wp_get_attachment_url($attachment->ID), 50, 50, true, true); } else { $image = site_url().'/wp-includes/images/crystal/video.png'; } ?>
+			<?php if($attachment->post_mime_type == 'image/jpeg' OR $attachment->post_mime_type == 'image/jpg' OR $attachment->post_mime_type == 'image/png' OR $attachment->post_mime_type == 'image/gif') { $image = aq_resize(wp_get_attachment_url($attachment->ID), 100, 100, true, true, true); } else { $image = site_url().'/wp-includes/images/crystal/video.png'; } ?>
 			<img src="<?php echo $image; ?>" width="50" height="50" alt="" style="margin-top: 5px;" />
 		<?php }} ?>		
 		<input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
@@ -469,7 +469,7 @@ if(is_admin() && ($pagenow == "post.php" OR $pagenow == "post-new.php")) {
 		wp_enqueue_style('admin', get_template_directory_uri().'/lib/admin/css/admin.css');
 		wp_enqueue_style('wp-color-picker');
 		wp_enqueue_script('wp-color-picker');
-		if(function_exists('wp_enqueue_media')) { wp_enqueue_media(); }
+		if(!has_action('admin_footer', 'wp_print_media_templates')) wp_enqueue_media();
 		wp_enqueue_script('uploader', get_template_directory_uri().'/lib/admin/scripts/uploader.js');
 	}	
 	add_action('admin_print_scripts', 'gp_admin_scripts');
@@ -478,25 +478,19 @@ if(is_admin() && ($pagenow == "post.php" OR $pagenow == "post-new.php")) {
 function gp_save_meta_data($post_id) {
 	global $post;
 
-	if(isset($_POST['post_type']) && 'page' == $_POST['post_type'])
-		$meta_boxes = array_merge(gp_page_meta_boxes());
-	elseif(isset($_POST['post_type']) && 'post' == $_POST['post_type'])
-		$meta_boxes = array_merge(gp_post_meta_boxes());	
+	if(isset($_POST['post_type']) && 'post' == $_POST['post_type'])
+		$meta_boxes = array_merge(gp_post_meta_boxes());
+	elseif(isset($_POST['post_type']) && 'slide' == $_POST['post_type'])
+		$meta_boxes = array_merge(gp_slide_meta_boxes());	
 	else
-		$meta_boxes = array_merge(gp_slide_meta_boxes());
+		$meta_boxes = array_merge(gp_page_meta_boxes());
 				
 	foreach ($meta_boxes as $meta_box) :
 
 		if(!wp_verify_nonce($_POST[$meta_box['name'] . '_noncename'], plugin_basename(__FILE__)))
 			return $post_id;
 
-		if(isset($_POST['post_type']) && 'page' == $_POST['post_type'] && !current_user_can('edit_page', $post_id))
-			return $post_id;
-
-		elseif(isset($_POST['post_type']) && 'post' == $_POST['post_type'] && !current_user_can('edit_post', $post_id))
-			return $post_id;
-
-		elseif(isset($_POST['post_type']) && 'slide' == $_POST['post_type'] && !current_user_can('edit_post', $post_id))
+		if(!current_user_can('edit_post', $post_id))
 			return $post_id;
 						
 		$data = stripslashes($_POST[$meta_box['name']]);

@@ -4,20 +4,24 @@
 
 function gp_activity($atts, $content = null) {
 	extract(shortcode_atts(array(
+        'header' => 'Latest Activity',
+        'scope' => '',
         'per_page' => '5',
         'comments' => 'threaded',
+        'allow_comments' => 'false',
         'order' => 'desc',
         'pagination' => 'true',
-        'header' => 'Latest Activity'
+        'max' => '',
+        'user_id' => ''
     ), $atts));
 	
 	ob_start(); ?>
 	
-	<?php if(function_exists('bp_is_active')) { ?>
+	<?php if(function_exists('bp_is_active') && bp_is_active('activity')) { ?>
 			
 		<?php if($header) { ?><h3 class="post-header"><?php echo $header; ?></h3><?php } ?>
 			
-		<div class="bp-wrapper gp-activity-stream activity post-wrapper<?php if($comments == "none") { ?> hide-activity-comments<?php } ?>">
+		<div class="bp-wrapper gp-activity-stream activity post-wrapper<?php if($allow_comments == "true") { ?> gp-allow-comments<?php } ?>">
 	
 			<?php 
 			
@@ -25,7 +29,7 @@ function gp_activity($atts, $content = null) {
 			
 			do_action( 'bp_before_activity_loop' ); ?>
 			
-			<?php if ( bp_has_activities("per_page=$per_page&display_comments=$comments&sort=$order")  ) : ?>
+			<?php if ( bp_has_activities("scope=$scope&per_page=$per_page&display_comments=$comments&sort=$order&max=$max&user_id=$user_id")  ) : ?>
 			
 				<?php if ( empty( $_POST['page'] ) ) : ?>
 			
@@ -38,22 +42,22 @@ function gp_activity($atts, $content = null) {
 					<?php include( TEMPLATEPATH.'/activity/entry.php' ); ?>
 			
 				<?php endwhile; ?>
-				
+
+				<?php if ( empty( $_POST['page'] ) ) : ?>
+							
+					</ul>
+						
+				<?php endif; ?>
+		
 				<?php if($pagination == 'true') : ?>
-				
+			
 					<div class="wp-pagenavi cat-navi">
 						<div class="pages"><?php bp_activity_pagination_count(); ?></div>
 						<div class="pagination-links"><?php bp_activity_pagination_links(); ?></div>
 					</div>
-			
+		
 				<?php endif; ?>
-			
-				<?php if ( empty( $_POST['page'] ) ) : ?>
-			
-					</ul>
-			
-				<?php endif; ?>
-			
+				
 			<?php else : ?>
 			
 				<div id="message" class="info">
@@ -64,7 +68,7 @@ function gp_activity($atts, $content = null) {
 			
 			<?php do_action( 'bp_after_activity_loop' ); ?>
 			
-			<form action="" name="activity-loop-form" id="activity-loop-form" method="post">
+			<form name="activity-loop-form" id="activity-loop-form" method="post">
 			
 				<?php wp_nonce_field( 'activity_filter', '_wpnonce_activity_filter' ); ?>
 			

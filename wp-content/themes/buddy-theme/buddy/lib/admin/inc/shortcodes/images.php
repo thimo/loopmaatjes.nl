@@ -119,10 +119,12 @@ function gp_image($atts, $content = null) {
 
 	// Image URL
 	
+	if(!preg_match("/http:/", $url) && !preg_match("/https:/", $url)) { $url = site_url().'/'.$url; }
+	
 	if($width OR $height) {
-		$url = aq_resize($url, $width, $height, true, true);
+		$url = aq_resize($url, $width, $height, true, true, true);
 	} else {
-		if(!preg_match("/http:/", $url) && !preg_match("/https:/", $url)) { $url = site_url().'/'.$url; }
+		$url = $url;
 	}		
 		
 	return '
@@ -131,7 +133,7 @@ function gp_image($atts, $content = null) {
 		
 		'.$lightbox_hover.'
 		
-		<img src="'.$url.'" alt="'.$alt.'" style="width: '.$width.'px; height: '.height.'px;" />'.$link2.'
+		<img src="'.$url.'" alt="'.$alt.'" width="'.$width.'" height="'.$height.'" style="width: '.$width.'px; height: '.$height.'px;" />'.$link2.'
 		
 	</div>
 	

@@ -20,11 +20,13 @@
 					
 		<?php if(is_active_sidebar($gp_settings['sidebar_right'])) { ?>
 	
+	
 			<!-- BEGIN SELECTED WIDGETS -->
 
 			<?php dynamic_sidebar($gp_settings['sidebar_right']); ?>
 
 			<!-- END SELECTED WIDGETS -->						
+
 
 		<?php } else { ?>
 				

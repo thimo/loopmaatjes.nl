@@ -2,16 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-02 18:07-0000\n"
-"PO-Revision-Date: 2013-04-02 18:07-0000\n"
+"POT-Creation-Date: 2013-09-12 15:09-0000\n"
+"PO-Revision-Date: 2013-09-12 15:09-0000\n"
 "Last-Translator: GhostPool\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
 "X-Poedit-Basepath: ./\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.7\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../404.php:16
@@ -33,7 +34,7 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
-#: ../comments.php:32 ../activity/comment.php:37
+#: ../comments.php:32 ../activity/comment.php:40
 #: ../groups/single/forum/edit.php:10
 msgid "Reply"
 msgstr ""
@@ -58,28 +59,89 @@ msgstr ""
 msgid "Comments are now closed on this post."
 msgstr ""
 
-#: ../footer.php:80
+#: ../comments.php:78
+msgid "Leave a Reply"
+msgstr ""
+
+#: ../comments.php:79
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: ../comments.php:80
+msgid "Cancel Reply"
+msgstr ""
+
+#: ../comments.php:81
+msgid "Post Comment"
+msgstr ""
+
+#: ../comments.php:83 ../lib/admin/inc/shortcodes/contact-form.php:68
+msgid "Comment"
+msgstr ""
+
+#: ../comments.php:85
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+
+#: ../comments.php:87
+#, php-format
+msgid ""
+"Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of "
+"this account\">Log out?</a>"
+msgstr ""
+
+#: ../comments.php:89
+msgid "Your email address will not be published."
+msgstr ""
+
+#: ../comments.php:91
+#, php-format
+msgid ""
+"You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags "
+"and attributes: %s"
+msgstr ""
+
+#: ../comments.php:95 ../lib/admin/inc/custom-sidebars/views/edit.php:36
+#: ../lib/admin/inc/custom-sidebars/views/settings.php:16
+#: ../lib/admin/inc/custom-sidebars/views/settings.php:54
+#: ../lib/admin/inc/shortcodes/contact-form.php:36
+#: ../members/single/profile/profile-wp.php:15
+msgid "Name"
+msgstr ""
+
+#: ../comments.php:97 ../lib/admin/inc/shortcodes/contact-form.php:52
+#: ../lib/admin/inc/shortcodes/register-form.php:8
+msgid "Email"
+msgstr ""
+
+#: ../comments.php:99 ../members/single/profile/profile-wp.php:33
+msgid "Website"
+msgstr ""
+
+#: ../footer.php:81
 msgid "Copyright &copy;"
 msgstr ""
 
-#: ../footer.php:80
+#: ../footer.php:81
 msgid "GhostPool.com"
 msgstr ""
 
-#: ../footer.php:80
+#: ../footer.php:81
 msgid "All rights reserved."
 msgstr ""
 
-#: ../functions.php:171
+#: ../functions.php:174
 msgid "Main Navigation"
 msgstr ""
 
-#: ../functions.php:334 ../lib/admin/inc/theme-meta-options.php:52
+#: ../functions.php:340 ../lib/admin/inc/theme-meta-options.php:52
 #: ../lib/admin/inc/theme-meta-options.php:155
 msgid "Page"
 msgstr ""
 
-#: ../functions.php:334
+#: ../functions.php:340
 msgid "of"
 msgstr ""
 
@@ -87,7 +149,7 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: ../header.php:81 ../login.php:79
+#: ../header.php:81 ../login.php:95
 msgid "Login"
 msgstr ""
 
@@ -95,9 +157,9 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
-#: ../homepage.php:24 ../login.php:49 ../login.php:55 ../page.php:78
-#: ../page.php:84 ../single.php:78 ../single.php:84
-#: ../lib/admin/inc/shortcodes/related-posts.php:235
+#: ../homepage.php:20 ../login.php:65 ../login.php:71 ../page.php:78
+#: ../page.php:84 ../single.php:79 ../single.php:85
+#: ../lib/admin/inc/shortcodes/related-posts.php:238
 msgid "Read More &raquo;"
 msgstr ""
 
@@ -127,47 +189,49 @@ msgstr ""
 msgid "help file"
 msgstr ""
 
-#: ../login.php:64
+#: ../login.php:80
 msgid "You are already logged in."
 msgstr ""
 
-#: ../login.php:73 ../lib/admin/inc/shortcodes/login-form.php:7
+#: ../login.php:89 ../login.php:90
+#: ../lib/admin/inc/shortcodes/login-form.php:7
 #: ../lib/admin/inc/shortcodes/register-form.php:7
 #: ../registration/register.php:37
 msgid "Username"
 msgstr ""
 
-#: ../login.php:76 ../lib/admin/inc/shortcodes/login-form.php:8
+#: ../login.php:92 ../login.php:93
+#: ../lib/admin/inc/shortcodes/login-form.php:8
 msgid "Password"
 msgstr ""
 
-#: ../login.php:80
+#: ../login.php:96
 msgid "Remember Me"
 msgstr ""
 
-#: ../login.php:92 ../lib/admin/inc/shortcodes/register-form.php:27
+#: ../login.php:108 ../lib/admin/inc/shortcodes/register-form.php:23
 msgid "Register"
 msgstr ""
 
-#: ../login.php:94
+#: ../login.php:110
 msgid "Lost Password"
 msgstr ""
 
-#: ../page.php:49 ../post-loop.php:99 ../single.php:49
-#: ../lib/admin/inc/shortcodes/posts.php:239
-#: ../lib/admin/inc/shortcodes/related-posts.php:222
+#: ../page.php:49 ../post-loop.php:99 ../single.php:50
+#: ../lib/admin/inc/shortcodes/posts.php:244
+#: ../lib/admin/inc/shortcodes/related-posts.php:225
 msgid "0"
 msgstr ""
 
-#: ../page.php:49 ../post-loop.php:99 ../single.php:49
-#: ../lib/admin/inc/shortcodes/posts.php:239
-#: ../lib/admin/inc/shortcodes/related-posts.php:222
+#: ../page.php:49 ../post-loop.php:99 ../single.php:50
+#: ../lib/admin/inc/shortcodes/posts.php:244
+#: ../lib/admin/inc/shortcodes/related-posts.php:225
 msgid "1"
 msgstr ""
 
-#: ../page.php:49 ../post-loop.php:99 ../single.php:49
-#: ../lib/admin/inc/shortcodes/posts.php:239
-#: ../lib/admin/inc/shortcodes/related-posts.php:222
+#: ../page.php:49 ../post-loop.php:99 ../single.php:50
+#: ../lib/admin/inc/shortcodes/posts.php:244
+#: ../lib/admin/inc/shortcodes/related-posts.php:225
 msgid "%"
 msgstr ""
 
@@ -196,18 +260,18 @@ msgid "Load More"
 msgstr ""
 
 #: ../activity/activity-loop.php:55
-#: ../lib/admin/inc/shortcodes/activity-stream.php:60
+#: ../lib/admin/inc/shortcodes/activity-stream.php:64
 msgid "Sorry, there was no activity found. Please try a different filter."
 msgstr ""
 
-#: ../activity/comment.php:27
+#: ../activity/comment.php:30
 #, php-format
 msgid ""
 "<a href=\"%1$s\">%2$s</a> replied <a href=\"%3$s\" class=\"activity-time-"
 "since\"><span class=\"time-since\">%4$s</span></a>"
 msgstr ""
 
-#: ../activity/comment.php:43
+#: ../activity/comment.php:46
 #: ../lib/admin/inc/custom-sidebars/views/settings.php:73
 #: ../lib/admin/inc/envato-wordpress-toolkit-master/index.php:320
 #: ../members/single/messages/messages-loop.php:51
@@ -223,7 +287,8 @@ msgstr ""
 msgid "View Thread / Permalink"
 msgstr ""
 
-#: ../activity/entry.php:37 ../buddypress/functions-buddypress.php:79
+#: ../activity/entry.php:37 ../buddypress/functions-buddypress.php:63
+#: ../registration/buddypress/functions-buddypress.php:87
 msgid "View"
 msgstr ""
 
@@ -232,11 +297,13 @@ msgstr ""
 msgid "Comment <span>%s</span>"
 msgstr ""
 
-#: ../activity/entry.php:68 ../buddypress/functions-buddypress.php:80
+#: ../activity/entry.php:68 ../buddypress/functions-buddypress.php:64
+#: ../registration/buddypress/functions-buddypress.php:88
 msgid "Favorite"
 msgstr ""
 
-#: ../activity/entry.php:72 ../buddypress/functions-buddypress.php:81
+#: ../activity/entry.php:72 ../buddypress/functions-buddypress.php:65
+#: ../registration/buddypress/functions-buddypress.php:89
 msgid "Remove Favorite"
 msgstr ""
 
@@ -256,7 +323,7 @@ msgstr ""
 msgid "The public activity for everyone on this site."
 msgstr ""
 
-#: ../activity/index.php:39 ../members/index.php:33
+#: ../activity/index.php:39 ../members/index.php:35
 #, php-format
 msgid "All Members <span>%s</span>"
 msgstr ""
@@ -265,7 +332,7 @@ msgstr ""
 msgid "The activity of my friends only."
 msgstr ""
 
-#: ../activity/index.php:49 ../members/index.php:37
+#: ../activity/index.php:49 ../members/index.php:39
 #, php-format
 msgid "My Friends <span>%s</span>"
 msgstr ""
@@ -288,75 +355,70 @@ msgstr ""
 msgid "My Favorites <span>%s</span>"
 msgstr ""
 
-#: ../activity/index.php:77
+#: ../activity/index.php:79
 msgid "Activity that I have been mentioned in."
 msgstr ""
 
-#: ../activity/index.php:77
+#: ../activity/index.php:79
 msgid "Mentions"
 msgstr ""
 
-#: ../activity/index.php:77
-#, php-format
-msgid "<span>%s new</span>"
-msgstr ""
-
-#: ../activity/index.php:87 ../groups/single/activity.php:3
+#: ../activity/index.php:91 ../groups/single/activity.php:3
 msgid "RSS Feed"
 msgstr ""
 
-#: ../activity/index.php:87 ../groups/single/activity.php:3
+#: ../activity/index.php:91 ../groups/single/activity.php:3
 msgid "RSS"
 msgstr ""
 
-#: ../activity/index.php:92 ../groups/single/activity.php:8
+#: ../activity/index.php:96 ../groups/single/activity.php:8
 #: ../members/single/activity.php:18
 msgid "Show:"
 msgstr ""
 
-#: ../activity/index.php:94 ../groups/single/activity.php:10
+#: ../activity/index.php:98 ../groups/single/activity.php:10
 #: ../members/single/activity.php:20
 msgid "Everything"
 msgstr ""
 
-#: ../activity/index.php:95 ../groups/single/activity.php:11
+#: ../activity/index.php:99 ../groups/single/activity.php:11
 #: ../members/single/activity.php:21
 msgid "Updates"
 msgstr ""
 
-#: ../activity/index.php:99 ../forums/forums-loop.php:40
+#: ../activity/index.php:103 ../forums/forums-loop.php:40
 #: ../members/single/activity.php:27
 msgid "Posts"
 msgstr ""
 
-#: ../activity/index.php:100 ../members/single/activity.php:28
+#: ../activity/index.php:104 ../members/single/activity.php:28
 msgid "Comments"
 msgstr ""
 
-#: ../activity/index.php:106 ../groups/single/activity.php:14
+#: ../activity/index.php:110 ../groups/single/activity.php:14
 #: ../members/single/activity.php:43
 msgid "Forum Topics"
 msgstr ""
 
-#: ../activity/index.php:107 ../groups/single/activity.php:15
+#: ../activity/index.php:111 ../groups/single/activity.php:15
 #: ../members/single/activity.php:44
 msgid "Forum Replies"
 msgstr ""
 
-#: ../activity/index.php:113 ../members/single/activity.php:50
+#: ../activity/index.php:117 ../members/single/activity.php:50
 msgid "New Groups"
 msgstr ""
 
-#: ../activity/index.php:114 ../groups/single/activity.php:18
+#: ../activity/index.php:118 ../groups/single/activity.php:18
 #: ../members/single/activity.php:51
 msgid "Group Memberships"
 msgstr ""
 
-#: ../activity/index.php:120 ../members/single/activity.php:35
+#: ../activity/index.php:124 ../members/single/activity.php:35
 msgid "Friendships"
 msgstr ""
 
-#: ../activity/index.php:124
+#: ../activity/index.php:128
 msgid "New Members"
 msgstr ""
 
@@ -409,14 +471,14 @@ msgid "My Sites <span>%s</span>"
 msgstr ""
 
 #: ../blogs/index.php:53 ../forums/index.php:60 ../groups/index.php:55
-#: ../groups/single/forum.php:36 ../members/index.php:53
+#: ../groups/single/forum.php:36 ../members/index.php:55
 #: ../members/single/blogs.php:19 ../members/single/forums.php:18
 #: ../members/single/friends.php:20 ../members/single/groups.php:20
 msgid "Order By:"
 msgstr ""
 
 #: ../blogs/index.php:55 ../forums/index.php:62 ../groups/index.php:57
-#: ../groups/single/forum.php:38 ../members/index.php:55
+#: ../groups/single/forum.php:38 ../members/index.php:57
 #: ../members/single/blogs.php:21 ../members/single/forums.php:20
 #: ../members/single/friends.php:22 ../members/single/groups.php:22
 msgid "Last Active"
@@ -426,63 +488,57 @@ msgstr ""
 msgid "Newest"
 msgstr ""
 
-#: ../blogs/index.php:57 ../groups/index.php:60 ../members/index.php:60
+#: ../blogs/index.php:57 ../groups/index.php:60 ../members/index.php:62
 #: ../members/single/blogs.php:23 ../members/single/friends.php:24
 #: ../members/single/groups.php:25
 msgid "Alphabetical"
 msgstr ""
 
-#: ../buddypress/functions-buddypress.php:57
-msgid "Started topic:"
-msgstr ""
-
-#: ../buddypress/functions-buddypress.php:58
-msgid "Posted on:"
-msgstr ""
-
-#: ../buddypress/functions-buddypress.php:59
-msgid "Created"
-msgstr ""
-
-#: ../buddypress/functions-buddypress.php:60
-msgid "Posted"
-msgstr ""
-
-#: ../buddypress/functions-buddypress.php:61
-msgid "Started"
-msgstr ""
-
-#: ../buddypress/functions-buddypress.php:62
-msgid "in"
-msgstr ""
-
-#: ../buddypress/functions-buddypress.php:72
+#: ../buddypress/functions-buddypress.php:55
+#: ../registration/buddypress/functions-buddypress.php:80
 msgid "My Favorites"
 msgstr ""
 
-#: ../buddypress/functions-buddypress.php:73
+#: ../buddypress/functions-buddypress.php:56
+#: ../registration/buddypress/functions-buddypress.php:81
 msgid "Accepted"
 msgstr ""
 
-#: ../buddypress/functions-buddypress.php:74
+#: ../buddypress/functions-buddypress.php:57
+#: ../registration/buddypress/functions-buddypress.php:82
 msgid "Rejected"
 msgstr ""
 
-#: ../buddypress/functions-buddypress.php:75
+#: ../buddypress/functions-buddypress.php:58
+#: ../registration/buddypress/functions-buddypress.php:83
 msgid "Show all comments for this thread"
 msgstr ""
 
-#: ../buddypress/functions-buddypress.php:76
+#: ../buddypress/functions-buddypress.php:59
+#, php-format
+msgid "Show all %d comments"
+msgstr ""
+
+#: ../buddypress/functions-buddypress.php:60
+#: ../registration/buddypress/functions-buddypress.php:84
 msgid "Show all"
 msgstr ""
 
-#: ../buddypress/functions-buddypress.php:77
+#: ../buddypress/functions-buddypress.php:61
+#: ../registration/buddypress/functions-buddypress.php:85
 msgid "comments"
 msgstr ""
 
-#: ../buddypress/functions-buddypress.php:78
-#: ../members/single/profile/edit.php:128 ../registration/register.php:169
+#: ../buddypress/functions-buddypress.php:62
+#: ../members/single/profile/edit.php:130 ../registration/register.php:171
+#: ../registration/buddypress/functions-buddypress.php:86
 msgid "Close"
+msgstr ""
+
+#: ../buddypress/functions-buddypress.php:66
+msgid ""
+"Your profile has unsaved changes. If you leave the page, the changes will be "
+"lost."
 msgstr ""
 
 #: ../forums/forums-loop.php:39
@@ -493,8 +549,8 @@ msgstr ""
 msgid "Freshness"
 msgstr ""
 
-#: ../forums/forums-loop.php:54
-msgid "Permalink"
+#: ../forums/forums-loop.php:54 ../groups/single/forum/topic.php:95
+msgid "Permanent link to this post"
 msgstr ""
 
 #: ../forums/forums-loop.php:61
@@ -733,8 +789,7 @@ msgstr ""
 #: ../groups/create.php:246 ../groups/single/send-invites.php:73
 msgid ""
 "Once you have built up friend connections you will be able to invite others "
-"to your group. You can send invites any time in the future by selecting the "
-"\"Send Invites\" option when viewing your new group."
+"to your group."
 msgstr ""
 
 #: ../groups/create.php:268
@@ -775,16 +830,8 @@ msgstr ""
 msgid "Newly Created"
 msgstr ""
 
-#: ../groups/single/admin.php:25
-msgid "Notify group members of changes via email"
-msgstr ""
-
-#: ../groups/single/admin.php:26 ../registration/register.php:227
-msgid "Yes"
-msgstr ""
-
-#: ../groups/single/admin.php:27 ../registration/register.php:228
-msgid "No"
+#: ../groups/single/admin.php:26
+msgid "Notify group members of these changes via email"
 msgstr ""
 
 #: ../groups/single/admin.php:32 ../groups/single/admin.php:117
@@ -792,7 +839,7 @@ msgstr ""
 #: ../lib/admin/inc/theme-options.php:1182
 #: ../lib/admin/inc/theme-options.php:1395
 #: ../lib/admin/inc/custom-sidebars/views/edit.php:49
-#: ../members/single/profile/edit.php:146
+#: ../members/single/profile/edit.php:148
 #: ../members/single/settings/general.php:72
 #: ../members/single/settings/notifications.php:61
 msgid "Save Changes"
@@ -961,10 +1008,6 @@ msgstr ""
 msgid "%1$s said %2$s:"
 msgstr ""
 
-#: ../groups/single/forum/topic.php:95
-msgid "Permanent link to this post"
-msgstr ""
-
 #: ../groups/single/forum/topic.php:119
 msgid "There are no posts for this topic."
 msgstr ""
@@ -983,6 +1026,210 @@ msgstr ""
 
 #: ../groups/single/forum/topic.php:155
 msgid "This topic is closed, replies are no longer accepted."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:155
+msgid "Install Required Plugins"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:156
+msgid "Install Plugins"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:157
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:158
+msgid "Something went wrong."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:169
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:170
+msgid "Return to the dashboard"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:171
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1840
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:172
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1538
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:173
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:174
+msgid "Dismiss this notice"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1085
+msgid "External Link"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1090
+msgid "Private Repository"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1093
+msgid "Pre-Packaged"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1097
+msgid "WordPress Repository"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1100
+msgid "Required"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1100
+msgid "Recommended"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1103
+msgid "Not Installed"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1105
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1275
+#, php-format
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1291
+msgid "Plugin"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1292
+msgid "Source"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1293
+msgid "Type"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1294
+msgid "Status"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1312
+msgid "Install"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1313
+#: ../lib/admin/inc/envato-wordpress-toolkit-master/index.php:318
+#: ../registration/activate.php:38
+msgid "Activate"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1823
+msgid "Install package not available."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1824
+#, php-format
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1825
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1826
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1827
+msgid "Plugin install failed."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1828
+msgid "Plugin installed successfully."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1839
+msgid "Plugin activation failed."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1949
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1950
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1950
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1959
+msgid "Show Details"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1950
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1959
+msgid "Hide Details"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1951
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1952
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1956
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1957
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1958
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1959
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1960
+msgid "All installations have been completed."
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:1961
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../lib/admin/inc/class-tgm-plugin-activation.php:2052
+msgid "Return to the Dashboard"
 msgstr ""
 
 #: ../lib/admin/inc/theme-meta-options.php:9
@@ -1381,7 +1628,7 @@ msgstr ""
 #: ../lib/admin/inc/theme-options.php:642
 #: ../lib/admin/inc/theme-options.php:753
 #: ../lib/admin/inc/theme-options.php:807
-#: ../lib/admin/inc/theme-post-types.php:62
+#: ../lib/admin/inc/theme-post-types.php:67
 msgid "Title"
 msgstr ""
 
@@ -2027,32 +2274,64 @@ msgstr ""
 msgid "Primary Text Size"
 msgstr ""
 
+#: ../lib/admin/inc/theme-options.php:844
+msgid "The text size used for the primary text."
+msgstr ""
+
 #: ../lib/admin/inc/theme-options.php:853
 msgid "Primary Text Color"
+msgstr ""
+
+#: ../lib/admin/inc/theme-options.php:854
+msgid "The text color used for the primary text."
 msgstr ""
 
 #: ../lib/admin/inc/theme-options.php:861
 msgid "Primary Link Color"
 msgstr ""
 
+#: ../lib/admin/inc/theme-options.php:862
+msgid "The link color used for the primary text."
+msgstr ""
+
 #: ../lib/admin/inc/theme-options.php:869
 msgid "Primary Link Hover Color"
+msgstr ""
+
+#: ../lib/admin/inc/theme-options.php:870
+msgid "The link hover color used for the primary text."
 msgstr ""
 
 #: ../lib/admin/inc/theme-options.php:878
 msgid "Primary Background Color"
 msgstr ""
 
+#: ../lib/admin/inc/theme-options.php:879
+msgid "The backgroud color used for the primary content."
+msgstr ""
+
 #: ../lib/admin/inc/theme-options.php:886
 msgid "Primary Border Color"
+msgstr ""
+
+#: ../lib/admin/inc/theme-options.php:887
+msgid "The border color used for the primary content."
 msgstr ""
 
 #: ../lib/admin/inc/theme-options.php:896
 msgid "Secondary Background Color"
 msgstr ""
 
+#: ../lib/admin/inc/theme-options.php:897
+msgid "The background color used for the secondary content."
+msgstr ""
+
 #: ../lib/admin/inc/theme-options.php:904
 msgid "Secondary Background Hover Color"
+msgstr ""
+
+#: ../lib/admin/inc/theme-options.php:905
+msgid "The background hover color used for the secondary content."
 msgstr ""
 
 #: ../lib/admin/inc/theme-options.php:914
@@ -2136,32 +2415,64 @@ msgstr ""
 msgid "Primary Button Text Color"
 msgstr ""
 
+#: ../lib/admin/inc/theme-options.php:999
+msgid "The text color used for the primary buttons."
+msgstr ""
+
 #: ../lib/admin/inc/theme-options.php:1006
 msgid "Primary Button Background Color"
+msgstr ""
+
+#: ../lib/admin/inc/theme-options.php:1007
+msgid "The background color used for the primary buttons."
 msgstr ""
 
 #: ../lib/admin/inc/theme-options.php:1014
 msgid "Primary Button Background Hover Color"
 msgstr ""
 
+#: ../lib/admin/inc/theme-options.php:1015
+msgid "The background hover color used for the primary buttons."
+msgstr ""
+
 #: ../lib/admin/inc/theme-options.php:1024
 msgid "Secondary Button Text Color"
+msgstr ""
+
+#: ../lib/admin/inc/theme-options.php:1025
+msgid "The text color used for the secondary buttons."
 msgstr ""
 
 #: ../lib/admin/inc/theme-options.php:1032
 msgid "Secondary Button Background Color"
 msgstr ""
 
+#: ../lib/admin/inc/theme-options.php:1033
+msgid "The background color used for the secondary buttons."
+msgstr ""
+
 #: ../lib/admin/inc/theme-options.php:1040
 msgid "Secondary Button Background Hover Color"
+msgstr ""
+
+#: ../lib/admin/inc/theme-options.php:1041
+msgid "The background hover color used for the secondary buttons."
 msgstr ""
 
 #: ../lib/admin/inc/theme-options.php:1050
 msgid "Icon Color"
 msgstr ""
 
+#: ../lib/admin/inc/theme-options.php:1051
+msgid "The color used for the theme icons."
+msgstr ""
+
 #: ../lib/admin/inc/theme-options.php:1058
 msgid "Icon Hover Color"
+msgstr ""
+
+#: ../lib/admin/inc/theme-options.php:1059
+msgid "The hover color used for the theme icons."
 msgstr ""
 
 #: ../lib/admin/inc/theme-options.php:1067
@@ -2262,97 +2573,103 @@ msgid ""
 "that loads in the lightbox."
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:9
-#: ../lib/admin/inc/theme-post-types.php:17
+#: ../lib/admin/inc/theme-post-types.php:10
+#: ../lib/admin/inc/theme-post-types.php:19
 msgid "Slides"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:10
+#: ../lib/admin/inc/theme-post-types.php:11
 msgid "Slide"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:11
+#: ../lib/admin/inc/theme-post-types.php:12
 msgid "All Slides"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:12
-msgid "Add New Slide"
-msgstr ""
-
 #: ../lib/admin/inc/theme-post-types.php:13
-msgid "Edit Slide"
+#: ../lib/admin/inc/theme-post-types.php:44
+msgctxt "slide"
+msgid "Add New"
 msgstr ""
 
 #: ../lib/admin/inc/theme-post-types.php:14
-msgid "New Slide"
+msgid "Add New Slide"
 msgstr ""
 
 #: ../lib/admin/inc/theme-post-types.php:15
-msgid "View Slide"
+msgid "Edit Slide"
 msgstr ""
 
 #: ../lib/admin/inc/theme-post-types.php:16
+msgid "New Slide"
+msgstr ""
+
+#: ../lib/admin/inc/theme-post-types.php:17
+msgid "View Slide"
+msgstr ""
+
+#: ../lib/admin/inc/theme-post-types.php:18
 msgid "Search Slides"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:38
-#: ../lib/admin/inc/theme-post-types.php:46
+#: ../lib/admin/inc/theme-post-types.php:41
+#: ../lib/admin/inc/theme-post-types.php:50
 msgid "Slide Categories"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:39
+#: ../lib/admin/inc/theme-post-types.php:42
 msgid "Slide Category"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:40
+#: ../lib/admin/inc/theme-post-types.php:43
 msgid "All Slide Categories"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:41
+#: ../lib/admin/inc/theme-post-types.php:45
 msgid "Add New Slide Category"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:42
+#: ../lib/admin/inc/theme-post-types.php:46
 msgid "Edit Slide Category"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:43
+#: ../lib/admin/inc/theme-post-types.php:47
 msgid "New Slide Category"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:44
+#: ../lib/admin/inc/theme-post-types.php:48
 msgid "View Slide Category"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:45
+#: ../lib/admin/inc/theme-post-types.php:49
 msgid "Search Slide Categories"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:63
+#: ../lib/admin/inc/theme-post-types.php:68
 #: ../lib/admin/inc/custom-sidebars/views/edit.php:43
 #: ../lib/admin/inc/custom-sidebars/views/settings.php:24
 #: ../lib/admin/inc/custom-sidebars/views/settings.php:55
 msgid "Description"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:64
+#: ../lib/admin/inc/theme-post-types.php:69
 msgid "Categories"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:65
+#: ../lib/admin/inc/theme-post-types.php:70
 msgid "Image"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:66
+#: ../lib/admin/inc/theme-post-types.php:71
 msgid "Date"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:100
-#: ../lib/admin/inc/theme-post-types.php:111
+#: ../lib/admin/inc/theme-post-types.php:105
+#: ../lib/admin/inc/theme-post-types.php:116
 msgid "Order Slides"
 msgstr ""
 
-#: ../lib/admin/inc/theme-post-types.php:129
+#: ../lib/admin/inc/theme-post-types.php:134
 #: ../lib/admin/inc/custom-sidebars/views/settings.php:72
 msgid "Edit"
 msgstr ""
@@ -2447,14 +2764,6 @@ msgstr ""
 #: ../lib/admin/inc/custom-sidebars/views/edit.php:29
 #: ../lib/admin/inc/custom-sidebars/views/settings.php:56
 msgid "ID"
-msgstr ""
-
-#: ../lib/admin/inc/custom-sidebars/views/edit.php:36
-#: ../lib/admin/inc/custom-sidebars/views/settings.php:16
-#: ../lib/admin/inc/custom-sidebars/views/settings.php:54
-#: ../lib/admin/inc/shortcodes/contact-form.php:34
-#: ../members/single/profile/profile-wp.php:15
-msgid "Name"
 msgstr ""
 
 #: ../lib/admin/inc/custom-sidebars/views/settings.php:11
@@ -2552,11 +2861,6 @@ msgstr ""
 #: ../lib/admin/inc/envato-wordpress-toolkit-master/index.php:318
 #, php-format
 msgid "Activate &#8220;%s&#8221;"
-msgstr ""
-
-#: ../lib/admin/inc/envato-wordpress-toolkit-master/index.php:318
-#: ../registration/activate.php:36
-msgid "Activate"
 msgstr ""
 
 #: ../lib/admin/inc/envato-wordpress-toolkit-master/index.php:319
@@ -2757,28 +3061,19 @@ msgstr ""
 msgid "By"
 msgstr ""
 
-#: ../lib/admin/inc/shortcodes/contact-form.php:22
+#: ../lib/admin/inc/shortcodes/contact-form.php:24
 msgid "Thanks"
 msgstr ""
 
-#: ../lib/admin/inc/shortcodes/contact-form.php:22
+#: ../lib/admin/inc/shortcodes/contact-form.php:24
 msgid "Your message was successfully sent."
 msgstr ""
 
-#: ../lib/admin/inc/shortcodes/contact-form.php:28
+#: ../lib/admin/inc/shortcodes/contact-form.php:30
 msgid "There was an error submitting this message."
 msgstr ""
 
-#: ../lib/admin/inc/shortcodes/contact-form.php:50
-#: ../lib/admin/inc/shortcodes/register-form.php:8
-msgid "Email"
-msgstr ""
-
-#: ../lib/admin/inc/shortcodes/contact-form.php:66
-msgid "Comment"
-msgstr ""
-
-#: ../lib/admin/inc/shortcodes/contact-form.php:100
+#: ../lib/admin/inc/shortcodes/contact-form.php:102
 msgid "Send"
 msgstr ""
 
@@ -2786,15 +3081,15 @@ msgstr ""
 msgid "Back To Top"
 msgstr ""
 
-#: ../lib/admin/inc/shortcodes/register-form.php:26
+#: ../lib/admin/inc/shortcodes/register-form.php:22
 msgid "A password will be emailed to you"
 msgstr ""
 
-#: ../lib/admin/inc/shortcodes/related-posts.php:126
+#: ../lib/admin/inc/shortcodes/related-posts.php:114
 msgid "Related Posts"
 msgstr ""
 
-#: ../lib/admin/inc/shortcodes/related-posts.php:239
+#: ../lib/admin/inc/shortcodes/related-posts.php:242
 msgid "Read More"
 msgstr ""
 
@@ -2846,11 +3141,11 @@ msgstr ""
 msgid "Reply-To: "
 msgstr ""
 
-#: ../lib/inc/style-settings.php:151
+#: ../lib/inc/style-settings.php:159
 msgid "Navigation"
 msgstr ""
 
-#: ../lib/inc/style-settings.php:152
+#: ../lib/inc/style-settings.php:160
 msgid "Please enter something in the search box!"
 msgstr ""
 
@@ -2858,7 +3153,7 @@ msgstr ""
 msgid "Members Directory"
 msgstr ""
 
-#: ../members/index.php:56 ../members/single/friends.php:23
+#: ../members/index.php:58 ../members/single/friends.php:23
 msgid "Newest Registered"
 msgstr ""
 
@@ -3000,7 +3295,7 @@ msgstr ""
 #: ../registration/register.php:84 ../registration/register.php:92
 #: ../registration/register.php:102 ../registration/register.php:113
 #: ../registration/register.php:128 ../registration/register.php:139
-#: ../registration/register.php:211 ../registration/register.php:220
+#: ../registration/register.php:212 ../registration/register.php:221
 msgid "(required)"
 msgstr ""
 
@@ -3009,19 +3304,19 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: ../members/single/profile/edit.php:118
-#: ../members/single/profile/edit.php:132 ../registration/register.php:159
-#: ../registration/register.php:174
+#: ../members/single/profile/edit.php:120
+#: ../members/single/profile/edit.php:134 ../registration/register.php:161
+#: ../registration/register.php:176
 #, php-format
 msgid ""
 "This field can be seen by: <span class=\"current-visibility-level\">%s</span>"
 msgstr ""
 
-#: ../members/single/profile/edit.php:118
+#: ../members/single/profile/edit.php:120
 msgid "Change"
 msgstr ""
 
-#: ../members/single/profile/edit.php:123 ../registration/register.php:164
+#: ../members/single/profile/edit.php:125 ../registration/register.php:166
 msgid "Who can see this field?"
 msgstr ""
 
@@ -3032,10 +3327,6 @@ msgstr ""
 
 #: ../members/single/profile/profile-wp.php:24
 msgid "About Me"
-msgstr ""
-
-#: ../members/single/profile/profile-wp.php:33
-msgid "Website"
 msgstr ""
 
 #: ../members/single/profile/profile-wp.php:42
@@ -3121,31 +3412,32 @@ msgstr ""
 msgid "Send a notification by email when:"
 msgstr ""
 
-#: ../registration/activate.php:12
+#: ../registration/activate.php:11
 msgid "Account Activated"
 msgstr ""
 
-#: ../registration/activate.php:17
+#: ../registration/activate.php:13
+msgid "Activate your Account"
+msgstr ""
+
+#: ../registration/activate.php:23
 msgid ""
 "Your account was activated successfully! Your account details have been sent "
 "to you in a separate email."
 msgstr ""
 
-#: ../registration/activate.php:19
+#: ../registration/activate.php:25
+#, php-format
 msgid ""
-"Your account was activated successfully! You can now log in with the "
-"username and password you provided when you signed up."
+"Your account was activated successfully! You can now <a href=\"%s\">log in</"
+"a> with the username and password you provided when you signed up."
 msgstr ""
 
-#: ../registration/activate.php:24
-msgid "Activate your Account"
-msgstr ""
-
-#: ../registration/activate.php:28
+#: ../registration/activate.php:30
 msgid "Please provide a valid activation key."
 msgstr ""
 
-#: ../registration/activate.php:32
+#: ../registration/activate.php:34
 msgid "Activation Key:"
 msgstr ""
 
@@ -3183,45 +3475,82 @@ msgstr ""
 msgid "Profile Details"
 msgstr ""
 
-#: ../registration/register.php:205
+#: ../registration/register.php:161
+msgctxt "Change profile field visibility level"
+msgid "Change"
+msgstr ""
+
+#: ../registration/register.php:206
 msgid "Blog Details"
 msgstr ""
 
-#: ../registration/register.php:207
+#: ../registration/register.php:208
 msgid "Yes, I'd like to create a new site"
 msgstr ""
 
-#: ../registration/register.php:211
+#: ../registration/register.php:212
 msgid "Blog URL"
 msgstr ""
 
-#: ../registration/register.php:220
+#: ../registration/register.php:221
 msgid "Site Title"
 msgstr ""
 
-#: ../registration/register.php:224
+#: ../registration/register.php:225
 msgid ""
 "I would like my site to appear in search engines, and in public listings "
 "around this network."
 msgstr ""
 
-#: ../registration/register.php:241
+#: ../registration/register.php:228
+msgid "Yes"
+msgstr ""
+
+#: ../registration/register.php:229
+msgid "No"
+msgstr ""
+
+#: ../registration/register.php:242
 msgid "Complete Sign Up"
 msgstr ""
 
-#: ../registration/register.php:252
-msgid "Sign Up Complete!"
+#: ../registration/register.php:253
+msgid "Check Your Email To Activate Your Account!"
 msgstr ""
 
-#: ../registration/register.php:258
+#: ../registration/register.php:259
 msgid ""
 "You have successfully created your account! To begin using this site you "
 "will need to activate your account via the email we have just sent to your "
 "address."
 msgstr ""
 
-#: ../registration/register.php:260
+#: ../registration/register.php:261
 msgid ""
 "You have successfully created your account! Please log in using the username "
 "and password you have just created."
+msgstr ""
+
+#: ../registration/buddypress/functions-buddypress.php:64
+msgid "Started topic:"
+msgstr ""
+
+#: ../registration/buddypress/functions-buddypress.php:65
+msgid "Posted on:"
+msgstr ""
+
+#: ../registration/buddypress/functions-buddypress.php:66
+msgid "Created"
+msgstr ""
+
+#: ../registration/buddypress/functions-buddypress.php:67
+msgid "Posted"
+msgstr ""
+
+#: ../registration/buddypress/functions-buddypress.php:68
+msgid "Started"
+msgstr ""
+
+#: ../registration/buddypress/functions-buddypress.php:69
+msgid "in"
 msgstr ""

@@ -44,6 +44,7 @@ class RTMediaEncoding {
                         $blacklist = array('localhost', '127.0.0.1');
                         if (!in_array($_SERVER['HTTP_HOST'], $blacklist)) {
                             add_filter('rtmedia_plupload_files_filter', array($this, 'allowed_types'));
+                            add_filter('allowed_media_type_settings', array($this, 'allowed_types_admin_settings'));
                             add_filter('rtmedia_valid_type_check', array($this, 'bypass_video_audio'), '', 2);
                         }
                     }
@@ -82,7 +83,7 @@ class RTMediaEncoding {
                     $autoformat = "thumbnails";
 
                 $query_args = array('url' => urlencode($single['url']),
-                    'callbackurl' => urlencode(home_url()),
+                    'callbackurl' => urlencode(trailingslashit(home_url()). "index.php"),
                     'force' => 0,
                     'size' => filesize($single['file']),
                     'formats' => ($autoformat === true)?(($type_array[0] == 'video') ? 'mp4' : 'mp3'):$autoformat,
@@ -100,6 +101,8 @@ class RTMediaEncoding {
                     if (isset($upload_info->status) && $upload_info->status && isset($upload_info->job_id) && $upload_info->job_id) {
                         $job_id = $upload_info->job_id;
                         update_rtmedia_meta($media_ids[$key], 'rtmedia-encoding-job-id', $job_id);
+			$model = new RTMediaModel();
+			$model->update(array('cover_art' => '0'), array('id' => $media_ids[$key]));
                     }
                     else {
 //                        remove_filter('bp_media_plupload_files_filter', array($bp_media_admin->bp_media_encoding, 'allowed_types'));
@@ -199,6 +202,16 @@ class RTMediaEncoding {
             if (is_rtmedia_upload_music_enabled())
                 $types[0]['extensions'] .= ',wma,ogg,wav,m4a'; //Allow all types of file to be uploded
         }
+        return $types;
+    }
+
+    public function allowed_types_admin_settings($types) {
+	$allowed_video_string = implode(",", $types['video']['extn']);
+	$allowed_audio_string = implode(",", $types['music']['extn']);
+	$allowed_video = explode(",",$allowed_video_string.',mov,m4v,m2v,avi,mpg,flv,wmv,mkv,webm,ogv,mxf,asf,vob,mts,qt,mpeg,x-msvideo');
+	$allowed_audio = explode(",",$allowed_audio_string.',wma,ogg,wav,m4a');
+	$types['video']['extn'] = $allowed_video;
+	$types['music']['extn'] = $allowed_audio;
         return $types;
     }
 
@@ -381,15 +394,20 @@ class RTMediaEncoding {
         $post_thumbs_array = maybe_unserialize($post_thumbs);
         $largest_thumb_size = 0;
         $model = new RTMediaModel();
+	$media = $model->get(array("media_id" => $post_id));
+	$media_id = $media[0]->id;
         $largest_thumb = false;
         $upload_thumbnail_array = array();
-        for ($i = 1; $i <= sizeof($post_thumbs_array['thumbs']); $i++) {
-            $thumbnail = 'thumb_' . $i;
-            if (isset($post_thumbs_array['thumbs'][$thumbnail])) {
+        var_dump($post_thumbs_array['thumbs']);
+	foreach($post_thumbs_array['thumbs'] as $thumbs=>$thumbnail) {
+//	    error_log("Thumb:" + var_export($post_thumbs_array['thumbs'][$thumbnail]));
+//	}
+//        for ($i = 1; $i <= sizeof($post_thumbs_array['thumbs']); $i++) {
+//            $thumbnail = 'thumb_' . $i;
+//            if (isset($post_thumbs_array['thumbs'][$thumbnail])) {
                 $thumbnail_ids = get_rtmedia_meta($post_id, 'rtmedia-thumbnail-ids', true);
-                $thumbresource = wp_remote_get($post_thumbs_array['thumbs'][$thumbnail]);
-                $thumbinfo = pathinfo($post_thumbs_array['thumbs'][$thumbnail]);
-
+                $thumbresource = wp_remote_get($thumbnail);
+                $thumbinfo = pathinfo($thumbnail);
                 $temp_name = $thumbinfo['basename'];
                 $temp_name = urldecode($temp_name);
                 $temp_name_array = explode("/", $temp_name);
@@ -425,10 +443,11 @@ class RTMediaEncoding {
                 if ($current_thumb_size >= $largest_thumb_size) {
                     $largest_thumb_size = $current_thumb_size;
                     $largest_thumb = $thumb_upload_info['url'];
-                    $model->update(array('cover_art' => $thumb_upload_info['url']), array('media_id' => $post_id));
+                    var_dump($model->update(array('cover_art' => $thumb_upload_info['url']), array('media_id' => $post_id)));
                 }
-            }
+            ///}
         }
+	update_activity_after_thumb_set($media_id);
         update_post_meta($post_id, 'rtmedia_media_thumbnails', $upload_thumbnail_array);
         return $largest_thumb;
     }
@@ -440,7 +459,6 @@ class RTMediaEncoding {
      */
     public function handle_callback() {
         require_once ( ABSPATH . 'wp-admin/includes/image.php');
-        //error_log(var_export($_POST['thumbs'],true));
         if (isset($_REQUEST['job_id']) && isset($_REQUEST['download_url']) && isset($_POST['thumbs'])) {
             $response = $_POST['thumbs'];
             $flag = false;
@@ -684,7 +702,7 @@ class RTMediaEncoding {
 		"name" => $file_name,
 		"type" => $media_type
 	    );
-	    $this->encoding(array($media_id), $file_object, $uploaded, $autoformat);
+	    $this->encoding(array($media_id), $file_object, array(), $autoformat);
 	}
     }
 

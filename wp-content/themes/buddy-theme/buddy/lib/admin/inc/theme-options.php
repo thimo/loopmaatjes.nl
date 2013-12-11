@@ -841,7 +841,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
  		array(
 		"name" => __('Primary Text Size', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The text size used for the primary text.', 'gp_lang'),
         "id" => $dirname."_primary_size",
         "std" => "",
 		"style" => "",
@@ -851,7 +851,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 				   		
  		array(
 		"name" => __('Primary Text Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The text color used for the primary text.', 'gp_lang'),
         "id" => $dirname."_primary_text_color",
         "std" => "",
         "style" => "",
@@ -859,7 +859,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
    		         
  		array(
 		"name" => __('Primary Link Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The link color used for the primary text.', 'gp_lang'),
         "id" => $dirname."_primary_link_color",
         "std" => "",
         "style" => "",
@@ -867,7 +867,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
  		array(
 		"name" => __('Primary Link Hover Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The link hover color used for the primary text.', 'gp_lang'),
         "id" => $dirname."_primary_link_hover_color",
         "std" => "",
         "style" => "",
@@ -876,7 +876,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
    		  
 		array(
 		"name" => __('Primary Background Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The backgroud color used for the primary content.', 'gp_lang'),
         "id" => $dirname."_primary_bg_color",
         "std" => "",
         "style" => "",
@@ -884,7 +884,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
 		array(
 		"name" => __('Primary Border Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The border color used for the primary content.', 'gp_lang'),
         "id" => $dirname."_primary_border_color",
         "std" => "",
         "style" => "",
@@ -894,7 +894,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
 		array(
 		"name" => __('Secondary Background Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The background color used for the secondary content.', 'gp_lang'),
         "id" => $dirname."_secondary_bg_color",
         "std" => "",
         "style" => "",
@@ -902,7 +902,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
 		array(
 		"name" => __('Secondary Background Hover Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The background hover color used for the secondary content.', 'gp_lang'),
         "id" => $dirname."_secondary_bg_hover_color",
         "std" => "",
         "style" => "",
@@ -996,7 +996,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
    		
  		array(
 		"name" => __('Primary Button Text Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The text color used for the primary buttons.', 'gp_lang'),
         "id" => $dirname."_primary_button_text_color",
         "std" => "",
         "style" => "",
@@ -1004,7 +1004,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
  		array(
 		"name" => __('Primary Button Background Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The background color used for the primary buttons.', 'gp_lang'),
         "id" => $dirname."_primary_button_bg_color",
         "std" => "",
         "style" => "",
@@ -1012,7 +1012,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
  		array(
 		"name" => __('Primary Button Background Hover Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The background hover color used for the primary buttons.', 'gp_lang'),
         "id" => $dirname."_primary_button_bg_hover_color",
         "std" => "",
         "style" => "",
@@ -1022,7 +1022,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
 		array(
 		"name" => __('Secondary Button Text Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The text color used for the secondary buttons.', 'gp_lang'),
         "id" => $dirname."_secondary_button_text_color",
         "std" => "",
         "style" => "",
@@ -1030,7 +1030,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
  		array(
 		"name" => __('Secondary Button Background Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The background color used for the secondary buttons.', 'gp_lang'),
         "id" => $dirname."_secondary_button_bg_color",
         "std" => "",
         "style" => "",
@@ -1038,7 +1038,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
 
  		array(
 		"name" => __('Secondary Button Background Hover Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The background hover color used for the secondary buttons.', 'gp_lang'),
         "id" => $dirname."_secondary_button_bg_hover_color",
         "std" => "",
         "style" => "",
@@ -1048,7 +1048,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
    		   		             		
  		array(
 		"name" => __('Icon Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The color used for the theme icons.', 'gp_lang'),
         "id" => $dirname."_icon_color",
         "std" => "",
         "style" => "",
@@ -1056,7 +1056,7 @@ array(	"name" => __('Style Settings', 'gp_lang'),
    		
  		array(
 		"name" => __('Icon Hover Color', 'gp_lang'),
-        "desc" => '',
+        "desc" => __('The hover color used for the theme icons.', 'gp_lang'),
         "id" => $dirname."_icon_hover_color",
         "std" => "",
         "style" => "",

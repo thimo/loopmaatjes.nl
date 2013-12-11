@@ -38,6 +38,7 @@ function gp_video($atts, $content = null) {
 
 	// Allow relative URLs
 	
+	if(!preg_match("/http:/", $image) && !preg_match("/https:/", $image)) { $image = site_url().'/'.$image; }
 	if(!preg_match("/http:/", $url) && !preg_match("/https:/", $url)) { $url = site_url().'/'.$url; }
 	if($html5_1 && !preg_match("/http:/", $html5_1) && !preg_match("/https:/", $html5_1)) { $html5_1 = site_url().'/'.$html5_1; }
 	if($html5_2 && !preg_match("/http:/", $html5_2) && !preg_match("/https:/", $html5_2)) { $html5_2 = site_url().'/'.$html5_2; }
@@ -70,7 +71,7 @@ function gp_video($atts, $content = null) {
 		<?php if($vimeo) { ?>
 			
 			
-			<iframe src="http://player.vimeo.com/video/<?php echo $vimeoid; ?>?byline=0&amp;portrait=0&amp;autoplay=<?php echo $autostart; ?>" width="<?php echo $width; ?>" height="<?php if($gp_settings['iphone']) { echo $height/2; } else { echo $height; } ?>" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			<iframe src="http://player.vimeo.com/video/<?php echo $vimeoid; ?>?byline=0&amp;portrait=0&amp;autoplay=<?php echo $autostart; ?>" width="<?php echo $width; ?>" height="<?php if($gp_settings['iphone']) { echo $height/2; } else { echo $height; } ?>" allowFullScreen></iframe>
 		
 			
 		<?php } else { ?>
@@ -92,9 +93,9 @@ function gp_video($atts, $content = null) {
 
 			<script>
 			jwplayer("<?php echo $name; ?>").setup({
-				<?php if($image) { $image = aq_resize($image, $width, $height, true, true); ?>image: "<?php echo $image; ?>",<?php } ?>
+				<?php if($image) { $image = aq_resize($image, $width, $height, true, true, true); ?>image: "<?php echo $image; ?>",<?php } ?>
 				icons: "<?php echo $icons; ?>",
-				autostart: "false",
+				autostart: "<?php echo $autostart; ?>",
 				stretching: "<?php echo $stretching; ?>",
 				controlbar: "<?php echo $controlbar; ?>",
 				skin: "<?php echo $skin; ?>",

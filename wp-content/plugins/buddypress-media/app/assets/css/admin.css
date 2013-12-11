@@ -651,3 +651,8 @@ abbr {
 			color: #8F8F8F;
 			font-size: 14px
 }
+
+.rtmedia-admin-ad img{
+   text-align: center;
+   width:100%;
+}

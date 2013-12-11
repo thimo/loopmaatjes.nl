@@ -1,9 +1,10 @@
-<?php require(gp_inc . 'options.php'); global $themename, $dirname; ?>
+<?php require(gp_inc . 'options.php'); global $dirname; ?>
 
 
 <?php if(!is_page_template('blank-page.php')) { ?>
 
 	
+			<?php get_sidebar('left'); ?>
 			<?php get_sidebar('right'); ?>
 	
 	

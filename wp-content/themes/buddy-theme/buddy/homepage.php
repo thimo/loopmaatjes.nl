@@ -2,11 +2,7 @@
 /*
 Template Name: Homepage
 */
-get_header(); global $gp_settings, $user_ID, $user_identity, $user_level; 
-
-$referrer = $_SERVER['HTTP_REFERER'];
-
-?>
+get_header(); global $gp_settings, $user_ID, $user_identity, $user_level; ?>
 
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 

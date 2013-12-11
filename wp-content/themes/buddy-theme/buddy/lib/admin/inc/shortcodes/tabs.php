@@ -7,6 +7,9 @@ function gp_tabs($atts, $content = null, $code) {
 		'title' => ''
 	), $atts));
 
+	wp_enqueue_script('jquery-ui-tabs');
+	wp_enqueue_script('gp-tabs-init');
+	
 	if (!preg_match_all("/(.?)\[(tab)\b(.*?)(?:(\/))?\](?:(.+?)\[\/tab\])?(.?)/s", $content, $matches)) {
 		return do_shortcode($content);
 		

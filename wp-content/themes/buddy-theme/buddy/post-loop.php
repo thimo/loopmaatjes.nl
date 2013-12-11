@@ -68,9 +68,9 @@
 					<?php if(has_post_thumbnail()) { ?>				
 						<div class="post-thumbnail<?php if($gp_settings['image_wrap'] == "Enable") { ?> wrap<?php } ?>">
 							<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-								<?php $image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), $thumbnail_width, $thumbnail_height, true, true); ?>
-								<?php if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), $thumbnail_width*2, $thumbnail_height*2, true, true); } else { $retina = ""; } ?>
-								<img src="<?php echo $image; ?>" data-rel="<?php echo $retina; ?>" style="width: <?php echo $thumbnail_width; ?>px; <?php if($gp_settings['hard_crop'] == "Enable") { ?> height: <?php echo $thumbnail_height; ?>px;<?php } ?>" alt="<?php if(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) { echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); } else { echo get_the_title(); } ?>" />	
+								<?php $image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), $thumbnail_width, $thumbnail_height, true, true, true); ?>
+								<?php if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), $thumbnail_width*2, $thumbnail_height*2, true, true, true); } else { $retina = ""; } ?>
+								<img src="<?php echo $image; ?>" data-rel="<?php echo $retina; ?>" width="<?php echo $thumbnail_width; ?>" height="<?php echo thumbnail_height; ?>" style="width: <?php echo $thumbnail_width; ?>px; <?php if($gp_settings['hard_crop'] == "Enable") { ?> height: <?php echo $thumbnail_height; ?>px;<?php } ?>" alt="<?php if(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) { echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); } else { echo get_the_title(); } ?>" />	
 							</a>				
 						</div><?php if($gp_settings['image_wrap'] == "Disable") { ?><div class="clear"></div><?php } ?>
 					<?php } ?>

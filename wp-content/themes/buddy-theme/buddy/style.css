@@ -1,6 +1,6 @@
 ﻿/*
 Theme Name: Buddy
-Version: 1.5.1
+Version: 1.7.1
 Description: Designed by <a href="http://www.ghostpool.com">GhostPool.com</a>.
 Author: GhostPool
 Author URI: http://www.ghostpool.com
@@ -17,6 +17,10 @@ Tags: buddypress, flexible-width, full-width-template, threaded-comments, dark, 
 * {
 font-family: Helvetica, Arial, sans-serif;
 outline: none;
+}
+html {
+margin: 0;
+padding: 0;
 }
 body {
 background: #f0f0ed;
@@ -79,6 +83,20 @@ font-weight: bold;
 em {
 font-style: italic;
 }
+small {
+font-size: xx-small;
+line-height: 1em;
+}
+sup {
+font-size: xx-small;
+vertical-align: top;
+line-height: 1em;
+} 
+sub {
+font-size: xx-small;
+vertical-align: bottom;
+line-height: 1em;
+}
 
 /* List Styling */
 ol {
@@ -101,6 +119,9 @@ line-height: 21px;
 }
 ul li i {
 padding-right: 5px;
+}
+li:last-child {
+margin-bottom: 0;
 }
 
 /* Form Styling */
@@ -238,6 +259,7 @@ embed,
 video,
 iframe {
 max-width: 100%;
+border: 0;
 }
 cite {
 float: right;
@@ -375,6 +397,7 @@ box-sizing: border-box;
 
 /* Content Wrapper */
 #content-wrapper {
+visibility: hidden;
 float: left;
 width: 100%;
 -webkit-border-bottom-right-radius: 8px;
@@ -386,6 +409,9 @@ border-bottom-left-radius: 8px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box; 
+}
+.no-js #content-wrapper {
+visibility: visible;
 }
 
 /* Main Content */
@@ -415,6 +441,9 @@ font-size: 12px;
 }
 #sidebar-left {
 margin-right: 20px;
+}
+.no-js #sidebar-left {
+margin: 0 0 0 20px;
 }
 #sidebar-right {
 margin-left: 20px;
@@ -460,8 +489,7 @@ color: #fff;
 line-height: 0;
 }
 #logo img {
-width: 108px;
-height: 25px;
+height: auto;
 position: relative;
 }
 .logo-details {
@@ -505,6 +533,7 @@ visibility: hidden;
 }
 #nav .menu li {
 float: left;
+position: relative;
 list-style-type: none;
 margin: 0 0 0 5px;
 padding: 0;
@@ -567,13 +596,26 @@ color: #99a1b1;
 color: #fff;
 background: none;
 }
+#nav .left-nav .sub-menu {
+right: 0;
+-webkit-border-radius: 8px;
+-webkit-border-top-right-radius: 0;
+-moz-border-radius: 8px;
+-moz-border-radius-topright: 0;
+border-radius: 8px;
+border-top-right-radius: 0;
+}
 
 /* Sub Drop Down Menus */
 #nav .menu .sub-menu li ul {
 top: auto;
-left: 190px;
+left: 170px;
 margin-top: -10px;
 }
+#nav .left-nav .sub-menu li ul {
+left: -200px;
+}
+
 
 
 /*************************** BuddyPress Buttons ***************************/
@@ -890,7 +932,7 @@ h3.accordion-title a {
 padding-left: 10px;
 }
 .panel-content {
-padding: 0 0 20px 20px;
+padding: 5px 0 0 30px;
 line-height: 19px;
 }
 
@@ -903,6 +945,9 @@ width: 100%;
 }
 .gp-activity-stream .acomment-reply {
 display: none !important;
+}
+.gp-activity-stream.gp-allow-comments .acomment-reply {
+display: inline-block !important;
 }
 .gp-activity-stream .load-more {
 display: none;
@@ -1521,6 +1566,14 @@ padding: 0;
 }
 
 
+/************************************ Shortcodes: Lists ************************************/
+
+.sc-list li {
+list-style-type: none;
+margin-left: 0;
+}
+
+
 /************************************ Shortcodes: Notifications ************************************/
 
 .notify {
@@ -2019,15 +2072,18 @@ padding: 8px 0;
 /* Calendar Widget */
 #wp-calendar {
 margin: 0 auto;
+border: 0;
 }
 #wp-calendar th {
 font-weight: bold;
 padding: 5px;
 text-align: center;
+border: 0;
 }
 #wp-calendar td {
 padding: 5px;
 text-align: center;
+border: 0;
 }
 #wp-calendar caption {
 text-align: right;
@@ -2064,7 +2120,7 @@ position: relative;
 background: none;
 border: 0;
 }
-.commentlist .children li.comment {
+#comments ol.commentlist .children li.comment {
 margin: 20px 0 0 20px;
 }
 #comments ol.commentlist li .avatar {

@@ -11,10 +11,6 @@ function gp_register_form($atts, $content = null) {
 
 	global $user_ID, $user_identity, $user_level;
 	
-	if($redirect == "") {
-		$redirect = site_url($redirect, 'login_post');
-	}
-	
 	if (is_user_logged_in()) {} else {
 	
 		return

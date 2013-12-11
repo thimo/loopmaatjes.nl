@@ -4,11 +4,13 @@ function post_type_slide() {
 
 	/////////////////////////////////////// Slide Post Type ///////////////////////////////////////
 	
+	
 	register_post_type('slide', array(
 		'labels' => array(
 			'name' => __('Slides', 'gp_lang'),
 			'singular_name' => __('Slide', 'gp_lang'),
 			'all_items' => __('All Slides', 'gp_lang'),
+			'add_new' => _x('Add New', 'slide', 'gp_lang'),
 			'add_new_item' => __('Add New Slide', 'gp_lang'),
 			'edit_item' => __('Edit Slide', 'gp_lang'),
 			'new_item' => __('New Slide', 'gp_lang'),
@@ -33,11 +35,13 @@ function post_type_slide() {
 	
 	/////////////////////////////////////// Slide Categories ///////////////////////////////////////
 	
+	
 	register_taxonomy('slide_categories', 'slide', array(
 		'labels' => array(
 			'name' => __('Slide Categories', 'gp_lang'),
 			'singular_name' => __('Slide Category', 'gp_lang'),
 			'all_items' => __('All Slide Categories', 'gp_lang'),
+			'add_new' => _x('Add New', 'slide', 'gp_lang'),
 			'add_new_item' => __('Add New Slide Category', 'gp_lang'),
 			'edit_item' => __('Edit Slide Category', 'gp_lang'),
 			'new_item' => __('New Slide Category', 'gp_lang'),
@@ -52,6 +56,7 @@ function post_type_slide() {
 
 
 	/////////////////////////////////////// Slide Page Layout ///////////////////////////////////////
+	
 	
 	add_filter("manage_edit-slide_columns", "slide_edit_columns");
 	add_action("manage_posts_custom_column",  "slide_custom_columns");
@@ -81,9 +86,8 @@ function post_type_slide() {
 					break;
 				case "slide_image":
 					if(has_post_thumbnail()) {
-						$image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), 50, 50, true, true);
-						if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), 100, 100, true, true); } else { $retina = ""; }
-						echo '<img src="'.$image.'" data-rel="'.$retina.'" width="50" height="50" alt="" />';
+						$image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), 100, 100, true, true, true);
+						echo '<img src="'.$image.'" width="50" height="50" alt="" />';
 					}
 					break;				
 			}
@@ -95,6 +99,7 @@ add_action('init', 'post_type_slide');
 
 
 /////////////////////////////////////// Slide Order Menu ///////////////////////////////////////
+	
 	
 function gp_enable_slide_sort() {
     add_submenu_page('edit.php?post_type=slide', __('Order Slides', 'gp_lang'), __('Order Slides', 'gp_lang'), 'edit_posts', basename(__FILE__), 'gp_sort_slides');
@@ -120,7 +125,7 @@ function gp_sort_slides() {
 				<li id="<?php the_ID(); ?>">
 					
 					<?php if(has_post_thumbnail()) {
-						$image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), 50, 50, true, true);
+						$image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), 100, 100, true, true, true);
 						echo '<img src="'.$image.'" width="50" height="50" alt="" />';
 					} ?>
 					

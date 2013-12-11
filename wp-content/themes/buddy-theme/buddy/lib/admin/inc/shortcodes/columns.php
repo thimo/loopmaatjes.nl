@@ -18,7 +18,7 @@ function gp_columns($atts, $content = null, $code) {
 	
 	STATIC $i = 0;
 	$i++;
-	$name = 'slider'.$i;
+	$name = 'columns'.$i;
 	
 		
 	if($code=="one") {

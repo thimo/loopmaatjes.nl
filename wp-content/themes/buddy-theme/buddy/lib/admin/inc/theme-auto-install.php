@@ -44,7 +44,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 
 		/*************************************** Homepage ***************************************/	
 		
-		$new_page_title = 'Homepage Example';
+		$new_page_title = 'Homepage';
 		$new_page_content = '
 [slider timeout="0" margins="0,0,15,0"]
 
@@ -76,7 +76,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 
 		/*************************************** Blog Page ***************************************/	
 		
-		$new_page_title = 'Blog Page Example';
+		$new_page_title = 'Blog Page';
 		$new_page_content = '[posts]';
 		$page_check = get_page_by_title($new_page_title);
 		$new_page = array(
@@ -94,7 +94,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 			
 		/*************************************** Contact Page ***************************************/	
 		
-		$new_page_title = 'Contact Page Example';
+		$new_page_title = 'Contact Page';
 		$new_page_content = '[contact email="youraddress@email.com"]';
 		$page_check = get_page_by_title($new_page_title);
 		$new_page = array(
@@ -112,7 +112,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 
 		/*************************************** Login Page ***************************************/	
 		
-		$new_page_title = 'Login Page Example';
+		$new_page_title = 'Login Page';
 		$new_page_content = '';
 		$page_check = get_page_by_title($new_page_title);
 		$new_page = array(
@@ -134,7 +134,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 
 		/*************************************** Post 1 ***************************************/	
 				
-		$new_page_title = 'Post Example 1';
+		$new_page_title = 'Post 1';
 		$new_page_content = 'Compellingly drive goal-oriented initiatives without high-payoff internal or "organic" sources. Objectively provide access to cooperative human capital after highly efficient value. Credibly administrate multimedia based applications with cooperative niche markets. Seamlessly evolve focused models for state of the art quality vectors. Assertively harness long-term high-impact catalysts for change with.';
 		$page_check = get_page_by_title($new_page_title, '', 'post');
 		$new_page = array(
@@ -153,7 +153,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 		
 		/*************************************** Post 2 ***************************************/	
 				
-		$new_page_title = 'Post Example 2';
+		$new_page_title = 'Post 2';
 		$new_page_content = 'Proactively foster superior growth strategies and adaptive users. Conveniently deploy timely strategic theme areas vis-a-vis B2B scenarios. Progressively cultivate viral partnerships after state of the art e-commerce. Proactively synergize sticky best practices without ethical e-tailers. Quickly visualize customized data and synergistic infrastructures.';
 		$page_check = get_page_by_title($new_page_title, '', 'post');
 		$new_page = array(
@@ -176,7 +176,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 
 		/*************************************** Slide 1 ***************************************/	
 				
-		$new_page_title = 'Image Slide Example';
+		$new_page_title = 'Image Slide';
 		$new_page_content = '';
 		$page_check = get_page_by_title($new_page_title, '', 'slide');
 		$new_page = array(
@@ -198,7 +198,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 		
 		/*************************************** Slide 2 ***************************************/	
 				
-		$new_page_title = 'Video Slide Example';
+		$new_page_title = 'Video Slide';
 		$new_page_content = '';
 		$page_check = get_page_by_title($new_page_title, '', 'slide');
 		$new_page = array(
@@ -222,7 +222,7 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 
 		/*************************************** Header Nav ***************************************/	
 		
-		$menu_name = 'Header Example';
+		$menu_name = 'Header';
 		$menu_location = 'main-nav';
 		$menu_exists = wp_get_nav_menu_object($menu_name);			
 		if(!$menu_exists) {
@@ -236,14 +236,14 @@ if(is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
 			wp_update_nav_menu_item($menu_id, 0, array(
 				'menu-item-title' => 'Blog',
 				'menu-item-object' => 'page',
-				'menu-item-object-id' => get_page_by_path('blog-page-example')->ID,
+				'menu-item-object-id' => get_page_by_path('blog-page')->ID,
 				'menu-item-type' => 'post_type',
 				'menu-item-status' => 'publish')
 			);
 			wp_update_nav_menu_item($menu_id, 0, array(
 				'menu-item-title' => 'Contact',
 				'menu-item-object' => 'page',
-				'menu-item-object-id' => get_page_by_path('contact-page-example')->ID,			
+				'menu-item-object-id' => get_page_by_path('contact-page')->ID,			
 				'menu-item-type' => 'post_type',
 				'menu-item-status' => 'publish')
 			);

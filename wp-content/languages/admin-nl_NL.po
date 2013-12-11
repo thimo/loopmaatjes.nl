@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-21 11:42:49+0000\n"
+"PO-Revision-Date: 2013-09-12 06:05:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2213,7 +2213,7 @@ msgstr[1] "<strong>Versie %1$s</strong> bevat %2$s bugs."
 
 #: wp-admin/index.php:37
 msgid "Welcome to your WordPress Dashboard! This is the screen you will see when you log in to your site, and gives you access to all the site management features of WordPress. You can get help for any screen by clicking the Help tab in the upper corner."
-msgstr "Welkom bij het WordPress Dashboard! Dit is het scherm dat wordt getoond zodra een gebruiker inlogt op de. Dit geeft je toegang tot alle beheerfuncties van WordPress. Bij elk scherm zijn helpschermen beschikbaar door te klikken op de Helptab in de rechterbovenhoek."
+msgstr "Welkom bij het WordPress Dashboard! Dit is het scherm dat wordt getoond zodra een gebruiker inlogt op de website. Dit geeft je toegang tot alle beheerfuncties van WordPress. Bij elk scherm zijn helpschermen beschikbaar door te klikken op de Helptab in de rechterbovenhoek."
 
 #: wp-admin/about.php:155
 msgid "Maintenance and Security Release"
@@ -3599,7 +3599,7 @@ msgstr "<a href=\"http://codex.wordpress.org/Using_Permalinks\" target=\"_blank\
 
 #: wp-admin/plugin-editor.php:119
 msgid "If you want to make changes but don&#8217;t want them to be overwritten when the plugin is updated, you may be ready to think about writing your own plugin. For information on how to edit plugins, write your own from scratch, or just better understand their anatomy, check out the links below."
-msgstr "Als je wijzigingen wilt maken, maar je wilt niet dat het overschreven wordt wanneer de plugin wordt geupdated, kun je overwegen om een eigen plugin te schrijven. Voor informatie hoe je plugins kunt bewerken, een plugin kunt schrijven vanaf 0, of om de anatomie te begrijpen, klik op de onderstaande links."
+msgstr "Als je wijzigingen wilt maken, maar je wilt niet dat het overschreven wordt wanneer de plugin wordt bijgewerkt, kun je overwegen om een eigen plugin te schrijven. Voor informatie hoe je plugins kunt bewerken, een plugin kunt schrijven vanaf 0, of om de anatomie te begrijpen, klik op de onderstaande links."
 
 #: wp-admin/users.php:62
 msgid "<a href=\"http://codex.wordpress.org/Roles_and_Capabilities\" target=\"_blank\">Descriptions of Roles and Capabilities</a>"
@@ -4317,7 +4317,7 @@ msgstr "De vakken voor de naam van de link, het webadres en de beschrijving hebb
 
 #: wp-admin/update-core.php:161
 msgid "While your site is being updated, it will be in maintenance mode. As soon as your updates are complete, your site will return to normal."
-msgstr "Wanneer je site geupdated wordt zal deze in onderhoudsmodus zijn. Zodra het updaten is afgerond wordt de site weer normaal."
+msgstr "Tijdens het bijwerken van de site zal WordPress in onderhoudsmodus actief zijn. Zodra het bijwerken is afgerond wordt de site weer normaal getoond aan de bezoekers."
 
 #: wp-admin/update-core.php:178
 msgid "Your plugins are all up to date."
@@ -4325,7 +4325,7 @@ msgstr "Alle plugins zijn bijgewerkt."
 
 #: wp-admin/update-core.php:140
 msgid "You have the latest version of WordPress."
-msgstr "Je hebt de laatste versie van WordPress."
+msgstr "De meest recente versie van WordPress is ge&#239;nstalleerd."
 
 #: wp-admin/update-core.php:259
 msgid "Your themes are all up to date."
@@ -5424,7 +5424,7 @@ msgstr "Het is niet mogelijk om WordPress te updaten naar <a href=\"http://codex
 
 #: wp-admin/update-core.php:43
 msgid "You have the latest version of WordPress. You do not need to update. However, if you want to re-install version %s, you can do so automatically or download the package and re-install manually:"
-msgstr "Je gebruikt de laatste versie van WordPress. Je hoeft niet bij te werken. Alleen als je versie %s opnieuw wil installeren kun je dit automatisch doen of je kunt het pakket downloaden en het handmatig installeren:"
+msgstr "Je gebruikt de laatste versie van WordPress. Bijwerken van WordPress is niet noodzakelijk. Alleen als je versie %s opnieuw wil installeren kun je dit automatisch doen of je kunt het pakket downloaden en het handmatig installeren:"
 
 #: wp-admin/update-core.php:402 wp-admin/update-core.php:434
 msgid "WordPress Updates"

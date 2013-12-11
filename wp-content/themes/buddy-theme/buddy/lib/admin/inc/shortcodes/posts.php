@@ -19,7 +19,7 @@ function gp_posts($atts, $content = null) {
 		'order' => 'desc',
 		'offset' => '0',
 		'content_display' => 'excerpt',
-		'excerpt_length' => '400',
+		'excerpt_length' => '700',
 		'title' => 'true',
 		'title_size' => '',
 		'title_font' => '',
@@ -37,14 +37,14 @@ function gp_posts($atts, $content = null) {
 	),$atts));
 
 
-	require(gp_inc . 'options.php'); global $wp_query, $post, $dirname, $gp_settings;
+	require(gp_inc . 'options.php'); global $post, $dirname, $gp_settings;
 
 
 	// Unique Name
 	
 	STATIC $i = 0;
 	$i++;
-	$name = 'related-posts'.$i;
+	$name = 'posts'.$i;
 
 
 	// IDs
@@ -110,6 +110,7 @@ function gp_posts($atts, $content = null) {
 	'post_type' => explode(',', $content),
 	'post_status' => 'publish',
 	'cat' => $cats,
+	'post__in' => $ids,
 	'paged' => $paged,
 	'ignore_sticky_posts' => 0,
 	'orderby' => $orderby,
@@ -185,10 +186,10 @@ function gp_posts($atts, $content = null) {
 							<a href="<?php if(get_post_meta($post->ID, '_'.$dirname.'_link_type', true) == "Lightbox Video") { ?>file=<?php echo get_post_meta($post->ID, '_'.$dirname.'_custom_url', true); } elseif(get_post_meta($post->ID, '_'.$dirname.'_link_type', true) == "Lightbox Image") { if(get_post_meta($post->ID, '_'.$dirname.'_custom_url', true)) { echo get_post_meta($post->ID, '_'.$dirname.'_custom_url', true); } else { echo wp_get_attachment_url(get_post_thumbnail_id($post->ID)); }} else { if(get_post_meta($post->ID, '_'.$dirname.'_custom_url', true)) { echo get_post_meta($post->ID, '_'.$dirname.'_custom_url', true); } else { the_permalink(); }} ?>"<?php if(get_post_meta($post->ID, '_'.$dirname.'_link_type', true) != "Page") { ?> rel="prettyPhoto[<?php echo $name; the_ID(); ?>]"<?php } ?>>
 						<?php } ?>
 																		
-							<?php $image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), $thumbnail_width, $thumbnail_height, true, true); ?>
-							<?php if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), $thumbnail_width*2, $thumbnail_height*2, true, true); } else { $retina = ""; } ?>
+							<?php $image = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), $thumbnail_width, $thumbnail_height, true, true, true); ?>
+							<?php if(get_option($dirname."_retina") == "0") { $retina = aq_resize(wp_get_attachment_url(get_post_thumbnail_id($post->ID)), $thumbnail_width*2, $thumbnail_height*2, true, true, true); } else { $retina = ""; } ?>
 							
-							<img src="<?php echo $image; ?>" data-rel="<?php echo $retina; ?>" style="width: <?php echo $thumbnail_width; ?>px;<?php if($hard_crop == "true") { ?> height: <?php echo $thumbnail_height; ?>px;<?php } ?>" alt="<?php if(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) { echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); } else { echo get_the_title(); } ?>" />
+							<img src="<?php echo $image; ?>" data-rel="<?php echo $retina; ?>" width="<?php echo $thumbnail_width; ?>" height="<?php echo $thumbnail_height; ?>" style="width: <?php echo $thumbnail_width; ?>px;<?php if($hard_crop == "true") { ?> height: <?php echo $thumbnail_height; ?>px;<?php } ?>" alt="<?php if(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)) { echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); } else { echo get_the_title(); } ?>" />
 						
 						<?php if(($link == "image" OR $link == "both") && get_post_meta($post->ID, '_'.$dirname.'_link_type', true) != "None") { ?></a><?php } ?>
 						
@@ -203,12 +204,16 @@ function gp_posts($atts, $content = null) {
 				
 				<!-- BEGIN LIGHTBOX IMAGES -->
 				
-				<?php $args = array('post_type' => 'attachment', 'post_parent' => $post->ID, 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'asc', 'post__not_in'	=> array(get_post_thumbnail_id())); $attachments = get_children($args); if($attachments) { foreach ($attachments as $attachment) { ?>
+				<?php if(get_post_meta($post->ID, '_'.$dirname.'_link_type', true) == "Lightbox Image" OR get_post_meta($post->ID, '_'.$dirname.'_link_type', true) == "Lightbox Video") { ?>
 				
-					<a href="<?php if(get_post_meta($attachment->ID, '_'.$dirname.'_lightbox_url', true)) { ?>file=<?php echo get_post_meta($attachment->ID, '_'.$dirname.'_lightbox_url', true); } else { echo wp_get_attachment_url($attachment->ID); } ?>" rel="prettyPhoto[<?php echo $name; the_ID(); ?>]" title="<?php echo $attachment->post_content; ?>" style="display: none;"><img src="" alt="<?php echo $attachment->post_title; ?>"></a>
+					<?php $args = array('post_type' => 'attachment', 'post_parent' => $post->ID, 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'asc', 'post__not_in'	=> array(get_post_thumbnail_id())); $attachments = get_children($args); if($attachments) { foreach ($attachments as $attachment) { ?>
 				
-				<?php }} ?>
+						<a href="<?php if(get_post_meta($attachment->ID, '_'.$dirname.'_lightbox_url', true)) { ?>file=<?php echo get_post_meta($attachment->ID, '_'.$dirname.'_lightbox_url', true); } else { echo wp_get_attachment_url($attachment->ID); } ?>" rel="prettyPhoto[<?php echo $name; the_ID(); ?>]" title="<?php echo $attachment->post_content; ?>" style="display: none;"><img src="" alt="<?php echo $attachment->post_title; ?>"></a>
 				
+					<?php }} ?>
+				
+				<?php } ?>
+								
 				<!-- END LIGHTBOX MIAGES -->
 				
 				

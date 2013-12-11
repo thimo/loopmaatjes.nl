@@ -23,8 +23,7 @@ define("gp", get_template_directory() . '/');
 define("gp_inc", get_template_directory() . '/lib/inc/');
 define("gp_scripts", get_template_directory() . '/lib/scripts/');
 define("gp_admin", get_template_directory() . '/lib/admin/inc/');
-define("ghostpool_bp", get_template_directory() . '/buddypress/');
-define("BP_THEME_URL", get_template_directory_uri());
+define("gp_bp", get_template_directory() . '/buddypress/');
 
 
 /////////////////////////////////////// Additional Functions ///////////////////////////////////////
@@ -37,7 +36,7 @@ require(gp_inc . 'options.php');
 // Meta Options
 require_once(gp_admin . 'theme-meta-options.php');
 
-// Media Options
+// Other Options
 if(is_admin()) { require_once(gp_admin . 'theme-other-options.php'); }
 
 // Sidebars
@@ -72,7 +71,7 @@ if(is_admin()) { require_once(gp_admin . 'theme-auto-install.php'); }
 require_once(gp_scripts . 'aq_resizer/aq_resizer.php');
 
 // BuddyPress Functions
-if(function_exists('bp_is_active') && file_exists(ghostpool_bp.'functions-buddypress.php')) { require_once(ghostpool_bp . 'functions-buddypress.php'); }
+if((function_exists('bp_is_active') OR function_exists('is_bbpress')) && file_exists(gp_bp.'functions-buddypress.php')) { require_once(gp_bp . 'functions-buddypress.php'); }
 
 
 
@@ -84,21 +83,21 @@ function gp_enqueue_styles() {
 	
 		require(gp_inc . 'options.php'); global $post, $dirname;
 
-		wp_enqueue_style('reset', get_template_directory_uri().'/lib/css/reset.css');
+		wp_enqueue_style('gp-reset', get_template_directory_uri().'/lib/css/reset.css');
 
 		wp_enqueue_style('gp-style', get_stylesheet_uri());
 		
-		wp_enqueue_style('font-awesome', get_template_directory_uri().'/lib/css/font-awesome.css');
+		wp_enqueue_style('gp-font-awesome', get_template_directory_uri().'/lib/fonts/font-awesome/css/font-awesome.min.css');
 				
-		wp_enqueue_style('font-awesome-social', get_template_directory_uri().'/lib/css/font-awesome-social.css');
-	
-		wp_enqueue_style('prettyphoto', get_template_directory_uri().'/lib/scripts/prettyPhoto/css/prettyPhoto.css');
+		wp_enqueue_style('gp-font-awesome-social', get_template_directory_uri().'/lib/fonts/font-awesome/css/font-awesome-social.css');
+		
+		wp_enqueue_style('gp-prettyphoto', get_template_directory_uri().'/lib/scripts/prettyPhoto/css/prettyPhoto.css');
 			
-		if(get_option($dirname.'_responsive') == "0") wp_enqueue_style('responsive', get_template_directory_uri().'/responsive.css');
+		if(get_option($dirname.'_responsive') == "0") wp_enqueue_style('gp-responsive', get_template_directory_uri().'/responsive.css');
 		
-		if(get_option($dirname.'_custom_stylesheet')) wp_enqueue_style('style-theme-custom', get_template_directory_uri().'/'.get_option($dirname.'_custom_stylesheet'));
+		if(get_option($dirname.'_custom_stylesheet')) wp_enqueue_style('gp-style-theme-custom', get_template_directory_uri().'/'.get_option($dirname.'_custom_stylesheet'));
 		
-		if((is_single() OR is_page()) && get_post_meta($post->ID, '_'.$dirname.'_custom_stylesheet', true)) wp_enqueue_style('style-page-custom', get_template_directory_uri().'/'.get_post_meta($post->ID, '_'.$dirname.'_custom_stylesheet', true));
+		if((is_single() OR is_page()) && get_post_meta($post->ID, '_'.$dirname.'_custom_stylesheet', true)) wp_enqueue_style('gp-style-page-custom', get_template_directory_uri().'/'.get_post_meta($post->ID, '_'.$dirname.'_custom_stylesheet', true));
 	
 	}
 }
@@ -111,27 +110,32 @@ add_action('wp_enqueue_scripts', 'gp_enqueue_styles');
 function gp_enqueue_scripts() { 
 	if(!is_admin()){
 	
-		require(gp_inc . 'options.php');
-		
-		wp_enqueue_script('jquery-ui-accordion');
-		
-		wp_enqueue_script('jquery-ui-tabs');
-				
+		require(gp_inc . 'options.php'); global $post;
+
+		wp_enqueue_script('gp-modernizr', get_template_directory_uri().'/lib/scripts/modernizr.js', array('jquery'), '', false);
+
 		if(is_singular() && comments_open() && get_option('thread_comments')) wp_enqueue_script('comment-reply');
-
-		wp_enqueue_script('media-queries', get_template_directory_uri().'/lib/scripts/css3-mediaqueries.js');
-				
-		wp_enqueue_script('swfobject', 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js');
+	
+		wp_enqueue_script('gp-jwplayer', get_template_directory_uri().'/lib/scripts/mediaplayer/jwplayer.js', '', '', false);	
 		
-		wp_enqueue_script('jwplayer', get_template_directory_uri().'/lib/scripts/mediaplayer/jwplayer.js');
+		wp_enqueue_script('gp-swfobject', 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js', '', '', true);			
 
-		wp_enqueue_script('flex-slider', get_template_directory_uri().'/lib/scripts/jquery.flexslider.js');
-				
-		wp_enqueue_script('back-to-top', get_template_directory_uri().'/lib/scripts/jquery.ui.totop.min.js');
-					
-		wp_enqueue_script('prettyphoto', get_template_directory_uri().'/lib/scripts/prettyPhoto/js/jquery.prettyPhoto.js');
+		wp_enqueue_script('gp-back-to-top', get_template_directory_uri().'/lib/scripts/jquery.ui.totop.min.js', array('jquery'), '', true);
+		
+		wp_enqueue_script('gp-prettyphoto', get_template_directory_uri().'/lib/scripts/prettyPhoto/js/jquery.prettyPhoto.js', array('jquery'), '', true);
+												
+		wp_register_script('gp-flexslider', get_template_directory_uri().'/lib/scripts/jquery.flexslider.js', array('jquery'), '', true);
 
-		wp_enqueue_script('custom-js', get_template_directory_uri().'/lib/scripts/custom.js');
+		wp_register_script('gp-accordion-init', get_template_directory_uri().'/lib/scripts/jquery.accordion.init.js', array('jquery-ui-accordion'), '', true);
+
+		wp_register_script('gp-contact-init', get_template_directory_uri().'/lib/scripts/jquery.contact.init.js', array('jquery'), '', true);
+							
+		wp_register_script('gp-tabs-init', get_template_directory_uri().'/lib/scripts/jquery.tabs.init.js', array('jquery-ui-tabs'), '', true);
+
+		wp_register_script('gp-toggle-init', get_template_directory_uri().'/lib/scripts/jquery.toggle.init.js', array('jquery'), '', true);
+
+		wp_enqueue_script('gp-custom-js', get_template_directory_uri().'/lib/scripts/custom.js', array('jquery'), '', true);
+						
 						
 	}
 }
@@ -186,7 +190,7 @@ class gp_mobile_menu extends Walker_Nav_Menu {
     }
 
     function start_el(&$output, $item, $depth, $args){
-		$indent = ($depth) ? str_repeat("&nbsp;", $depth * 4) : '';
+		$indent = ($depth) ? str_repeat("- ", $depth) : '';
 		$class_names = $value = '';
 		$classes = empty($item->classes) ? array() : (array) $item->classes;
 		$classes[] = 'mobile-menu-item-' . $item->ID;
@@ -233,6 +237,9 @@ add_action('after_setup_theme', 'woocommerce_support');
 function woocommerce_support() {
 	add_theme_support('woocommerce');
 }
+
+// BuddyPress Support
+add_theme_support('buddypress');
 
 
 /////////////////////////////////////// Excerpts ///////////////////////////////////////
@@ -371,6 +378,47 @@ function shortcode_empty_paragraph_fix($content)
 	$content = strtr($content, $array);
 
 	return $content;
+}
+
+
+/////////////////////////////////////// TMG Plugin Activation ///////////////////////////////////////	
+
+
+require_once(gp_admin . 'class-tgm-plugin-activation.php');
+
+add_action('tgmpa_register', 'gp_register_required_plugins');
+
+function gp_register_required_plugins() {
+
+	$plugins = array(
+				
+		array(
+			'name' => 'BuddyPress Community Stats',
+			'slug' => 'buddypress-community-stats',
+			'source' => get_stylesheet_directory() . '/lib/admin/inc/plugins/buddypress-community-stats.zip',
+			'required' => false,
+			'version' => '',
+			'force_activation' => true,
+			'force_deactivation' => false
+		),
+		
+	);
+
+	$theme_text_domain = 'gp_lang';
+
+	$config = array(		
+		'domain' => $theme_text_domain,
+		'default_path' => '', // Default absolute path to pre-packaged plugins
+		'parent_menu_slug' => 'themes.php', // Default parent menu slug
+		'parent_url_slug' => 'themes.php', // Default parent URL slug
+		'menu' => 'install-required-plugins', // Menu slug
+		'has_notices' => true, // Show admin notices or not
+		'is_automatic' => true, // Automatically activate plugins after installation or not
+		'message' => '', // Message to output right before the plugins table
+	);
+
+	tgmpa($plugins, $config);
+
 }
 
 

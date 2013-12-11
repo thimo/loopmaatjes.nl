@@ -1,4 +1,4 @@
-<?php
+<?php global $dirname, $gp_settings;
 
 // Convert hex codes to rgb
 
@@ -23,12 +23,16 @@ echo '<style>';
 	
 // Primary
 
-if(get_option($dirname.'_primary_text_color') OR get_option($dirname.'_primary_font') OR get_option($dirname.'_primary_size')) {
-	echo 'body, input, textarea, select, #sidebar .menu li .menu-subtitle {
-	color: '.get_option($dirname.'_primary_text_color').';	
-	font-family: "'.get_option($dirname.'_primary_font').'";
-	font-size: '.get_option($dirname.'_primary_size').'px;
-	}';
+if(get_option($dirname.'_primary_font')) {		
+	echo 'body, input, textarea, select, #sidebar .menu li .menu-subtitle {font-family: "'.get_option($dirname.'_primary_font').'";}';
+}
+
+if(get_option($dirname.'_primary_size')) {
+	echo 'body, input, textarea, select, #sidebar .menu li .menu-subtitle {font-size: '.get_option($dirname.'_primary_size').'px;}';
+}
+
+if(get_option($dirname.'_primary_text_color')) {
+	echo 'body, input, textarea, select, #sidebar .menu li .menu-subtitle {color: '.get_option($dirname.'_primary_text_color').';}';
 }
 	
 if(get_option($dirname.'_primary_link_color')) {
@@ -60,8 +64,12 @@ if(get_option($dirname.'_secondary_bg_hover_color')) {
 
 // Headings
 
-if(get_option($dirname.'_heading_text_color') OR get_option($dirname.'_heading_font')) {
-	echo 'h1, h2, h3, h4, h5, h6, .widget .widgettitle, {color: '.get_option($dirname.'_heading_text_color').'; font-family: "'.get_option($dirname.'_heading_font').'";}';
+if(get_option($dirname.'_heading_font')) {		
+	echo 'h1, h2, h3, h4, h5, h6, .widget .widgettitle {font-family: "'.get_option($dirname.'_heading_font').'";}';
+}
+
+if(get_option($dirname.'_heading_text_color')) {
+	echo 'h1, h2, h3, h4, h5, h6, .widget .widgettitle {color: '.get_option($dirname.'_heading_text_color').';}';
 }	
 
 if(get_option($dirname.'_heading1_size')) {
@@ -117,15 +125,15 @@ if(get_option($dirname.'_primary_button_bg_hover_color')) {
 // Secondary Buttons
 	
 if(get_option($dirname.'_secondary_button_text_color')) {
-	echo '.login-button, .bp-wrapper .generic-button a,.bp-wrapper ul.button-nav li a,.bp-wrapper .item-list .activity-meta a,.bp-wrapper .item-list .acomment-options a,.bp-wrapper .activity-meta a:hover span,.widget .item-options a,.widget .swa-wrap ul#activity-filter-links a,.widget .swa-activity-list li.mini div.swa-activity-meta a,.widget .swa-activity-list div.swa-activity-meta a.acomment-reply,.widget .swa-activity-list div.swa-activity-meta a,.widget .swa-activity-list div.acomment-options a {color: '.get_option($dirname.'_secondary_button_text_color').';}';
+	echo '.login-button, .bp-wrapper .generic-button a,.bp-wrapper ul.button-nav li a,.bp-wrapper .item-list a.button,.bp-wrapper .item-list .activity-meta a,.bp-wrapper .item-list .acomment-options a,.bp-wrapper .activity-meta a:hover span,.widget .item-options a,.widget .swa-wrap ul#activity-filter-links a,.widget .swa-activity-list li.mini div.swa-activity-meta a,.widget .swa-activity-list div.swa-activity-meta a.acomment-reply,.widget .swa-activity-list div.swa-activity-meta a,.widget .swa-activity-list div.acomment-options a {color: '.get_option($dirname.'_secondary_button_text_color').';}';
 }	
 		
 if(get_option($dirname.'_secondary_button_bg_color')) {		
-	echo '.login-button, .bp-wrapper .generic-button a,.bp-wrapper ul.button-nav li a,.bp-wrapper .item-list .activity-meta a,.bp-wrapper .item-list .acomment-options a,.bp-wrapper .activity-meta a:hover span,.widget .item-options a,.widget .swa-wrap ul#activity-filter-links a,.widget .swa-activity-list li.mini div.swa-activity-meta a,.widget .swa-activity-list div.swa-activity-meta a.acomment-reply,.widget .swa-activity-list div.swa-activity-meta a,.widget .swa-activity-list div.acomment-options a {background-color: '.get_option($dirname.'_secondary_button_bg_color').'; border-color: '.get_option($dirname.'_secondary_button_bg_color').';}';
+	echo '.login-button, .bp-wrapper .generic-button a,.bp-wrapper ul.button-nav li a,.bp-wrapper .item-list a.button,.bp-wrapper .item-list .activity-meta a,.bp-wrapper .item-list .acomment-options a,.bp-wrapper .activity-meta a:hover span,.widget .item-options a,.widget .swa-wrap ul#activity-filter-links a,.widget .swa-activity-list li.mini div.swa-activity-meta a,.widget .swa-activity-list div.swa-activity-meta a.acomment-reply,.widget .swa-activity-list div.swa-activity-meta a,.widget .swa-activity-list div.acomment-options a {background-color: '.get_option($dirname.'_secondary_button_bg_color').'; border-color: '.get_option($dirname.'_secondary_button_bg_color').';}';
 }	
 
 if(get_option($dirname.'_secondary_button_bg_hover_color')) {
-	echo '.login-button:hover, .bp-wrapper .generic-button a:hover,.bp-wrapper ul.button-nav li a:hover,.bp-wrapper .item-list .activity-meta a:hover,.bp-wrapper .item-list .acomment-options a:hover,.bp-wrapper .acomment-options a:hover,.bp-wrapper .activity-meta a span,.widget .item-options a:hover,.widget .item-options a.selected,.widget .swa-wrap ul#activity-filter-links a:hover,.widget .swa-activity-list div.swa-activity-meta a.acomment-reply:hover,.widget .swa-activity-list div.swa-activity-meta a:hover,.widget .swa-activity-list div.acomment-options a:hover {background-color: '.get_option($dirname.'_secondary_button_bg_hover_color').'; border-color: '.get_option($dirname.'_secondary_button_bg_hover_color').'; color: '.get_option($dirname.'_secondary_button_text_color').';}';
+	echo '.login-button:hover, .bp-wrapper .generic-button a:hover,.bp-wrapper ul.button-nav li a:hover,.bp-wrapper .item-list a.button:hover,.bp-wrapper .item-list .activity-meta a:hover,.bp-wrapper .item-list .acomment-options a:hover,.bp-wrapper .acomment-options a:hover,.bp-wrapper .activity-meta a span,.widget .item-options a:hover,.widget .item-options a.selected,.widget .swa-wrap ul#activity-filter-links a:hover,.widget .swa-activity-list div.swa-activity-meta a.acomment-reply:hover,.widget .swa-activity-list div.swa-activity-meta a:hover,.widget .swa-activity-list div.acomment-options a:hover {background-color: '.get_option($dirname.'_secondary_button_bg_hover_color').'; border-color: '.get_option($dirname.'_secondary_button_bg_hover_color').'; color: '.get_option($dirname.'_secondary_button_text_color').';}';
 }	
 
 	
@@ -156,7 +164,7 @@ var emptySearchText = "<?php _e('Please enter something in the search box!', 'gp
 
 <?php if(get_option($dirname.'_responsive') == "0") { ?>
 
-	jQuery(window).load(function(){
+	jQuery(document).ready(function(){
 		moveSidebars();
 		jQuery(window).resize(function() {
 			moveSidebars();
@@ -180,6 +188,12 @@ var emptySearchText = "<?php _e('Please enter something in the search box!', 'gp
 		}
 
 	}
+
+<?php } else { ?>
+
+	jQuery(document).ready(function(){
+		jQuery('#content-wrapper').prepend(jQuery('#sidebar-left'));
+	});
 
 <?php } ?>
 
